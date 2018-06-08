@@ -412,11 +412,17 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		return " - Exc : " + exc;
 	}
 
-	@Override
-	public void startPass() {
-		configureEngine();
-		test();
+//	@Override
+//	public void startPass() {
+//		configureEngine();
+//		test();
+//
+//	}
 
+	@Override
+	protected void test() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
