@@ -1,29 +1,21 @@
 package consumer;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.net.ssl.SSLException;
 
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.CharUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.http.ConnectionClosedException;
 import org.apache.http.Header;
 import org.apache.http.HttpException;
@@ -49,39 +41,45 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.Period;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.PeriodFormat;
-import org.joda.time.format.PeriodFormatter;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+
 import tools.UrlConsolidator;
 
 public class ConnectionEngine extends AbstractConnectionEngine {
 
-	String CARACTERE_ESPACE = "" + Character.toChars(160)[0];
-	static final int MAX_PAGE_RETRY_COUNT = 5;
+	private String TEST_SITE = null;
+
+	static final int MAX_PAGE_RETRY_COUNT = 2;
+
+	public String getTEST_SITE() {
+		return TEST_SITE;
+	}
+
+	public void setTEST_SITE(String tEST_SITE) {
+		TEST_SITE = tEST_SITE;
+		configureSiteDomain();
+	}
+
 	private String proxy;
-	private int proxyPort;
+	private int proxyPort = 0;
 	private String host;
 	private DefaultHttpClient httpClient;
 	private UrlConsolidator urlConsolidator;
+
+	public ConnectionEngine(String url) {
+		this.TEST_SITE = url;
+		configureSiteDomain();
+	}
+
+	public ConnectionEngine() {
+		configureEngine();
+	}
+
 	private void configureEngine() {
-		configureSite();
-		proxy = "";
-		proxyPort = 3129;
+
+		// proxy = "";
+		// proxyPort = 3129;
 		httpClient = createClient();
 	}
 
@@ -89,9 +87,9 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		return urlConsolidator.consolidateUrl(path);
 	}
 
-	private void configureSite() {
+	private void configureSiteDomain() {
 		try {
-			final URL url = new URL("");
+			final URL url = new URL(TEST_SITE);
 			host = url.getHost();
 			final String protocol = url.getProtocol();
 			urlConsolidator = new UrlConsolidator(protocol + "://" + host + "/");
@@ -102,22 +100,24 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 
 	private DefaultHttpClient createClient() {
 		DefaultHttpClient client = new DefaultHttpClient();
-		HttpHost proxyHost = new HttpHost(proxy, proxyPort);
-
-		HttpRoutePlanner routePlanner = new HttpRoutePlanner() {
-			@Override
-			public HttpRoute determineRoute(HttpHost target, HttpRequest request, HttpContext context)
-					throws HttpException {
-				return new HttpRoute(target, null, new HttpHost(proxy, proxyPort),
-						"https".equalsIgnoreCase(target.getSchemeName()));
-			}
-		};
-
 		client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 30000);
 		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);
 		client.getParams().setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY);
-		client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxyHost);
-		client.setRoutePlanner(routePlanner);
+
+		if (proxy != null && proxyPort > 0) {
+			HttpHost proxyHost = new HttpHost(proxy, proxyPort);
+			HttpRoutePlanner routePlanner = new HttpRoutePlanner() {
+				@Override
+				public HttpRoute determineRoute(HttpHost target, HttpRequest request, HttpContext context)
+						throws HttpException {
+					return new HttpRoute(target, null, new HttpHost(proxy, proxyPort),
+							"https".equalsIgnoreCase(target.getSchemeName()));
+				}
+			};
+			client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxyHost);
+			client.setRoutePlanner(routePlanner);
+		}
+
 		return client;
 	}
 
@@ -253,12 +253,12 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		try {
 			switch (request.getMethod()) {
 			case HttpMethod.GET:
-				HttpGet getRequest = createHttpGet(allowHttpRedirection(false), request);
+				HttpGet getRequest = createHttpGet(allowHttpRedirection(true), request);
 				HttpResponse getResponse = httpClient.execute(getRequest, context());
 				pageResponse = responseHandler.handleResponse(getResponse);
 				break;
 			case HttpMethod.POST:
-				HttpPost postRequest = createHttpPost(allowHttpRedirection(false), request);
+				HttpPost postRequest = createHttpPost(allowHttpRedirection(true), request);
 				HttpResponse postResponse = httpClient.execute(postRequest, context());
 				pageResponse = responseHandler.handleResponse(postResponse);
 				break;
@@ -291,7 +291,8 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		httpGet.addHeader("Accept", "*/*");
 		httpGet.addHeader("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4"); // TODO
 		httpGet.addHeader("Connection", "keep-alive");
-		httpGet.addHeader("Cookie", request.getCookie());
+		if (StringUtils.isNotBlank(request.getCookie()))
+			httpGet.addHeader("Cookie", request.getCookie());
 		httpGet.addHeader("Host", host);
 		httpGet.addHeader("User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
@@ -304,8 +305,9 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		httpPost.addHeader("Accept", "*/*");
 		httpPost.addHeader("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4"); // TODO
 		httpPost.addHeader("Connection", "keep-alive");
-		httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
-		httpPost.addHeader("Cookie", request.getCookie());
+		httpPost.addHeader("Content-Type", "application/json");
+		if (StringUtils.isNotBlank(request.getCookie()))
+			httpPost.addHeader("Cookie", request.getCookie());
 		httpPost.addHeader("Host", host);
 		httpPost.addHeader("User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
@@ -327,7 +329,7 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 
 	private void reinitializeClient() {
 		System.out.println("Reinitializing the client ...");
-		httpClient.getConnectionManager().shutdown();
+		closeClient(httpClient);
 		httpClient = createClient();
 	}
 
@@ -343,18 +345,27 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 
 			switch (pageResponse.getStatusCode()) {
 			case 200: // Response OK
-				final String content = getContent(httpResponse);
+				String content = getContent(httpResponse);
 				pageResponse.setSuccess(true);
 				pageResponse.setContent(content);
 				break;
+
 			case 301:
 			case 302: // Redirected URL
-				final String location = getLocation(httpResponse);
+				String location = getLocation(httpResponse);
 				pageResponse.setLocation(location);
 				break;
 			case 404: // Page not found
 				EntityUtils.consume(httpResponse.getEntity());
 				throw new SocketException("Page not found");
+			case 201:
+				content = getContent(httpResponse);
+				pageResponse.setSuccess(true);
+				pageResponse.setContent(content);
+				location = getLocation(httpResponse);
+				System.out.println("Redirection - " + location);
+				pageResponse.setLocation(location);
+				break;
 			default:
 				pageResponse.setServerFailure(true);
 				break;
@@ -397,6 +408,32 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		return localContext;
 	}
 
+	private PageResponse connection(final PageRequest request, final String type) {
+		System.out.println("");
+		System.out.println("-----------------------------");
+		System.out.println("Connect on " + type + " url : " + request.getUrl());
+		try {
+			PageResponse response = send(request);
+			if (isSuccess(response)) {
+				return response;
+			}
+			PageRequest newRequest = updateRequest(response, request);
+			response = send(newRequest);
+			int i = 1;
+			while (!isSuccess(response) && i < MAX_PAGE_RETRY_COUNT) {
+				newRequest = updateRequest(response, newRequest);
+				response = send(newRequest);
+				i++;
+			}
+			return response;
+		} catch (Exception exc) {
+			System.out.println("Connection parse error. '" + exc + "'");
+		} finally {
+			closeClient(httpClient);
+		}
+		return null;
+	}
+
 	private HttpParams allowHttpRedirection(boolean redirection) {
 		HttpParams params = new BasicHttpParams();
 		params.setParameter(ClientPNames.HANDLE_REDIRECTS, redirection);
@@ -412,17 +449,40 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		return " - Exc : " + exc;
 	}
 
-//	@Override
-//	public void startPass() {
-//		configureEngine();
-//		test();
-//
-//	}
+	@Override
+	public void testGet() {
+		PageRequest request = get(TEST_SITE);
+		try {
+			PageResponse testPage = connection(request, "user page");
+			checkNotNull(testPage, "No testPage returned");
+			System.out.println(testPage.content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@Override
-	protected void test() {
-		// TODO Auto-generated method stub
-		
+	public void testPost(String requestEntity) {
+		PageRequest request = post(TEST_SITE, requestEntity);
+		try {
+			PageResponse testPage = connection(request, "create some field page");
+			checkNotNull(testPage, "No testPage returned");
+			System.out.println(testPage.content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void closeClient(DefaultHttpClient httpClient) {
+		if (httpClient != null) {
+			try {
+				httpClient.getConnectionManager().shutdown();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

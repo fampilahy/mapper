@@ -4,8 +4,9 @@ package consumer;
 
 public abstract class AbstractConnectionEngine {
 
-	protected abstract void test() ;
+	public abstract void testGet() ;
 
+	public abstract void testPost(String strRequestEntity) ;
 //	protected abstract PageResponse connection(final PageRequest request, final String type) ;
 
 }
