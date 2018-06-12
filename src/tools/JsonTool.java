@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.document.AbstractDocument;
+import model.document.sib21.SIB21Document;
 
 public class JsonTool {
 
@@ -32,11 +33,11 @@ public class JsonTool {
 		return document;
 	}
 
-	public static AbstractDocument fromFileJsonNodeToDocument(String filePath, AbstractDocument abstracDocument) {
+	public static AbstractDocument fromFileJsonNodeToDocument(String filePath, AbstractDocument abstractDocument) {
 		AbstractDocument document = null;
 		try {
 			File file = new File(filePath);
-			document = objectMapper.readValue(file, abstracDocument.getClass());
+			document = objectMapper.readValue(file, abstractDocument.getClass());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
