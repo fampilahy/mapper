@@ -18,6 +18,8 @@ public class SuspReason extends ChubbDocument {
 		this.suspReasonCd = suspReasonCd;
 	}
 	
-	
+	public SuspReason(){
+		
+	}
 
 }

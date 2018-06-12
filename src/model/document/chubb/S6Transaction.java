@@ -35,8 +35,6 @@ public class S6Transaction {
     private Double premiumCheck;
     private String diaryMessage;
 
-    public S6Transaction() {
-    }
 
 	public String getTranType() {
 		return tranType;
@@ -254,7 +252,9 @@ public class S6Transaction {
 		this.diaryMessage = diaryMessage;
 	}
 
-	
+	public S6Transaction(){
+		
+	}
 	
 	
 	

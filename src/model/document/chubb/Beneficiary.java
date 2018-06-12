@@ -19,6 +19,9 @@ public class Beneficiary extends ChubbDocument{
 		this.beneficiaries = beneficiaries;
 	}
 	
+	public Beneficiary(){
+		
+	}
 	
 	
 }

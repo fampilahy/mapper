@@ -17,7 +17,9 @@ public class Reference extends ChubbDocument {
 	public void setRefText(String refText) {
 		this.refText = refText;
 	}
-	
+	public Reference(){
+		
+	}
 	
 
 }

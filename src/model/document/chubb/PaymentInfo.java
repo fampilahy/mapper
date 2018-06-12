@@ -105,4 +105,7 @@ public class PaymentInfo extends ChubbDocument {
 		this.last5BillAccNum = last5BillAccNum;
 	}
 
+	public PaymentInfo(){
+		
+	}
 }

@@ -48,6 +48,8 @@ public class Product extends ChubbDocument {
 			this.premiumOverRs = premiumOverRs;
 		}
 	    
-	    
+	    public Product(){
+	    	
+	    }
 	
 }

@@ -18,5 +18,8 @@ public class ProdSpecDataInfo  extends ChubbDocument{
 		this.value = value;
 	}
 	
+	public ProdSpecDataInfo(){
+		
+	}
 	
 }

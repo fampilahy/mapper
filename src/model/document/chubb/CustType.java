@@ -55,5 +55,9 @@ public class CustType extends ChubbDocument {
 	public Object readResolve() throws java.io.ObjectStreamException {
 		return fromValue(VALUE);
 	}
+	
+	public CustType(){
+		
+	}
 
 }

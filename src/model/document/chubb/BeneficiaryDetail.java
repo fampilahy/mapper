@@ -33,6 +33,9 @@ public class BeneficiaryDetail extends ChubbDocument{
 		this.personalID = personalID;
 	}
 	
+	public BeneficiaryDetail(){
+		
+	}
 	
 	
 	

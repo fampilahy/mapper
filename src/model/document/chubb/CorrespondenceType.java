@@ -52,5 +52,4 @@ public class CorrespondenceType extends ChubbDocument {
 	public Object readResolve() throws java.io.ObjectStreamException {
 		return fromValue(VALUE);
 	}
-
 }

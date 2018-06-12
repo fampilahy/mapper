@@ -62,7 +62,8 @@ public class CustProd extends ChubbDocument {
 		this.exclsCd = exclsCd;
 	}
 	
-	
-	
+	public CustProd(){
+		
+	}
 	
 }

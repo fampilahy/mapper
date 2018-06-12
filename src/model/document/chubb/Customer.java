@@ -223,4 +223,7 @@ public class Customer extends ChubbDocument {
 		this.alternateId = alternateId;
 	}
 	
+	public Customer(){
+		
+	}
 }
