@@ -8,7 +8,7 @@ import model.document.chubb.ExampleDocument;
 import model.document.sib21.SIB21Document;
 import tools.JsonTool;
 
-public class Mapper {
+public class Main {
 
 	public static void main(String[] args) {
 		
