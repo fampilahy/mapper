@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import model.document.AbstractDocument;
 
-public class ChubbDocument extends AbstractDocument implements Serializable {
+public class ChubbDocument extends AbstractDocument {
 
 
 }

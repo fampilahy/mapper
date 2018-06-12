@@ -1,6 +1,8 @@
 package model.document;
 
-public class AbstractDocument {
+import java.io.Serializable;
+
+public class AbstractDocument implements Serializable{
 	
 	
 	
