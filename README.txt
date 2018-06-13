@@ -13,3 +13,6 @@ http://chubb.dev.cloudapp.banregio.com/chubb/ExternalCmsWsUAT/ExternalWSCMS.svc?
 
 chubb doc
 https://docs.google.com/document/d/1VIkme7jj5IBqWZYWq4KNiOqlJDn-l1JsvWJKDoh3sf0/edit?ts=5b1845a8#heading=h.gjdgxs
+
+entry point from Norma
+https://docs.google.com/spreadsheets/d/1UwTHjwQT8bD29OfjC7Zdy7Oj1ueJnoER83rjP8UpzUY/edit?ts=5b1fe5c7#gid=887782669
