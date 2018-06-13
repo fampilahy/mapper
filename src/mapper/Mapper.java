@@ -12,6 +12,25 @@ import model.document.sib21.SIB21Document;
 public class Mapper {
 
 	public static ProcessTransactionRequest convertSIB21DocumentToChubbDocument(SIB21Document sib21Document) {
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		// TODO mapping process from SIB21Document to TransactionRequestDocument
 
