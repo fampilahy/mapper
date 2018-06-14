@@ -7,7 +7,7 @@ import model.document.chubb.ChubbDocument;
 public class S6TransactionStatus extends ChubbDocument {
 
 	private String VALUE;
-	private static Map MAP = new HashMap();
+	private static Map<String, S6TransactionStatus> MAP = new HashMap<String, S6TransactionStatus>();
 
 	// Constructor
 	protected S6TransactionStatus(String value) {

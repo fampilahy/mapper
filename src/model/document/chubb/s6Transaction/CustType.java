@@ -1,7 +1,9 @@
-package model.document.chubb;
+package model.document.chubb.s6Transaction;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import model.document.chubb.ChubbDocument;
 
 public class CustType extends ChubbDocument {
 

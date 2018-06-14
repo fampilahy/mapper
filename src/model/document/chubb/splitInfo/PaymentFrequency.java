@@ -1,4 +1,6 @@
-package model.document.chubb;
+package model.document.chubb.splitInfo;
+
+import model.document.chubb.ChubbDocument;
 
 public class PaymentFrequency extends ChubbDocument {
 

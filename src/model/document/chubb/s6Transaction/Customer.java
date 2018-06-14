@@ -3,8 +3,6 @@ package model.document.chubb.s6Transaction;
 import java.util.Calendar;
 
 import model.document.chubb.ChubbDocument;
-import model.document.chubb.CustType;
-import model.document.chubb.Sensitivity;
 import model.document.chubb.contract.Mandatory;
 
 public class Customer extends ChubbDocument {
