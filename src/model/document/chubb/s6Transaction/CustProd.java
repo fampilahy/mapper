@@ -1,8 +1,7 @@
-package model.document.chubb;
+package model.document.chubb.s6Transaction;
 
+import model.document.chubb.ChubbDocument;
 import model.document.chubb.contract.Mandatory;
-import model.document.chubb.s6Transaction.Beneficiary;
-import model.document.chubb.s6Transaction.ProdSpecData;
 
 public class CustProd extends ChubbDocument {
 

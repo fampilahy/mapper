@@ -1,8 +1,8 @@
 package mapper;
 
-import model.document.chubb.CustProd;
 import model.document.chubb.TransactionFromChubb;
 import model.document.chubb.s6Transaction.Address;
+import model.document.chubb.s6Transaction.CustProd;
 import model.document.chubb.s6Transaction.Customer;
 import model.document.chubb.s6Transaction.PaymentInfo;
 import model.document.chubb.s6Transaction.Product;
