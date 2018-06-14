@@ -1,5 +1,6 @@
-package model.document.chubb;
+package model.document.chubb.s6Transaction;
 
+import model.document.chubb.ChubbDocument;
 import model.document.chubb.contract.Mandatory;
 
 public class Address extends ChubbDocument {

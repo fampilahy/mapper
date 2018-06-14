@@ -1,4 +1,4 @@
-package model.document.chubb.premiumcalculator;
+package model.document.chubb.premiumCalculator;
 
 import model.document.chubb.ChubbDocument;
 

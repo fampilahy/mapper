@@ -1,8 +1,9 @@
-package model.document.chubb.premiumcalculator.request;
+package model.document.chubb.premiumCalculator.request;
 
 import java.util.Calendar;
-import model.document.chubb.premiumcalculator.Product;
+
 import model.document.chubb.ChubbDocument;
+import model.document.chubb.premiumCalculator.Product;
 
 public class PremiumRequest extends ChubbDocument {
 

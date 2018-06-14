@@ -1,7 +1,7 @@
-package model.document.chubb.s6transaction.request;
+package model.document.chubb.s6Transaction.request;
 
 import model.document.chubb.ChubbDocument;
-import model.document.chubb.S6Transaction;
+import model.document.chubb.s6Transaction.S6Transaction;
 
 public class ProcessTransactionRequest extends ChubbDocument {
 

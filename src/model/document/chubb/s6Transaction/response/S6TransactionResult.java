@@ -1,4 +1,4 @@
-package model.document.chubb.s6transaction.response;
+package model.document.chubb.s6Transaction.response;
 
 import model.document.chubb.ChubbDocument;
 
