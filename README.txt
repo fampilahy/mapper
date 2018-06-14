@@ -24,4 +24,4 @@ chub mandatory file
 https://docs.google.com/spreadsheets/d/12FmHypwCa3TwPlCXAudun0yrTia9F43GkpzFFmbwdYo/edit#gid=0
 
 
-a vefifier PaymentInfo en splitinfo o s6 transaction
+a continuer sur splitInfo su ChubbService
