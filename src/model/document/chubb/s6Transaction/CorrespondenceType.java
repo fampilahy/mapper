@@ -10,7 +10,7 @@ public class CorrespondenceType extends ChubbDocument {
 	// not a good way to develop codes, may use enum instead
 
 	private String VALUE;
-	private static Map MAP = new HashMap();
+	private static Map<String, CorrespondenceType> MAP = new HashMap<String, CorrespondenceType>();
 
 	protected CorrespondenceType(String value) {
 		VALUE = value;

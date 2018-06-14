@@ -1,4 +1,6 @@
-package model.document.chubb;
+package model.document.chubb.s6Transaction;
+
+import model.document.chubb.ChubbDocument;
 
 public class BeneficiaryDetail extends ChubbDocument{
 
