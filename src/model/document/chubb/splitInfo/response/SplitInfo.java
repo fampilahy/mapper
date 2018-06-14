@@ -2,8 +2,8 @@ package model.document.chubb.splitInfo.response;
 
 import java.util.Calendar;
 import model.document.chubb.ChubbDocument;
-import model.document.chubb.Payment;
 import model.document.chubb.messageByCategory.Product;
+import model.document.chubb.splitInfo.Payment;
 import model.document.chubb.splitInfo.PaymentFrequency;
 
 public class SplitInfo extends ChubbDocument {

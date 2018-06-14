@@ -1,12 +1,12 @@
 package mapper;
 
-import model.document.chubb.TransactionFromChubb;
 import model.document.chubb.s6Transaction.Address;
 import model.document.chubb.s6Transaction.CustProd;
 import model.document.chubb.s6Transaction.Customer;
 import model.document.chubb.s6Transaction.PaymentInfo;
 import model.document.chubb.s6Transaction.Product;
 import model.document.chubb.s6Transaction.S6Transaction;
+import model.document.chubb.s6Transaction.TransactionFromChubb;
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.sib21.SIB21Document;
 

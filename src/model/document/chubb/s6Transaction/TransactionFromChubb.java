@@ -1,4 +1,4 @@
-package model.document.chubb;
+package model.document.chubb.s6Transaction;
 
 public enum TransactionFromChubb {
 
