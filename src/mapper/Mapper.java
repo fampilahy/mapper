@@ -7,7 +7,7 @@ import model.document.chubb.PaymentInfo;
 import model.document.chubb.Product;
 import model.document.chubb.S6Transaction;
 import model.document.chubb.TransactionFromChubb;
-import model.document.chubb.request.ProcessTransactionRequest;
+import model.document.chubb.s6transaction.request.ProcessTransactionRequest;
 import model.document.sib21.SIB21Document;
 
 public class Mapper {

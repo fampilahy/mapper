@@ -1,49 +1,50 @@
 package model.document.chubb.premiumcalculator.request;
 
+import java.util.Calendar;
+import model.document.chubb.premiumcalculator.Product;
 import model.document.chubb.ChubbDocument;
 
-public class PremiumRequest extends ChubbDocument{
-	 private java.util.Calendar effectiveDate;
-	    private int paymentFrequency;
-	    private String campaignKey;
-	    private Product[] products;
-	
-	    public PremiumRequest(){
-	    	
-	    }
+public class PremiumRequest extends ChubbDocument {
 
-		public java.util.Calendar getEffectiveDate() {
-			return effectiveDate;
-		}
+	private Calendar effectiveDate;
+	private int paymentFrequency;
+	private String campaignKey;
+	private Product[] products;
 
-		public void setEffectiveDate(java.util.Calendar effectiveDate) {
-			this.effectiveDate = effectiveDate;
-		}
+	public PremiumRequest() {
 
-		public int getPaymentFrequency() {
-			return paymentFrequency;
-		}
+	}
 
-		public void setPaymentFrequency(int paymentFrequency) {
-			this.paymentFrequency = paymentFrequency;
-		}
+	public Calendar getEffectiveDate() {
+		return effectiveDate;
+	}
 
-		public String getCampaignKey() {
-			return campaignKey;
-		}
+	public void setEffectiveDate(Calendar effectiveDate) {
+		this.effectiveDate = effectiveDate;
+	}
 
-		public void setCampaignKey(String campaignKey) {
-			this.campaignKey = campaignKey;
-		}
+	public int getPaymentFrequency() {
+		return paymentFrequency;
+	}
 
-		public Product[] getProducts() {
-			return products;
-		}
+	public void setPaymentFrequency(int paymentFrequency) {
+		this.paymentFrequency = paymentFrequency;
+	}
 
-		public void setProducts(Product[] products) {
-			this.products = products;
-		}
-	    
-	    
+	public String getCampaignKey() {
+		return campaignKey;
+	}
+
+	public void setCampaignKey(String campaignKey) {
+		this.campaignKey = campaignKey;
+	}
+
+	public Product[] getProducts() {
+		return products;
+	}
+
+	public void setProducts(Product[] products) {
+		this.products = products;
+	}
 
 }

@@ -1,4 +1,4 @@
-package model.document.chubb.response;
+package model.document.chubb.s6transaction.response;
 
 import java.util.HashMap;
 import java.util.Map;
