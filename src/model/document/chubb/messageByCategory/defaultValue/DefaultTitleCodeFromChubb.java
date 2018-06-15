@@ -1,15 +1,16 @@
 package model.document.chubb.messageByCategory.defaultValue;
 
-public enum DefaultLanguageCodeFromChubb {
-
-	ENGLISH (229,"English","01"),
-	SPANISH (230,"Spanish","02"),
-	PORTUGUESE(247,"Portuguese","20");
+public enum DefaultTitleCodeFromChubb {
+	
+	
+	BRAZIL (101,"Brazil","BZ"),
+	MEXICO (159,"Mexico","MX"),
+	ARGENTINA(92,"Argentina","AR");
 	
 	private Integer key;
 	private String description, msgID;
 
-	private DefaultLanguageCodeFromChubb(Integer key, String description, String msgID) {
+	private DefaultTitleCodeFromChubb(Integer key, String description, String msgID) {
 		this.key = key;
 		this.description = description;
 		this.msgID = msgID;
@@ -26,5 +27,5 @@ public enum DefaultLanguageCodeFromChubb {
 	public String getMsgID() {
 		return msgID;
 	}
-	
+
 }

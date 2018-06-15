@@ -5,7 +5,7 @@ public enum MessageCategoryCodeFromChubb {
 	PROVINCE_CODE ("36"),
 	COUNTRY_CODE ("27"),
 	ADDRESS_TYPE_CODE ("39"),
-	TITLE ("3"),
+	TITLE ("3"),//TOCONTINUEHE
 	LANGUAGE_CODE ("5"),
 	SEX_CODE ("90000"),
 	EXCLUSION_CODE ("CONV5"),
