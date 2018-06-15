@@ -80,7 +80,8 @@ public class Main {
 		JsonNode getMessagesByCategoryRequestJson = JsonTool.fromDocumentToJsonNode(getMessagesByCategoryRequest);
 
 		ConnectionEngine connectionEngine = new ConnectionEngine();
-		connectionEngine.setTEST_SITE(URL_CONSOLIDATOR.consolidateUrl("collectMessagesByCategory"));
+		connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
+				.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_MESSAGES_BY_CATEGORY_URL.getUrl()));
 		connectionEngine.testPost(getMessagesByCategoryRequestJson.toString());
 
 	}
