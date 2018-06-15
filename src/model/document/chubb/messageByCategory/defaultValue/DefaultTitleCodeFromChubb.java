@@ -3,9 +3,9 @@ package model.document.chubb.messageByCategory.defaultValue;
 public enum DefaultTitleCodeFromChubb {
 	
 	
-	BRAZIL (101,"Brazil","BZ"),
-	MEXICO (159,"Mexico","MX"),
-	ARGENTINA(92,"Argentina","AR");
+	SR (100767,"Sr.","05"),
+	SRA (100769,"Sra.","06"),
+	MRS(100908,"Mrs.","02");
 	
 	private Integer key;
 	private String description, msgID;

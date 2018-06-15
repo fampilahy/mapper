@@ -43,11 +43,11 @@ public class Main {
 		// connectionEngine.testGet();
 
 		// first test
-		String categoryCode = MessageCategoryCodeFromChubb.LANGUAGE_CODE.getCategoryCode();
+		String categoryCode = MessageCategoryCodeFromChubb.TITLE.getCategoryCode();
 		String countryCode = DefaultCountryCodeFromChubb.MEXICO.getMsgID();
 		// String countryCode =
 		// DefaultCountryCodeFromChubb.MEXICO.getCountryCode();
-		Integer languageCode = DefaultLanguageCodeFromChubb.SPANISH.getKey();
+		Integer languageCode = DefaultLanguageCodeFromChubb.ENGLISH.getKey();
 
 		GetMessagesByCategoryRequest getMessagesByCategoryRequest = new GetMessagesByCategoryRequest();
 		getMessagesByCategoryRequest.setCategoryCode(categoryCode);
