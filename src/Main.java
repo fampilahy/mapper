@@ -21,10 +21,10 @@ public class Main {
 	public static void main(String[] args) {
 
 		// test from json to object
-		SIB21Document sibDocument = new SIB21Document();
-		sibDocument = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/test.json", sibDocument);
-		System.out.println("==> " + sibDocument.toString());
-		System.out.println(sibDocument.getAsegurado().getCodigoPostal());
+//		SIB21Document sibDocument = new SIB21Document();
+//		sibDocument = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/test.json", sibDocument);
+//		System.out.println("==> " + sibDocument.toString());
+//		System.out.println(sibDocument.getAsegurado().getCodigoPostal());
 
 		// TODO Transaction object call
 
@@ -83,7 +83,7 @@ public class Main {
 		ConnectionEngine connectionEngine = new ConnectionEngine();
 		connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
 				.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_MESSAGES_BY_CATEGORY_URL.getUrl()));
-		connectionEngine.testPost(getMessagesByCategoryRequestJson.toString());
+		connectionEngine.withRequestEntity(getMessagesByCategoryRequestJson.toString()).testPost();
 
 	}
 

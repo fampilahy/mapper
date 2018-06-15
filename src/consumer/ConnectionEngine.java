@@ -46,7 +46,7 @@ import com.google.common.collect.Lists;
 
 import tools.UrlConsolidator;
 
-public class ConnectionEngine extends AbstractConnectionEngine {
+public  class ConnectionEngine extends AbstractConnectionEngine {
 
 	String TEST_SITE = null;
 
@@ -453,7 +453,7 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 	public void testGet() {
 		PageRequest request = get(TEST_SITE);
 		try {
-			PageResponse testPage = connection(request, "user page");
+			PageResponse testPage = connection(request, "get page");
 			checkNotNull(testPage, "No testPage returned");
 			System.out.println(testPage.content);
 		} catch (Exception e) {
@@ -464,15 +464,8 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 
 	@Override
 	public void testPost(String requestEntity) {
-		PageRequest request = post(TEST_SITE, requestEntity);
-		try {
-			PageResponse testPage = connection(request, "create some field page");
-			checkNotNull(testPage, "No testPage returned");
-			System.out.println(testPage.content);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		this.requestEntity = requestEntity;
+		testPost();
 	}
 	
 	private void closeClient(DefaultHttpClient httpClient) {
@@ -495,10 +488,25 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		this.requestEntity = requestEntity;
 	}
 	
-	
-	public AbstractConnectionEngine withEntity(String requestEntity){
+//	requestEntity is same to request body
+	public AbstractConnectionEngine withRequestEntity(String requestEntity){
 		this.requestEntity = requestEntity;
 		return this;
+	}
+
+	@Override
+	public void testPost() {
+		PageRequest request = post(TEST_SITE, requestEntity);
+		try {
+			
+			PageResponse testPage = connection(request, "post page");
+			System.out.println("With Request Body ==> "+requestEntity);
+			checkNotNull(testPage, "No testPage returned");
+			System.out.println(testPage.content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
