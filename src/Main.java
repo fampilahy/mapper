@@ -69,7 +69,7 @@ public class Main {
 		//
 
 		// first test
-		String categoryCode = MessageCategoryCodeFromChubb.COUNTRY_CODE.getCategoryCode();
+		String categoryCode = MessageCategoryCodeFromChubb.SEX_CODE.getCategoryCode();
 		String countryCode = DefaultCountryCodeFromChubb.MEXICO.getCountryCode();
 		Integer languageCode = DefaultLanguageCodeFromChubb.SPANISH.getLanguageCode();
 

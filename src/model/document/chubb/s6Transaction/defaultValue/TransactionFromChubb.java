@@ -1,4 +1,4 @@
-package model.document.chubb.s6Transaction;
+package model.document.chubb.s6Transaction.defaultValue;
 
 public enum TransactionFromChubb {
 
