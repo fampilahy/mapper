@@ -23,5 +23,8 @@ https://drive.google.com/file/d/1gFC3q5mlUJgP6g0waFVm_2_DsCSppcLR/view?ts=5b2140
 chub mandatory file 
 https://docs.google.com/spreadsheets/d/12FmHypwCa3TwPlCXAudun0yrTia9F43GkpzFFmbwdYo/edit#gid=0
 
-
 a continuer sur splitInfo su ChubbService
+
+first step will put all default values in resources
+
+

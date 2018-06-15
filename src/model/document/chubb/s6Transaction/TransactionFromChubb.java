@@ -20,7 +20,7 @@ public enum TransactionFromChubb {
 
 	private String tranType, chgType;
 
-	TransactionFromChubb(String tranType, String chgType) {
+	private TransactionFromChubb(String tranType, String chgType) {
 		this.tranType = tranType;
 		this.chgType = chgType;
 	}
@@ -29,16 +29,8 @@ public enum TransactionFromChubb {
 		return tranType;
 	}
 
-	public void setTranType(String tranType) {
-		this.tranType = tranType;
-	}
-
 	public String getChgType() {
 		return chgType;
-	}
-
-	public void setChgType(String chgType) {
-		this.chgType = chgType;
 	}
 
 }
