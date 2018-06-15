@@ -48,7 +48,7 @@ import tools.UrlConsolidator;
 
 public class ConnectionEngine extends AbstractConnectionEngine {
 
-	private String TEST_SITE = null;
+	String TEST_SITE = null;
 
 	static final int MAX_PAGE_RETRY_COUNT = 2;
 
@@ -125,7 +125,7 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		return new PageRequest().withMethod(HttpMethod.GET).withUrl(url);
 	}
 
-	private PageRequest post(final String url, final String entity) {
+	PageRequest post(final String url, final String entity) {
 		return new PageRequest().withMethod(HttpMethod.POST).withEntity(entity).withUrl(url);
 	}
 
@@ -182,7 +182,7 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 
 	class PageResponse {
 		private int statusCode;
-		private String content;
+		String content;
 		private String location;
 		private String setCookie;
 		private boolean success;
@@ -408,7 +408,7 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		return localContext;
 	}
 
-	private PageResponse connection(final PageRequest request, final String type) {
+	PageResponse connection(final PageRequest request, final String type) {
 		System.out.println("");
 		System.out.println("-----------------------------");
 		System.out.println("Connect on " + type + " url : " + request.getUrl());
@@ -474,7 +474,7 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 		}
 
 	}
-
+	
 	private void closeClient(DefaultHttpClient httpClient) {
 		if (httpClient != null) {
 			try {
@@ -483,6 +483,22 @@ public class ConnectionEngine extends AbstractConnectionEngine {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	String requestEntity;
+
+	public String getEntity() {
+		return requestEntity;
+	}
+
+	public void setEntity(String requestEntity) {
+		this.requestEntity = requestEntity;
+	}
+	
+	
+	public AbstractConnectionEngine withEntity(String requestEntity){
+		this.requestEntity = requestEntity;
+		return this;
 	}
 
 }
