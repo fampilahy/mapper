@@ -453,7 +453,7 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 	public void testGet() {
 		PageRequest request = get(TEST_SITE);
 		try {
-			PageResponse testPage = connection(request, "get page");
+			PageResponse testPage = connection(request, "user page");
 			checkNotNull(testPage, "No testPage returned");
 			System.out.println(testPage.content);
 		} catch (Exception e) {
@@ -464,8 +464,15 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 
 	@Override
 	public void testPost(String requestEntity) {
-		this.requestEntity = requestEntity;
-		testPost();
+		PageRequest request = post(TEST_SITE, requestEntity);
+		try {
+			PageResponse testPage = connection(request, "create some field page");
+			checkNotNull(testPage, "No testPage returned");
+			System.out.println(testPage.content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	private void closeClient(DefaultHttpClient httpClient) {
@@ -478,7 +485,7 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 		}
 	}
 	
-	String requestEntity;
+	private String requestEntity;
 
 	public String getEntity() {
 		return requestEntity;
@@ -498,9 +505,7 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 	public void testPost() {
 		PageRequest request = post(TEST_SITE, requestEntity);
 		try {
-			
-			PageResponse testPage = connection(request, "post page");
-			System.out.println("With Request Body ==> "+requestEntity);
+			PageResponse testPage = connection(request, "create some field page");
 			checkNotNull(testPage, "No testPage returned");
 			System.out.println(testPage.content);
 		} catch (Exception e) {
