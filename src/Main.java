@@ -5,10 +5,11 @@ import consumer.ConnectionEngine;
 import model.document.AbstractDocument;
 import model.document.chubb.ChubbDocument;
 import model.document.chubb.ExampleDocument;
-import model.document.chubb.messageByCategory.defaultValue.DefaultCountryCodeFromChubb;
-import model.document.chubb.messageByCategory.defaultValue.DefaultLanguageCodeFromChubb;
-import model.document.chubb.messageByCategory.defaultValue.MessageCategoryCodeFromChubb;
+import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
+import model.document.chubb.messageByCategory.defaultValues.LanguageCodeFromChubb;
+import model.document.chubb.messageByCategory.defaultValues.MessageCategoryCodeFromChubb;
 import model.document.chubb.messageByCategory.request.GetMessagesByCategoryRequest;
+import model.document.chubb.splitInfo.request.GetSplitInfoRequest;
 import model.document.sib21.SIB21Document;
 import tools.JsonTool;
 import tools.UrlConsolidator;
@@ -27,12 +28,9 @@ public class Main {
 		// System.out.println("==> " + sibDocument.toString());
 		// System.out.println(sibDocument.getAsegurado().getCodigoPostal());
 
-		// TODO Transaction object call
-
 		// System.out.println("HelloWorld");
 
 		ConnectionEngine connectionEngine = new ConnectionEngine();
-
 		// connectionEngine.setTEST_SITE("http://localhost:8080/chubb/getExternalWSCM");
 		// connectionEngine.testGet();
 		//
@@ -41,13 +39,14 @@ public class Main {
 		//
 		// connectionEngine.setTEST_SITE("http://localhost:8080/chubb/getS6TransactionExternal");
 		// connectionEngine.testGet();
-
-		// first test
-		String categoryCode = MessageCategoryCodeFromChubb.TITLE.getCategoryCode();
-		String countryCode = DefaultCountryCodeFromChubb.MEXICO.getMsgID();
+		/**
+		 * first test
+		 **/
+		String categoryCode = MessageCategoryCodeFromChubb.PAYMENT_METHOD.getCategoryCode();
+		String countryCode = CountryCodeFromChubb.MEXICO.getMsgID();
 		// String countryCode =
 		// DefaultCountryCodeFromChubb.MEXICO.getCountryCode();
-		Integer languageCode = DefaultLanguageCodeFromChubb.ENGLISH.getKey();
+		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
 
 		GetMessagesByCategoryRequest getMessagesByCategoryRequest = new GetMessagesByCategoryRequest();
 		getMessagesByCategoryRequest.setCategoryCode(categoryCode);
@@ -59,6 +58,25 @@ public class Main {
 		connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
 				.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_MESSAGES_BY_CATEGORY_URL.getUrl()));
 		connectionEngine.withRequestEntity(getMessagesByCategoryRequestJson.toString()).testPost();
+		/**
+		 * second test
+		 **/
+		// second step
+//		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
+		Boolean loadBankInfo = true;
+		String splitKey = "MX18000102";
+
+		GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
+		getSplitInfoRequest.setLanguageCode(languageCode);
+		getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
+		getSplitInfoRequest.setSplitKey(splitKey);
+		JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
+		System.out.println(" getSplitInfoRequestJson "+getSplitInfoRequestJson.toString());
+
+		connectionEngine = new ConnectionEngine();
+		connectionEngine.setTEST_SITE(
+				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
+		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).testPost();
 
 	}
 

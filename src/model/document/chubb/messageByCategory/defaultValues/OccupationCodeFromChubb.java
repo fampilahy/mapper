@@ -1,15 +1,14 @@
-package model.document.chubb.messageByCategory.defaultValue;
+package model.document.chubb.messageByCategory.defaultValues;
 
-public enum DefaultCountryCodeFromChubb {
-
-	BRAZIL (101,"Brazil","BZ"),
-	MEXICO (159,"Mexico","MX"),
-	ARGENTINA(92,"Argentina","AR");
+public enum OccupationCodeFromChubb {
+	
+	CUSTOMER_SERVICE(2451,"Customer Service","00166"),
+	DISABLED(2452,"Disabled","00167");
 	
 	private Integer key;
 	private String description, msgID;
 
-	private DefaultCountryCodeFromChubb(Integer key, String description, String msgID) {
+	private OccupationCodeFromChubb(Integer key, String description, String msgID) {
 		this.key = key;
 		this.description = description;
 		this.msgID = msgID;
@@ -26,5 +25,5 @@ public enum DefaultCountryCodeFromChubb {
 	public String getMsgID() {
 		return msgID;
 	}
-	
+
 }

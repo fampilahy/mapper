@@ -1,6 +1,6 @@
-package model.document.chubb.messageByCategory.defaultValue;
+package model.document.chubb.messageByCategory.defaultValues;
 
-public enum DefaultMexicoProvinceCodeFromChubb {
+public enum MexicoProvinceCodeFromChubb {
 	// not to implement yet in db for now
 	
 	TAMAULIPAS (100583,"Tamaulipas","zb"),
@@ -46,7 +46,7 @@ public enum DefaultMexicoProvinceCodeFromChubb {
 	private Integer key;
 	private String description, msgID;
 
-	private DefaultMexicoProvinceCodeFromChubb(Integer key, String description, String msgID) {
+	private MexicoProvinceCodeFromChubb(Integer key, String description, String msgID) {
 		this.key = key;
 		this.description = description;
 		this.msgID = msgID;
