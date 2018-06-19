@@ -1,6 +1,6 @@
-package model.document.chubb.s6Transaction.defaultValue;
+package model.document.chubb.s6Transaction.defaultValues;
 
-public enum TransactionFromChubb {
+public enum TransactionTypeCodeFromChubb {
 
 	SALES("NEW", ""),
 	ADD_INSURED("CHG", "ADI"),
@@ -20,7 +20,7 @@ public enum TransactionFromChubb {
 
 	private String tranType, chgType;
 
-	private TransactionFromChubb(String tranType, String chgType) {
+	private TransactionTypeCodeFromChubb(String tranType, String chgType) {
 		this.tranType = tranType;
 		this.chgType = chgType;
 	}

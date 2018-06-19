@@ -6,7 +6,7 @@ import model.document.chubb.s6Transaction.Customer;
 import model.document.chubb.s6Transaction.PaymentInfo;
 import model.document.chubb.s6Transaction.Product;
 import model.document.chubb.s6Transaction.S6Transaction;
-import model.document.chubb.s6Transaction.defaultValue.TransactionFromChubb;
+import model.document.chubb.s6Transaction.defaultValues.TransactionTypeCodeFromChubb;
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.sib21.SIB21Document;
 
@@ -14,7 +14,11 @@ public class MapperTest {
 
 	public static ProcessTransactionRequest convertSIB21DocumentToChubbDocument(SIB21Document sib21Document) {
 		
+		TransactionTypeCodeFromChubb transactionTypeCodeFromChubb = TransactionTypeCodeFromChubb.SALES;
 		
+//		if(sib21Document contains date){
+			// cambio
+//		}
 		
 		
 		
@@ -66,11 +70,10 @@ public class MapperTest {
 		
 		
 		S6Transaction s6Transaction = new S6Transaction();
-		TransactionFromChubb transaction = TransactionFromChubb.SALES;
+		
 		
 		//we gonna test SALES first (alta)
-		s6Transaction.setTranType(transaction.getTranType());
-		s6Transaction.setChgType(transaction.getChgType());
+	
 		
 		
 		
