@@ -42,7 +42,7 @@ public class Main {
 		/**
 		 * first test
 		 **/
-		String categoryCode = MessageCategoryCodeFromChubb.PAYMENT_METHOD.getCategoryCode();
+		String categoryCode = MessageCategoryCodeFromChubb.ADDRESS_TYPE_CODE.getCategoryCode();
 		String countryCode = CountryCodeFromChubb.MEXICO.getMsgID();
 		// String countryCode =
 		// DefaultCountryCodeFromChubb.MEXICO.getCountryCode();
@@ -63,20 +63,20 @@ public class Main {
 		 **/
 		// second step
 //		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
-		Boolean loadBankInfo = true;
-		String splitKey = "MX18000102";
-
-		GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
-		getSplitInfoRequest.setLanguageCode(languageCode);
-		getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
-		getSplitInfoRequest.setSplitKey(splitKey);
-		JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
-		System.out.println(" getSplitInfoRequestJson "+getSplitInfoRequestJson.toString());
-
-		connectionEngine = new ConnectionEngine();
-		connectionEngine.setTEST_SITE(
-				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
-		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).testPost();
+//		Boolean loadBankInfo = true;
+//		String splitKey = "MX18000102";
+//
+//		GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
+//		getSplitInfoRequest.setLanguageCode(languageCode);
+//		getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
+//		getSplitInfoRequest.setSplitKey(splitKey);
+//		JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
+//		System.out.println(" getSplitInfoRequestJson "+getSplitInfoRequestJson.toString());
+//
+//		connectionEngine = new ConnectionEngine();
+//		connectionEngine.setTEST_SITE(
+//				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
+//		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).testPost();
 
 	}
 

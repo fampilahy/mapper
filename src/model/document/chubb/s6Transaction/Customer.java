@@ -39,8 +39,8 @@ public class Customer extends ChubbDocument {
 	private Integer indCd;
 	private Integer maritalCd;
 	private Integer relationshipCd;
-	private CustProd[] custProds;
-	private String[] custAdds;
+	@Mandatory private CustProd[] custProds;
+	@Mandatory private String[] custAdds;
 	private Sensitivity[] sensitivities;
 	private Integer dependentType;
 	private String alternateId;
