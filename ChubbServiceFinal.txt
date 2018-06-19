@@ -13,6 +13,8 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.rpc.ServiceException;
 
+import com.banregio.next.seguros.interfaces.wsdl.externalcmswsuat.ACELA_SOA_ExternalWSCMS_Entities_DataContract.GetSplitInfoRequest;
+import com.banregio.next.seguros.interfaces.wsdl.externalcmswsuat.ACELA_SOA_ExternalWSCMS_Entities_DataContract.ResponseSplitInfo;
 import com.banregio.next.seguros.interfaces.wsdl.externals6transactionwsuat._2004._07.ACELA_SOA_S6TransactionExternal_Entities_DataContract.ProcessTransactionRequest;
 import org.apache.axis.client.Stub;
 import org.apache.axis.message.SOAPHeaderElement;
@@ -35,126 +37,134 @@ import com.banregio.next.seguros.interfaces.wsdl.externalwspremium.tempuri.IExte
 
 @Service
 public class ChubbService {
-	//mover a yml y encriptar//TODO
-	
-	@Value("${chubb.secret}")
-	String key;
-	
-	@Value("${chubb.accessKey}")
-	String accessKey;
+    //mover a yml y encriptar//TODO
 
-	final static String VERSION = "1.0.0.0";
-	final static String URL_PREMIUM_AMOUNT = "http://tempuri.org/IExternalWSPremium/GetPremiumAmount";
-	final static String URL_EXTERNAL_WSC = "http://tempuri.org/IExternalWSCMS/GetMessagesByCategory";
-	final static String IS6_EXTERNAL_STUB ="http://tempuri.org/IS6TransactionExternal/GetTransactionStatus";
-	
-	public PremiumResponse getPremiumResponse() throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		//inicializacion de objetos
-		ExternalWSPremiumLocator wsloc  = new ExternalWSPremiumLocator();
-		IExternalWSPremium prem = wsloc.getBasicHttpBinding_IExternalWSPremium();
-		//seteo de encabezados
-		addHeaders((Stub)prem, URL_PREMIUM_AMOUNT);
-		
-		//objetos de intercambio
-		PremiumRequest req = new PremiumRequest();
-		req.setEffectiveDate(Calendar.getInstance());
-		
-		req.setCampaignKey("");
-		req.setProducts(new Product[]{});
+    @Value("${chubb.secret}")
+    String key;
 
-		
-		//request
-		return prem.getPremiumAmount(accessKey, req);
-	}
+    @Value("${chubb.accessKey}")
+    String accessKey;
 
-	public PremiumResponse getPremiumResponse(PremiumRequest premiumRequest) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		ExternalWSPremiumLocator wsloc = new ExternalWSPremiumLocator();
-		IExternalWSPremium prem = wsloc.getBasicHttpBinding_IExternalWSPremium();
-		addHeaders((Stub) prem, URL_PREMIUM_AMOUNT);
-		premiumRequest.setEffectiveDate(Calendar.getInstance());
-		premiumRequest.setCampaignKey("");
-		premiumRequest.setProducts(new Product[]{});
-		return prem.getPremiumAmount(accessKey, premiumRequest);
-	}
+    final static String VERSION = "1.0.0.0";
+    final static String URL_EXTERNAL_WSC = "http://tempuri.org/IExternalWSCMS/GetMessagesByCategory";
+    final static String URL_SPLIT_INFO = "http://tempuri.org/IExternalWSCMS/GetSplitInfo";
+    final static String URL_PREMIUM_AMOUNT = "http://tempuri.org/IExternalWSPremium/GetPremiumAmount";
+    final static String URL_S6_EXTERNAL = "http://tempuri.org/IS6TransactionExternal/ProcessTransaction";
+    final static String URL_S6_EXTERNAL_STATUS = "http://tempuri.org/IS6TransactionExternal/GetTransactionStatus";
+
+    public PremiumResponse getPremiumResponse() throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        //inicializacion de objetos
+        ExternalWSPremiumLocator wsloc = new ExternalWSPremiumLocator();
+        IExternalWSPremium prem = wsloc.getBasicHttpBinding_IExternalWSPremium();
+        //seteo de encabezados
+        addHeaders((Stub) prem, URL_PREMIUM_AMOUNT);
+
+        //objetos de intercambio
+        PremiumRequest req = new PremiumRequest();
+        req.setEffectiveDate(Calendar.getInstance());
+
+        req.setCampaignKey("");
+        req.setProducts(new Product[]{});
 
 
+        //request
+        return prem.getPremiumAmount(accessKey, req);
+    }
 
-	public ResponseMessagesByCategory getExternalWSCM() throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		//inicializacion de objetos
-		ExternalWSCMSLocator wsloc  = new ExternalWSCMSLocator();
-		IExternalWSCMS prem = wsloc.getBasicHttpBinding_IExternalWSCMS();
-		//seteo de encabezados
-		addHeaders((Stub)prem, URL_EXTERNAL_WSC);
-		
-		//objetos de intercambio
-		GetMessagesByCategoryRequest req = new GetMessagesByCategoryRequest();
-		
-		//request
-		return prem.getMessagesByCategory(accessKey, req);
-	}
-
-	public ResponseMessagesByCategory getMessagesByCategory(GetMessagesByCategoryRequest getMessagesByCategoryRequest) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		ExternalWSCMSLocator wsloc = new ExternalWSCMSLocator();
-		IExternalWSCMS prem = wsloc.getBasicHttpBinding_IExternalWSCMS();
-		addHeaders((Stub) prem, URL_EXTERNAL_WSC);
-		return prem.getMessagesByCategory(accessKey, getMessagesByCategoryRequest);
-	}
-
-	public TransactionResponse getS6TransactionExternal() throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		//inicializacion de objetos
-		S6TransactionExternalLocator wsloc  = new S6TransactionExternalLocator();
-		IS6TransactionExternal prem = wsloc.getBasicHttpBinding_IS6TransactionExternal();
-		//seteo de encabezados
-		addHeaders((Stub)prem, IS6_EXTERNAL_STUB);
-		
-		//objetos de intercambio
-		String param = "";
-
-		
-		//request
-		return prem.getTransactionStatus(accessKey, param);
-	}
-
-	public TransactionResponse processS6Transaction(ProcessTransactionRequest processTransactionRequest) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		S6TransactionExternalLocator wsloc = new S6TransactionExternalLocator();
-		IS6TransactionExternal prem = wsloc.getBasicHttpBinding_IS6TransactionExternal();
-		addHeaders((Stub) prem, IS6_EXTERNAL_STUB);
-		return prem.processTransaction(accessKey, processTransactionRequest);
-	}
-
-	public TransactionResponse getS6TransactionStatus(String tansactionId) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		S6TransactionExternalLocator wsloc = new S6TransactionExternalLocator();
-		IS6TransactionExternal prem = wsloc.getBasicHttpBinding_IS6TransactionExternal();
-		addHeaders((Stub) prem, IS6_EXTERNAL_STUB);
-		return prem.getTransactionStatus(accessKey, tansactionId);
-	}
+    public PremiumResponse getPremiumResponse(PremiumRequest premiumRequest) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        ExternalWSPremiumLocator wsloc = new ExternalWSPremiumLocator();
+        IExternalWSPremium prem = wsloc.getBasicHttpBinding_IExternalWSPremium();
+        addHeaders((Stub) prem, URL_PREMIUM_AMOUNT);
+        premiumRequest.setEffectiveDate(Calendar.getInstance());
+        premiumRequest.setCampaignKey("");
+        premiumRequest.setProducts(new Product[]{});
+        return prem.getPremiumAmount(accessKey, premiumRequest);
+    }
 
 
-	public String encode(String key, String data) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {		
-		Mac sha256_HMAC = Mac.getInstance("HmacSHA1");
-		SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(), "HmacSHA1");
-		sha256_HMAC.init(secret_key);
-		return Base64Utils.encodeToString(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
-	}
+    public ResponseMessagesByCategory getExternalWSCM() throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        //inicializacion de objetos
+        ExternalWSCMSLocator wsloc = new ExternalWSCMSLocator();
+        IExternalWSCMS prem = wsloc.getBasicHttpBinding_IExternalWSCMS();
+        //seteo de encabezados
+        addHeaders((Stub) prem, URL_EXTERNAL_WSC);
 
-	public void addHeader(Stub request, String name, Object value) {
-		SOAPHeaderElement header = new SOAPHeaderElement("http://www.acelatinamerica.com/ACELA", name, value);
-		request.setHeader(header);
-	}
-	
-	public void addHeaders(Stub request, String requestURL) throws InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-		String txDate = getDateForChubb();
-		String signature =encode(key, requestURL + txDate );
-		
-		addHeader((Stub)request, "AccessKey", accessKey);
-		addHeader((Stub)request, "Signature", signature);
-		addHeader((Stub)request, "Timestamp", txDate);
-		addHeader((Stub)request, "Version", VERSION);
-	}
-	
-	public String getDateForChubb() {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR, cal.get(Calendar.HOUR)+ 1); //timestam invalido con hora actual
-		 return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault()).format(new Date(cal.getTimeInMillis()));
-	}
+        //objetos de intercambio
+        GetMessagesByCategoryRequest req = new GetMessagesByCategoryRequest();
+
+        //request
+        return prem.getMessagesByCategory(accessKey, req);
+    }
+
+    public ResponseMessagesByCategory getMessagesByCategory(GetMessagesByCategoryRequest getMessagesByCategoryRequest) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        ExternalWSCMSLocator wsloc = new ExternalWSCMSLocator();
+        IExternalWSCMS prem = wsloc.getBasicHttpBinding_IExternalWSCMS();
+        addHeaders((Stub) prem, URL_EXTERNAL_WSC);
+        return prem.getMessagesByCategory(accessKey, getMessagesByCategoryRequest);
+    }
+
+    public ResponseSplitInfo getSplitInfo(GetSplitInfoRequest getSplitInfoRequest) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        ExternalWSCMSLocator wsloc = new ExternalWSCMSLocator();
+        IExternalWSCMS prem = wsloc.getBasicHttpBinding_IExternalWSCMS();
+        addHeaders((Stub) prem, URL_SPLIT_INFO);
+        return prem.getSplitInfo(accessKey, getSplitInfoRequest);
+    }
+
+    public TransactionResponse getS6TransactionExternal() throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        //inicializacion de objetos
+        S6TransactionExternalLocator wsloc = new S6TransactionExternalLocator();
+        IS6TransactionExternal prem = wsloc.getBasicHttpBinding_IS6TransactionExternal();
+        //seteo de encabezados
+        addHeaders((Stub) prem, URL_S6_EXTERNAL_STATUS);
+
+        //objetos de intercambio
+        String param = "";
+
+
+        //request
+        return prem.getTransactionStatus(accessKey, param);
+    }
+
+    public TransactionResponse processS6Transaction(ProcessTransactionRequest processTransactionRequest) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        S6TransactionExternalLocator wsloc = new S6TransactionExternalLocator();
+        IS6TransactionExternal prem = wsloc.getBasicHttpBinding_IS6TransactionExternal();
+        addHeaders((Stub) prem, URL_S6_EXTERNAL);
+        return prem.processTransaction(accessKey, processTransactionRequest);
+    }
+
+    public TransactionResponse getS6TransactionStatus(String tansactionId) throws RemoteException, ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        S6TransactionExternalLocator wsloc = new S6TransactionExternalLocator();
+        IS6TransactionExternal prem = wsloc.getBasicHttpBinding_IS6TransactionExternal();
+        addHeaders((Stub) prem, URL_S6_EXTERNAL_STATUS);
+        return prem.getTransactionStatus(accessKey, tansactionId);
+    }
+
+
+    public String encode(String key, String data) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
+        Mac sha256_HMAC = Mac.getInstance("HmacSHA1");
+        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(), "HmacSHA1");
+        sha256_HMAC.init(secret_key);
+        return Base64Utils.encodeToString(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
+    }
+
+    public void addHeader(Stub request, String name, Object value) {
+        SOAPHeaderElement header = new SOAPHeaderElement("http://www.acelatinamerica.com/ACELA", name, value);
+        request.setHeader(header);
+    }
+
+    public void addHeaders(Stub request, String requestURL) throws InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        String txDate = getDateForChubb();
+        String signature = encode(key, requestURL + txDate);
+
+        addHeader((Stub) request, "AccessKey", accessKey);
+        addHeader((Stub) request, "Signature", signature);
+        addHeader((Stub) request, "Timestamp", txDate);
+        addHeader((Stub) request, "Version", VERSION);
+    }
+
+    public String getDateForChubb() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR, cal.get(Calendar.HOUR) + 1); //timestam invalido con hora actual
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault()).format(new Date(cal.getTimeInMillis()));
+    }
 }

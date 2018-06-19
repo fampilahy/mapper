@@ -1,0 +1,59 @@
+package com.banregio.next.seguros.app.web.controller.develop;
+
+import com.banregio.next.seguros.app.service.ChubbService;
+import com.banregio.next.seguros.interfaces.wsdl.externalcmswsuat.ACELA_SOA_ExternalWSCMS_Entities_DataContract.GetMessagesByCategoryRequest;
+import com.banregio.next.seguros.interfaces.wsdl.externalcmswsuat.ACELA_SOA_ExternalWSCMS_Entities_DataContract.GetSplitInfoRequest;
+import com.banregio.next.seguros.interfaces.wsdl.externalcmswsuat.ACELA_SOA_ExternalWSCMS_Entities_DataContract.ResponseMessagesByCategory;
+import com.banregio.next.seguros.interfaces.wsdl.externalcmswsuat.ACELA_SOA_ExternalWSCMS_Entities_DataContract.ResponseSplitInfo;
+import com.banregio.next.seguros.interfaces.wsdl.externals6transactionwsuat._2004._07.ACELA_SOA_S6TransactionExternal_Entities_DataContract.ProcessTransactionRequest;
+import com.banregio.next.seguros.interfaces.wsdl.externals6transactionwsuat._2004._07.ACELA_SOA_S6TransactionExternal_Entities_DataContract.TransactionResponse;
+import com.banregio.next.seguros.interfaces.wsdl.externalwspremium.ACELA.PremiumRequest;
+import com.banregio.next.seguros.interfaces.wsdl.externalwspremium.ACELA.PremiumResponse;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.xml.rpc.ServiceException;
+import java.io.UnsupportedEncodingException;
+import java.rmi.RemoteException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+@RestController
+@RequestMapping(value = "/chubb/develop")
+public class ChubbControllerDevelop {
+	
+	@Autowired
+	ChubbService chubbService;
+
+	@ApiOperation(value="Collect categorized required chubb code needed to build transaction")
+	@PostMapping(value="collectMessagesByCategory")
+	public ResponseMessagesByCategory collectMessagesByCategory(@RequestBody GetMessagesByCategoryRequest getMessagesByCategoryRequest) throws ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException, RemoteException {
+		return chubbService.getMessagesByCategory(getMessagesByCategoryRequest);
+	}
+
+	@ApiOperation(value="Collect required chubb code to use while processing transaction")
+	@PostMapping(value="collectSplitInfo")
+	public ResponseSplitInfo collectSplitInfo(@RequestBody GetSplitInfoRequest getSplitInfoRequest) throws ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException, RemoteException {
+		return chubbService.getSplitInfo(getSplitInfoRequest);
+	}
+	
+	@ApiOperation(value="Collect prices info")
+	@PostMapping(value="collectPremiumResponse")
+	public PremiumResponse collectPremiumResponse(@RequestBody PremiumRequest premiumRequest) throws ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException, RemoteException {
+		return chubbService.getPremiumResponse(premiumRequest);
+	}
+
+	@ApiOperation(value="Process transaction like sales, cancelations, endorsements, changes, etc ...")
+	@PostMapping(value="processTransaction")
+	public TransactionResponse processS6Transaction(@RequestBody ProcessTransactionRequest processTransactionRequest) throws ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException, RemoteException {
+		return chubbService.processS6Transaction(processTransactionRequest);
+	}
+
+	@ApiOperation(value="Check status of the requested transaction by its id")
+	@GetMapping(value="getTransactionStatus/{transactionId}")
+	public TransactionResponse getS6TransactionStatus(@PathVariable String transactionId) throws ServiceException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException, RemoteException {
+		return chubbService.getS6TransactionStatus(transactionId);
+	}
+
+}

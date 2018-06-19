@@ -45,7 +45,7 @@ public class Main {
 		/**
 		 * first test
 		 **/
-		String categoryCode = MessageCategoryCodeFromChubb.ADDRESS_TYPE_CODE.getCategoryCode();
+		String categoryCode = MessageCategoryCodeFromChubb.PAYMENT_METHOD.getCategoryCode();
 		String countryCode = CountryCodeFromChubb.MEXICO.getMsgID();
 		// String countryCode =
 		// DefaultCountryCodeFromChubb.MEXICO.getCountryCode();
