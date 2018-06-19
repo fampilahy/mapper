@@ -6,7 +6,7 @@ import model.document.sib21.SIB21Document;
 public class BajaMapeador extends AbstractMapper {
 
 	@Override
-	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument(SIB21Document sib21Document) {
+	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument() {
 		// TODO Auto-generated method stub
 		return null;
 	}
