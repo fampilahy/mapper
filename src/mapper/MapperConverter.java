@@ -1,5 +1,6 @@
 package mapper;
 
+import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
 import model.document.chubb.s6Transaction.Address;
 import model.document.chubb.s6Transaction.CustProd;
 import model.document.chubb.s6Transaction.Customer;
@@ -10,36 +11,27 @@ import model.document.chubb.s6Transaction.defaultValues.TransactionTypeCodeFromC
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.sib21.SIB21Document;
 
-public class MapperTest {
+public interface MapperConverter {
 
-	public static ProcessTransactionRequest convertSIB21DocumentToChubbDocument(SIB21Document sib21Document) {
-		
-		TransactionTypeCodeFromChubb transactionTypeCodeFromChubb = TransactionTypeCodeFromChubb.SALES;
-		
-//		if(sib21Document contains date){
-			// cambio
-//		}
+	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument(SIB21Document sib21Document);
+
+	public static ProcessTransactionRequest processDefaultConvertSIB21DocumentToChubbDocument(
+			SIB21Document sib21Document, TransactionTypeCodeFromChubb transactionTypeCodeFromChubb) {
 		
 		
 		
+		String tranType = transactionTypeCodeFromChubb.getTranType();
+		String chgType = transactionTypeCodeFromChubb.getChgType();
+		Integer lineNum = 0;
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		Integer countryCd = CountryCodeFromChubb.MEXICO.getKey();
+		String campaign = "";
 		
 		
 		
 		
 
-		// TODO mapping process from SIB21Document to TransactionRequestDocument
-
-		CustProd custProd = new CustProd();
+		 CustProd custProd = new CustProd();
 		// custProd.setProdCd(prodCd);
 		// custProd.setBenLv(benLv);
 
@@ -66,21 +58,13 @@ public class MapperTest {
 		// paymentInfo.setPayFreq(payFreq);
 		// for sales we just need these 2 infos, for other more info are needed
 		// -------------------------------------------------------------------------------------------
-		
-		
-		
+
 		S6Transaction s6Transaction = new S6Transaction();
-		
-		
-		//we gonna test SALES first (alta)
-	
-		
-		
-		
-		
+
+		// we gonna test SALES first (alta)
 
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
-		
+
 		return processTransactionRequest;
 	}
 
