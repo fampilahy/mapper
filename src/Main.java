@@ -24,16 +24,21 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// test from json to object
-		// SIB21Document sibDocument = new SIB21Document();
-		// sibDocument = (SIB21Document)
-		// JsonTool.fromFileJsonNodeToDocument("src/test.json", sibDocument);
-		// System.out.println("==> " + sibDocument.toString());
-		// System.out.println(sibDocument.getAsegurado().getCodigoPostal());
-
-		// System.out.println("HelloWorld");
-
+//		 test from json to object
+//		 SIB21Document sibDocument = new SIB21Document();
+//		 sibDocument = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/test.json", sibDocument);
+//		 System.out.println("==> " + sibDocument);
+//		 System.out.println("from json ===>"+sibDocument.getServicio().getBitacoraProcedimientoEjecutado());
+//		 
+//		 System.out.println("to json ===>"+JsonTool.fromDocumentToJsonNode(sibDocument).toString());
+		 
+		 
+		 
 		ConnectionEngine connectionEngine = new ConnectionEngine();
+		
+		/**
+
+		
 		// connectionEngine.setTEST_SITE("http://localhost:8080/chubb/getExternalWSCM");
 		// connectionEngine.testGet();
 		//
@@ -42,9 +47,7 @@ public class Main {
 		//
 		// connectionEngine.setTEST_SITE("http://localhost:8080/chubb/getS6TransactionExternal");
 		// connectionEngine.testGet();
-		/**
-		 * first test
-		 **/
+		
 		String categoryCode = MessageCategoryCodeFromChubb.PAYMENT_METHOD.getCategoryCode();
 		String countryCode = CountryCodeFromChubb.MEXICO.getMsgID();
 		// String countryCode =
@@ -61,26 +64,28 @@ public class Main {
 		connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
 				.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_MESSAGES_BY_CATEGORY_URL.getUrl()));
 		connectionEngine.withRequestEntity(getMessagesByCategoryRequestJson.toString()).testPost();
-		/**
-		 * second test
-		 **/
+		
+		//**/
+		
 		// second step
 //		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
-//		Boolean loadBankInfo = true;
-//		String splitKey = "MX18000102";
-//
-//		GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
-//		getSplitInfoRequest.setLanguageCode(languageCode);
-//		getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
-//		getSplitInfoRequest.setSplitKey(splitKey);
-//		JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
-//		System.out.println(" getSplitInfoRequestJson "+getSplitInfoRequestJson.toString());
-//
-//		connectionEngine = new ConnectionEngine();
-//		connectionEngine.setTEST_SITE(
-//				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
-//		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).testPost();
+		Boolean loadBankInfo = true;
+		String splitKey = "MX18000101";
+		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
+		GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
+		getSplitInfoRequest.setLanguageCode(languageCode);
+		getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
+		getSplitInfoRequest.setSplitKey(splitKey);
+		JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
+		System.out.println(" getSplitInfoRequestJson "+getSplitInfoRequestJson.toString());
 
+		connectionEngine = new ConnectionEngine();
+		connectionEngine.setTEST_SITE(
+				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
+		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).testPost();
+
+		
+		/**
 		
 //		example on how to process alta de usuario
 		JsonNode jsonNode = null;// this is from Norma
@@ -94,6 +99,7 @@ public class Main {
 				.consolidateUrl(ProvidedDevelopChubbControllerUrl.PROCESS_TRANSACTION_URL.getUrl()));
 		connectionEngine.withRequestEntity(processTransactionRequestJson.toString()).testPost();
 		
+		//*/
 	
 	}
 

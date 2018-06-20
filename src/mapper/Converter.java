@@ -14,7 +14,7 @@ import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.chubb.splitInfo.PaymentFrequency;
 import model.document.sib21.SIB21Document;
 
-public interface MapperConverter {
+public interface Converter {
 
 	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument();
 

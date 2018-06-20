@@ -3,7 +3,7 @@ package mapper;
 import model.document.chubb.s6Transaction.defaultValues.TransactionTypeCodeFromChubb;
 import model.document.sib21.SIB21Document;
 
-public abstract class AbstractMapper implements MapperConverter {
+public abstract class AbstractMapper implements Converter {
 
 	protected TransactionTypeCodeFromChubb transactionTypeCodeFromChubb = TransactionTypeCodeFromChubb.SALES;
 	protected SIB21Document sib21Document;
