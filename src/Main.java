@@ -47,11 +47,9 @@ public class Main {
 		//
 		// connectionEngine.setTEST_SITE("http://localhost:8080/chubb/getS6TransactionExternal");
 		// connectionEngine.testGet();
-		
+	
 		String categoryCode = MessageCategoryCodeFromChubb.PAYMENT_METHOD.getCategoryCode();
 		String countryCode = CountryCodeFromChubb.MEXICO.getMsgID();
-		// String countryCode =
-		// DefaultCountryCodeFromChubb.MEXICO.getCountryCode();
 		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
 
 		GetMessagesByCategoryRequest getMessagesByCategoryRequest = new GetMessagesByCategoryRequest();
@@ -66,12 +64,12 @@ public class Main {
 		connectionEngine.withRequestEntity(getMessagesByCategoryRequestJson.toString()).testPost();
 		
 		//**/
-		
+		//**
 		// second step
-//		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
-		Boolean loadBankInfo = true;
-		String splitKey = "MX18000101";
 		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
+		Boolean loadBankInfo = true;
+		String splitKey = "PE16003702";
+//		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
 		GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
 		getSplitInfoRequest.setLanguageCode(languageCode);
 		getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
@@ -83,10 +81,9 @@ public class Main {
 		connectionEngine.setTEST_SITE(
 				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
 		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).testPost();
-
+//**/
 		
 		/**
-		
 //		example on how to process alta de usuario
 		JsonNode jsonNode = null;// this is from Norma
 		SIB21Document sib21Document = new SIB21Document();

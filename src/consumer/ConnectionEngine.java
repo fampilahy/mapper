@@ -78,8 +78,9 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 
 	private void configureEngine() {
 
-		// proxy = "";
-		// proxyPort = 3129;
+		//peru
+//		 proxy = "200.48.210.5";
+//		 proxyPort = 53281;
 		httpClient = createClient();
 	}
 

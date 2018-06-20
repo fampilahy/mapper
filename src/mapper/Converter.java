@@ -29,7 +29,7 @@ public interface Converter {
 
 		String tranType = transactionTypeCodeFromChubb.getTranType();
 		String chgType = transactionTypeCodeFromChubb.getChgType();
-		Integer lineNum = 0;//TODO add value
+		Integer lineNum = 1;//TODO add value
 		Integer countryCd = CountryCodeFromChubb.MEXICO.getKey();
 		String campaign = "";//TODO add value
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document);
@@ -64,7 +64,6 @@ public interface Converter {
 		PaymentMethodCodeFromChubb paymentMethod = PaymentMethodCodeFromChubb.DEBITO_BANCARIO;
 		PaymentFrequencyCodeFromChubb paymentFrequency = PaymentFrequencyCodeFromChubb.ANUAL;
 		PaymentInfo paymentInfo = new PaymentInfo();
-		
 		paymentInfo.setPayMethod(paymentMethod.getKey());
 		paymentInfo.setPayFreq(paymentFrequency.getKey());
 		
