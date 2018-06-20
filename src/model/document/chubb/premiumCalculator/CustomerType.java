@@ -6,7 +6,7 @@ import java.util.Map;
 public class CustomerType {
 
 	private String VALUE;
-	private static Map TABLE = new HashMap();
+	private static Map<String, CustomerType> TABLE = new HashMap<String, CustomerType>();
 
 	// Constructor
 	protected CustomerType(String value) {
