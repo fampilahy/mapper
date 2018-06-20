@@ -25,12 +25,12 @@ public class Main {
 	public static void main(String[] args) {
 
 //		 test from json to object
-//		 SIB21Document sibDocument = new SIB21Document();
-//		 sibDocument = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/test.json", sibDocument);
-//		 System.out.println("==> " + sibDocument);
-//		 System.out.println("from json ===>"+sibDocument.getServicio().getBitacoraProcedimientoEjecutado());
-//		 
-//		 System.out.println("to json ===>"+JsonTool.fromDocumentToJsonNode(sibDocument).toString());
+		 SIB21Document sibDocument = new SIB21Document();
+		 sibDocument = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/test.json", sibDocument);
+		 System.out.println("==> " + sibDocument);
+		 System.out.println("from json ===>"+sibDocument.getServicio().getBitacoraProcedimientoEjecutado());
+		 
+		 System.out.println("to json ===>"+JsonTool.fromDocumentToJsonNode(sibDocument).toString());
 		 
 		 
 		 
@@ -63,7 +63,7 @@ public class Main {
 				.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_MESSAGES_BY_CATEGORY_URL.getUrl()));
 		connectionEngine.withRequestEntity(getMessagesByCategoryRequestJson.toString()).testPost();
 		
-		//**/
+		/**
 		//**
 		// second step
 		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
