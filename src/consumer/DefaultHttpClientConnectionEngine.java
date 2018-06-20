@@ -48,9 +48,9 @@ import tools.UrlConsolidator;
 
 public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine {
 
-	String TEST_SITE = null;
+	private String TEST_SITE = null;
 
-	static final int MAX_PAGE_RETRY_COUNT = 2;
+	private static final int MAX_PAGE_RETRY_COUNT = 2;
 
 	public String getTEST_SITE() {
 		return TEST_SITE;
@@ -122,15 +122,12 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 		return client;
 	}
 
-	PageRequest get(final String url) {
+	private PageRequest get(final String url) {
 		return new PageRequest().withMethod(HttpMethod.GET).withUrl(url);
 	}
 
-	PageRequest post(final String url, final String entity) {
+	private PageRequest post(final String url, final String entity) {
 		return new PageRequest().withMethod(HttpMethod.POST).withEntity(entity).withUrl(url);
-	}
-
-	void logStatistics() {
 	}
 
 	private final class HttpMethod {
@@ -138,7 +135,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 		public static final String POST = "POST";
 	}
 
-	class PageRequest {
+	private class PageRequest {
 		private String url;
 		private String entity;
 		private String method;
@@ -181,7 +178,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 		}
 	}
 
-	class PageResponse {
+	private class PageResponse {
 		private int statusCode;
 		String content;
 		private String location;
@@ -238,18 +235,18 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 		}
 	}
 
-	boolean isSuccess(PageResponse response) {
+	private boolean isSuccess(PageResponse response) {
 		return response != null && response.isSuccess();
 	}
 
-	PageRequest updateRequest(final PageResponse response, final PageRequest defaultRequest) {
+	private PageRequest updateRequest(final PageResponse response, final PageRequest defaultRequest) {
 		if (response != null && response.getLocation() != null) {
 			return defaultRequest.withUrl(response.getLocation());
 		}
 		return defaultRequest;
 	}
 
-	PageResponse send(final PageRequest request) throws Exception {
+	private PageResponse send(final PageRequest request) throws Exception {
 		PageResponse pageResponse = null;
 		try {
 			switch (request.getMethod()) {
@@ -409,7 +406,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 		return localContext;
 	}
 
-	PageResponse connection(final PageRequest request, final String type) {
+	private PageResponse connection(final PageRequest request, final String type) {
 		System.out.println("");
 		System.out.println("-----------------------------");
 		System.out.println("Connect on " + type + " url : " + request.getUrl());
@@ -442,7 +439,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 		return params;
 	}
 
-	String withException(Exception exc) {
+	private String withException(Exception exc) {
 		return " - Exc : " + exc;
 	}
 
