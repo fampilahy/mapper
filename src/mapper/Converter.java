@@ -1,5 +1,7 @@
 package mapper;
 
+import java.util.function.Function;
+
 import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentFrequencyCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentMethodCodeFromChubb;
@@ -14,6 +16,7 @@ import model.document.chubb.s6Transaction.defaultValues.TransactionTypeCodeFromC
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.chubb.splitInfo.PaymentFrequency;
 import model.document.sib21.SIB21Document;
+import model.document.sib21.Servicio;
 
 public interface Converter {
 
@@ -45,6 +48,11 @@ public interface Converter {
 
 		return processTransactionRequest;
 	}
+	
+	public static Servicio getServicio(final SIB21Document sib21Document){
+		return sib21Document!=null ? sib21Document.getServicio():null;
+	} 	
+	public static Function<SIB21Document,Servicio> getServicio = (  sib21Document) -> sib21Document != null ? sib21Document.getServicio(): null;
 	
 	//-----------------------
 	
