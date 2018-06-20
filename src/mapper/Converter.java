@@ -86,6 +86,7 @@ public interface Converter {
 	public static String getCustId(final SIB21Document sib21Document){
 		return null;
 	}
+		
 	public static CustType getCustType(final SIB21Document sib21Document){
 		return null;
 	}
@@ -99,6 +100,18 @@ public interface Converter {
 		return null;
 	}
 	public static String getFirstName(final SIB21Document sib21Document){
+		return null;
+	}
+	
+	//-----------------------
+	
+	public static CustProd getCustProd(final SIB21Document sib21Document){
+		return null;
+	}
+	public static String getProdCd(final SIB21Document sib21Document){
+		return null;
+	}
+	public static Integer getBenLv(final SIB21Document sib21Document){
 		return null;
 	}
 	
