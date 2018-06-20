@@ -15,4 +15,7 @@ public class AltaMapeador extends AbstractMapper {
 				this.transactionTypeCodeFromChubb);
 	}
 
+	
+	
+	
 }
