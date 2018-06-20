@@ -37,12 +37,14 @@ public interface Converter {
 		Product product = new Product();
 		product.setProdCd("1");
 		product.setCoverageCd(2);
-		Product[] products = {product};
+		Product[] products = {product};//TODO getProducts
 		
-		
-		Customer customer = new Customer();
+		Customer customer = getCustomer(sib21Document);
 //		customer.setCustId(custId);
 //		customer.setCustType(custType);
+		Customer[] customers = {customer};
+		
+		
 
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
 
@@ -111,6 +113,21 @@ public interface Converter {
 		return null;
 	}
 	public static Integer getBenLv(final SIB21Document sib21Document){
+		return null;
+	}
+	
+	//-----------------------
+	
+	//TODO Customers[].custAdds
+	//-----------------------
+	
+	public static Address[] getAdresses (final SIB21Document sib21Document){
+		return null;
+	}
+	public static Address getAddress(final SIB21Document sib21Document){
+		return null;
+	}
+	public static Address getEmail(final SIB21Document sib21Document){
 		return null;
 	}
 	
