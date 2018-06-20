@@ -86,7 +86,6 @@ public interface Converter {
 	public static String getCustId(final SIB21Document sib21Document){
 		return null;
 	}
-		
 	public static CustType getCustType(final SIB21Document sib21Document){
 		return null;
 	}
