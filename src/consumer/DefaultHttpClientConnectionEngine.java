@@ -46,7 +46,7 @@ import com.google.common.collect.Lists;
 
 import tools.UrlConsolidator;
 
-public  class ConnectionEngine extends AbstractConnectionEngine {
+public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine {
 
 	String TEST_SITE = null;
 
@@ -61,18 +61,18 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 		configureSiteDomain();
 	}
 
-	private String proxy;
+	private String proxy = null;
 	private int proxyPort = 0;
 	private String host;
 	private DefaultHttpClient httpClient;
 	private UrlConsolidator urlConsolidator;
 
-	public ConnectionEngine(String url) {
+	public DefaultHttpClientConnectionEngine(String url) {
 		this.TEST_SITE = url;
 		configureSiteDomain();
 	}
 
-	public ConnectionEngine() {
+	public DefaultHttpClientConnectionEngine() {
 		configureEngine();
 	}
 
@@ -290,7 +290,7 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 	private HttpGet createHttpGet(HttpParams params, PageRequest request) {
 		HttpGet httpGet = new HttpGet(request.getUrl());
 		httpGet.addHeader("Accept", "*/*");
-		httpGet.addHeader("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4"); // TODO
+		httpGet.addHeader("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4"); 
 		httpGet.addHeader("Connection", "keep-alive");
 		if (StringUtils.isNotBlank(request.getCookie()))
 			httpGet.addHeader("Cookie", request.getCookie());
@@ -304,7 +304,7 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 	private HttpPost createHttpPost(HttpParams params, PageRequest request) throws UnsupportedEncodingException {
 		HttpPost httpPost = new HttpPost(request.getUrl());
 		httpPost.addHeader("Accept", "*/*");
-		httpPost.addHeader("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4"); // TODO
+		httpPost.addHeader("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4"); 
 		httpPost.addHeader("Connection", "keep-alive");
 		httpPost.addHeader("Content-Type", "application/json");
 		if (StringUtils.isNotBlank(request.getCookie()))
@@ -442,16 +442,12 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 		return params;
 	}
 
-	private String withUrl(String url) {
-		return " - url : " + url;
-	}
-
 	String withException(Exception exc) {
 		return " - Exc : " + exc;
 	}
 
 	@Override
-	public void testGet() {
+	public void sendGet() {
 		PageRequest request = get(TEST_SITE);
 		try {
 			PageResponse testPage = connection(request, "user page");
@@ -464,7 +460,7 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 	}
 
 	@Override
-	public void testPost(String requestEntity) {
+	public void sendPost(String requestEntity) {
 		PageRequest request = post(TEST_SITE, requestEntity);
 		try {
 			PageResponse testPage = connection(request, "create some field page");
@@ -496,14 +492,14 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 		this.requestEntity = requestEntity;
 	}
 	
-//	requestEntity is same to request body
+//	requestEntity is the request body itself
 	public AbstractConnectionEngine withRequestEntity(String requestEntity){
 		this.requestEntity = requestEntity;
 		return this;
 	}
 
 	@Override
-	public void testPost() {
+	public void sendPost() {
 		PageRequest request = post(TEST_SITE, requestEntity);
 		try {
 			PageResponse testPage = connection(request, "create some field page");
@@ -514,5 +510,6 @@ public  class ConnectionEngine extends AbstractConnectionEngine {
 		}
 		
 	}
+	
 
 }

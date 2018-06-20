@@ -1,7 +1,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 
-import consumer.ConnectionEngine;
+import consumer.DefaultHttpClientConnectionEngine;
 import mapper.AbstractMapper;
 import mapper.AltaMapeador;
 import model.document.AbstractDocument;
@@ -34,7 +34,7 @@ public class Main {
 		 
 		 
 		 
-		ConnectionEngine connectionEngine = new ConnectionEngine();
+		DefaultHttpClientConnectionEngine connectionEngine = new DefaultHttpClientConnectionEngine();
 		
 		/**
 
@@ -77,10 +77,10 @@ public class Main {
 		JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
 		System.out.println(" getSplitInfoRequestJson "+getSplitInfoRequestJson.toString());
 
-		connectionEngine = new ConnectionEngine();
+		connectionEngine = new DefaultHttpClientConnectionEngine();
 		connectionEngine.setTEST_SITE(
 				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
-		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).testPost();
+		connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).sendPost();
 //**/
 		
 		/**

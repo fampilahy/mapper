@@ -1,20 +1,15 @@
 package consumer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import consumer.ConnectionEngine.PageRequest;
-import consumer.ConnectionEngine.PageResponse;
-
 //import consumer.ConnectionEngine.PageResponse;
 
 public abstract class AbstractConnectionEngine {
 
-	public abstract void testGet() ;
+	public abstract void sendGet() ;
 
-	public abstract void testPost(String strRequestEntity) ;
+	public abstract void sendPost(String strRequestEntity) ;
 //	protected abstract PageResponse connection(final PageRequest request, final String type) ;
 
 
-	public abstract void testPost();
+	public abstract void sendPost();
 
 }
