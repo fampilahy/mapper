@@ -1,4 +1,4 @@
-package consumer;
+package consumer.connector;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

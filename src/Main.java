@@ -1,7 +1,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 
-import consumer.DefaultHttpClientConnectionEngine;
+import consumer.connector.DefaultHttpClientConnectionEngine;
 import mapper.AbstractMapper;
 import mapper.SaleMapper;
 import model.document.AbstractDocument;

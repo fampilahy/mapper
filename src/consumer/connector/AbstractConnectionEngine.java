@@ -1,4 +1,4 @@
-package consumer;
+package consumer.connector;
 
 //import consumer.ConnectionEngine.PageResponse;
 
