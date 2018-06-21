@@ -1,3 +1,4 @@
+package consumer;
 
 
 public enum ProvidedDevelopChubbControllerUrl {
