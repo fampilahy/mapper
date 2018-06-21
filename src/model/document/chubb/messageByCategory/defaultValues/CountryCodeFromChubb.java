@@ -4,7 +4,9 @@ public enum CountryCodeFromChubb {
 
 	BRAZIL (101,"Brazil","BZ"),
 	MEXICO (159,"Mexico","MX"),
-	ARGENTINA(92,"Argentina","AR");
+	ARGENTINA(92,"Argentina","AR"),
+	PERU (168,"Peru","PE"),
+	USA (198,"USA","US");
 	
 	private Integer key;
 	private String description, msgID;

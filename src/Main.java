@@ -3,7 +3,7 @@ import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 
 import consumer.DefaultHttpClientConnectionEngine;
 import mapper.AbstractMapper;
-import mapper.AltaMapeador;
+import mapper.SaleMapper;
 import model.document.AbstractDocument;
 import model.document.chubb.ChubbDocument;
 import model.document.chubb.ExampleDocument;
@@ -48,7 +48,7 @@ public class Main {
 		// connectionEngine.setTEST_SITE("http://localhost:8080/chubb/getS6TransactionExternal");
 		// connectionEngine.testGet();
 	
-		String categoryCode = MessageCategoryCodeFromChubb.PAYMENT_METHOD.getCategoryCode();
+		String categoryCode = MessageCategoryCodeFromChubb.COUNTRY_CODE.getCategoryCode();
 		String countryCode = CountryCodeFromChubb.MEXICO.getMsgID();
 		Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
 
@@ -58,10 +58,10 @@ public class Main {
 		getMessagesByCategoryRequest.setLanguageCode(languageCode);
 		JsonNode getMessagesByCategoryRequestJson = JsonTool.fromDocumentToJsonNode(getMessagesByCategoryRequest);
 
-		connectionEngine = new ConnectionEngine();
+		connectionEngine = new DefaultHttpClientConnectionEngine();
 		connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
 				.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_MESSAGES_BY_CATEGORY_URL.getUrl()));
-		connectionEngine.withRequestEntity(getMessagesByCategoryRequestJson.toString()).testPost();
+		connectionEngine.withRequestEntity(getMessagesByCategoryRequestJson.toString()).sendPost();
 		
 		/**
 		//**

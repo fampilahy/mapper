@@ -26,12 +26,12 @@ public interface Converter {
 			final SIB21Document sib21Document, final TransactionTypeCodeFromChubb transactionTypeCodeFromChubb) {
 
 		S6Transaction s6Transaction = new S6Transaction();
-
+		
 		String tranType = transactionTypeCodeFromChubb.getTranType();
 		String chgType = transactionTypeCodeFromChubb.getChgType();
-		Integer lineNum = 1;//TODO add value
-		Integer countryCd = CountryCodeFromChubb.MEXICO.getKey();
-		String campaign = "";//TODO add value
+		Integer lineNum = getLineNum( sib21Document);
+		String countryCd = CountryCodeFromChubb.MEXICO.getMsgID();
+		String campaign = getCampaign( sib21Document);
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document);
 	
 		Product product = new Product();
@@ -58,6 +58,18 @@ public interface Converter {
 	
 	//-----------------------
 	
+	public static Integer getLineNum(SIB21Document sib21Document){
+		return 1;
+	}
+	
+	//-----------------------
+	
+	public static String getCampaign(SIB21Document sib21Document){
+		return "PE16003702";
+	}
+	
+	//-----------------------
+	
 	public static PaymentInfo getPaymentInfo(final SIB21Document sib21Document){
 		
 		//TODO take values from Norma doc and do the condition to change them to chubb doc
@@ -80,7 +92,10 @@ public interface Converter {
 	}
 	
 	//-----------------------
-	
+	public static Customer[] getCustomers(final SIB21Document sib21Document){
+		//TODO
+		return null;
+	}
 	public static Customer getCustomer(final SIB21Document sib21Document){
 		return null;
 	}

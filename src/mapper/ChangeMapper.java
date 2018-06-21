@@ -3,7 +3,7 @@ package mapper;
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.sib21.SIB21Document;
 
-public class BajaMapeador extends AbstractMapper {
+public class ChangeMapper extends AbstractMapper {
 
 	@Override
 	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument() {
