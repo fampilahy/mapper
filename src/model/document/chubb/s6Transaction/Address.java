@@ -20,6 +20,21 @@ public class Address extends ChubbDocument {
 	private String fax;
 	private String companyCd;
 	private String cell;
+	
+	public Address withAddrId(String addrId){
+		this.addrId = addrId;
+		return this;
+	}
+	
+	public Address withAddrType(Integer addrType){
+		this.addrType = addrType;
+		return this;
+	}
+	
+	public Address withLine1(String line1){
+		this.line1 = line1;
+		return this;
+	}
 
 	public Address() {
 	}

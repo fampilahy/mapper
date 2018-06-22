@@ -1,6 +1,8 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 
+import consumer.MappingStarter;
+import consumer.ProvidedDevelopChubbControllerUrl;
 import consumer.connector.DefaultHttpClientConnectionEngine;
 import mapper.AbstractMapper;
 import mapper.SaleMapper;
@@ -25,12 +27,12 @@ public class Main {
 	public static void main(String[] args) {
 
 //		 test from json to object
-		 SIB21Document sibDocument = new SIB21Document();
-		 sibDocument = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/test.json", sibDocument);
-		 System.out.println("==> " + sibDocument);
-		 System.out.println("from json ===>"+sibDocument.getServicio().getBitacoraProcedimientoEjecutado());
+		 SIB21Document sib21Document = new SIB21Document();
+		 sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/test.json", sib21Document);
+		 System.out.println("==> " + sib21Document);
+		 System.out.println("from json ===>"+sib21Document.getServicio().getBitacoraProcedimientoEjecutado());
 		 
-		 System.out.println("to json ===>"+JsonTool.fromDocumentToJsonNode(sibDocument).toString());
+		 System.out.println("to json ===>"+JsonTool.fromDocumentToJsonNode(sib21Document).toString());
 		 
 		 
 		 
@@ -47,6 +49,8 @@ public class Main {
 		//
 		// connectionEngine.setTEST_SITE("http://localhost:8080/chubb/getS6TransactionExternal");
 		// connectionEngine.testGet();
+	
+	
 	
 		String categoryCode = MessageCategoryCodeFromChubb.COUNTRY_CODE.getCategoryCode();
 		String countryCode = CountryCodeFromChubb.MEXICO.getMsgID();
@@ -85,18 +89,33 @@ public class Main {
 		
 		/**
 //		example on how to process alta de usuario
-		JsonNode jsonNode = null;// this is from Norma
-		SIB21Document sib21Document = new SIB21Document();
-		sib21Document = (SIB21Document) JsonTool.fromJsonNodeToDocument(jsonNode, sib21Document);
-		AbstractMapper mapper = new AltaMapeador(sib21Document);
+//		JsonNode jsonNode = null;// this is from Norma
+//		 sib21Document = new SIB21Document();
+//		sib21Document = (SIB21Document) JsonTool.fromJsonNodeToDocument(jsonNode, sib21Document);
+//		System.out.println("json ==> "+sib21Document.getServicio().getBitacoraProcedimientoEjecutado());
+		
+		
+		AbstractMapper mapper = new SaleMapper(sib21Document);
 		ProcessTransactionRequest processTransactionRequest = mapper.convertSIB21DocumentToChubbDocument();
+		
+		
+		
+		
 		JsonNode processTransactionRequestJson = JsonTool.fromDocumentToJsonNode(processTransactionRequest);
-		connectionEngine = new ConnectionEngine();
+		connectionEngine = new DefaultHttpClientConnectionEngine();
 		connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
 				.consolidateUrl(ProvidedDevelopChubbControllerUrl.PROCESS_TRANSACTION_URL.getUrl()));
-		connectionEngine.withRequestEntity(processTransactionRequestJson.toString()).testPost();
+		connectionEngine.withRequestEntity(processTransactionRequestJson.toString()).sendPost();
 		
 		//*/
+		
+		
+		
+		
+		MappingStarter mappingStarter = new MappingStarter();
+//		mappingStarter.setSib21Document(sib21Document);
+		mappingStarter.sendTransaction(sib21Document);
+		
 	
 	}
 
