@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.net.ssl.SSLException;
 
+import org.apache.commons.httpclient.HttpConnection;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,8 +26,13 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.GzipDecompressingEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpTrace;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.conn.params.ConnRouteParams;
@@ -50,7 +56,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 
 	private String TEST_SITE = null;
 
-	private static final int MAX_PAGE_RETRY_COUNT = 2;
+	private static final int MAX_PAGE_RETRY_COUNT = 0;
 
 	public String getTEST_SITE() {
 		return TEST_SITE;
@@ -261,6 +267,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 				pageResponse = responseHandler.handleResponse(postResponse);
 				break;
 			default:
+				HttpPatch traceRequest = null;  
 				System.err.println("Method '" + request.getMethod() + "' is not supported!");
 				break;
 			}
@@ -499,7 +506,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 	public void sendPost() {
 		PageRequest request = post(TEST_SITE, requestEntity);
 		try {
-			PageResponse testPage = connection(request, "create some field page");
+			PageResponse testPage = connection(request, "");
 			checkNotNull(testPage, "No testPage returned");
 			System.out.println(testPage.content);
 		} catch (Exception e) {
