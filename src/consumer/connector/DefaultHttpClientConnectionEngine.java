@@ -267,7 +267,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 				pageResponse = responseHandler.handleResponse(postResponse);
 				break;
 			default:
-				HttpPatch traceRequest = null;  
+				
 				System.err.println("Method '" + request.getMethod() + "' is not supported!");
 				break;
 			}
@@ -509,6 +509,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 			PageResponse testPage = connection(request, "");
 			checkNotNull(testPage, "No testPage returned");
 			System.out.println(testPage.content);
+			System.out.println("aqui");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
