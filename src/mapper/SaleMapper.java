@@ -13,10 +13,10 @@ public class SaleMapper extends AbstractMapper {
 	@Override
 	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument() {
 		return Converter.processDefaultConversionSIB21DocumentToChubbDocument(sib21Document,
-				this.transactionTypeCodeFromChubb, getRelation(sib21Document));
+				this.transactionTypeCodeFromChubb, getProductRelationSIB21Chubb(sib21Document));
 	}
 
-	public ProductRelationSIB21Chubb getRelation(SIB21Document sib21Document) {
+	public ProductRelationSIB21Chubb getProductRelationSIB21Chubb(SIB21Document sib21Document) {
 		return ProductRelationSIB21Chubb.ORO; // TODO for now we just implement
 												// ORO for test then we will add
 												// accordingly to time;
