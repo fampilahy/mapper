@@ -11,8 +11,6 @@ public class ResponseSplitInfoDeserializer extends AbstractDeserializer<Response
 	//this is a subject of memory usage, would implement a way to free up memory next time anyway the objects used are not too voluminous
 	public static final Map<String, ResponseSplitInfo> responsesSplitInfo = new HashMap<String, ResponseSplitInfo>();
 
-	
-	
 
 
 	@Override
@@ -22,6 +20,8 @@ public class ResponseSplitInfoDeserializer extends AbstractDeserializer<Response
 		ResponseSplitInfo responseSplitInfo = null;
 		if(responsesSplitInfo.containsKey(key)){
 			return responsesSplitInfo.get(key);
+		}else{
+			//process check on db or on file
 		}
 		return responseSplitInfo;
 		
@@ -29,6 +29,6 @@ public class ResponseSplitInfoDeserializer extends AbstractDeserializer<Response
 	}
 	
 	
-
+	
 
 }
