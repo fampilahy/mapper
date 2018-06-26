@@ -28,3 +28,12 @@ a continuer sur splitInfo su ChubbService
 first step will put all default values in resources
 
 
+MX18001101 (Gastos Funerarios Telemarketing)
+
+MX18001201 (Tarjeta Más Segura Telemarketing)
+
+MX18003001 (Vida Plus Oro)   ------------------------------------
+
+MX18003101 (Vida Plus Plata)
+
+MX18003201 (Vida Plus Bronce)
