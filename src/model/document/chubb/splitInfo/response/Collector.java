@@ -29,4 +29,46 @@ public class Collector extends ChubbDocument {
 	           this.inactiveDate = inactiveDate;
 	    }
 
+		public String getCollectorCode() {
+			return collectorCode;
+		}
+
+		public String getCollectorName() {
+			return collectorName;
+		}
+
+		public CreditCard[] getCreditCards() {
+			return creditCards;
+		}
+
+		public Bank[] getBanks() {
+			return banks;
+		}
+
+		public Calendar getInactiveDate() {
+			return inactiveDate;
+		}
+
+		public void setCollectorCode(String collectorCode) {
+			this.collectorCode = collectorCode;
+		}
+
+		public void setCollectorName(String collectorName) {
+			this.collectorName = collectorName;
+		}
+
+		public void setCreditCards(CreditCard[] creditCards) {
+			this.creditCards = creditCards;
+		}
+
+		public void setBanks(Bank[] banks) {
+			this.banks = banks;
+		}
+
+		public void setInactiveDate(Calendar inactiveDate) {
+			this.inactiveDate = inactiveDate;
+		}
+	    
+	    
+
 }
