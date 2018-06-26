@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 
 import consumer.MappingStarter;
 import consumer.ProvidedDevelopChubbControllerUrl;
+import consumer.ResponseSplitInfoDeserializer;
 import consumer.connector.DefaultHttpClientConnectionEngine;
 import mapper.AbstractMapper;
 import mapper.SaleMapper;
@@ -163,22 +164,15 @@ public class Main {
 		// MappingStarter mappingStarter = new MappingStarter();
 		// mappingStarter.sendTransaction(sib21Document);
 		
+		ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new ResponseSplitInfoDeserializer();
+		ProductRelationSIB21Chubb productRelationSIB21Chubb = ProductRelationSIB21Chubb.ORO;
+		
+		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbProductCode());
+		System.out.println("====>> "+responseSplitInfo.getSplitInfo().toString());
 		
 		
 		
-		
-		
-//		ProductRelationSIB21Chubb productRelationSIB21Chubb = ProductRelationSIB21Chubb.ORO;
-//		
-//		String filePath = "src/resources"+"/"+productRelationSIB21Chubb.getChubbProductCode()+".json";
-//		
-//		
-//		ResponseSplitInfo responseSplitInfo = new ResponseSplitInfo();
-//		responseSplitInfo =  (ResponseSplitInfo) JsonTool.fromFileJsonNodeToDocument(filePath, responseSplitInfo);
-//		
-//		
-//		
-//		System.out.println("===>  split info "+responseSplitInfo.getSplitInfo().toString());
+
 
 	}
 
