@@ -25,7 +25,6 @@ public class ResponseSplitInfoDeserializer extends AbstractDeserializer<Response
 		}
 		return responseSplitInfo;
 		
-		
 	}
 	
 	
