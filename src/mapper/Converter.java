@@ -3,8 +3,10 @@ package mapper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 
+import consumer.ResponseSplitInfoDeserializer;
 import model.document.chubb.messageByCategory.defaultValues.AddressTypeCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentFrequencyCodeFromChubb;
@@ -20,6 +22,7 @@ import model.document.chubb.s6Transaction.defaultValues.TransactionTypeCodeFromC
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.chubb.splitInfo.PaymentFrequency;
 import model.document.chubb.splitInfo.defaultValues.ProductRelationSIB21Chubb;
+import model.document.chubb.splitInfo.response.ResponseSplitInfo;
 import model.document.sib21.SIB21Document;
 import model.document.sib21.Servicio;
 
@@ -32,6 +35,13 @@ public interface Converter {
 	public static ProcessTransactionRequest processDefaultConversionSIB21DocumentToChubbDocument(
 			final SIB21Document sib21Document, final TransactionTypeCodeFromChubb transactionTypeCodeFromChubb, final ProductRelationSIB21Chubb  productRelationSIB21Chubb) {
 
+		ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new ResponseSplitInfoDeserializer();
+		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbProductCode());
+		if(responseSplitInfo ==null) return null;
+		
+		UUID uuid = UUID.randomUUID();
+		String strUUID = uuid.toString();
+		
 		S6Transaction s6Transaction = new S6Transaction();
 
 		String tranType = transactionTypeCodeFromChubb.getTranType();
@@ -46,16 +56,17 @@ public interface Converter {
 		String countryCd = CountryCodeFromChubb.MEXICO.getMsgID();
 		s6Transaction.setCountryCd(countryCd);
 
-		String campaign = getCampaign(sib21Document);
+		String campaign = getCampaign(responseSplitInfo);
 		s6Transaction.setCampaign(campaign);
 
-		PaymentInfo paymentInfo = getPaymentInfo(sib21Document);
+		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
 		s6Transaction.setPaymentInfo(paymentInfo);
 
-		Product product = new Product();
+		Product product = new Product()
 		product.setProdCd("1");
 		product.setCoverageCd(2);
-		Product[] products = { product };// TODO getProducts
+		
+		Product[] products = { product };
 		s6Transaction.setProducts(products);
 
 		Customer customer = getCustomer(sib21Document);
@@ -79,28 +90,37 @@ public interface Converter {
 	// -----------------------
 
 	public static Integer getLineNum(SIB21Document sib21Document) {
+		//According to Chubb agent during the last call on 22/06/2018 value would always be 1 (means first transaction inside the xml file)
 		return 1;
 	}
 
 	// -----------------------
 
-	public static String getCampaign(SIB21Document sib21Document) {
-		return "PE16003702";
+//	public static String getCampaign(SIB21Document sib21Document) {
+//		return "PE16003702";
+//	}
+	
+	public static String getCampaign(ResponseSplitInfo responseSplitInfo) {
+		return responseSplitInfo.getSplitInfo()==null?null:responseSplitInfo.getSplitInfo().getSplitKey();
 	}
 
+	public static Product[] getProducts(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo){
+		//TODO
+		return null;
+	}
+	
 	// -----------------------
 
-	public static PaymentInfo getPaymentInfo(final SIB21Document sib21Document) {
+	public static PaymentInfo getPaymentInfo(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo) {
 
-		// TODO take values from Norma doc and do the condition to change them
-		// to chubb doc
-		PaymentMethodCodeFromChubb paymentMethod = PaymentMethodCodeFromChubb.DEBITO_BANCARIO;//TODO
+		//according to the last call with Chubb agent on 22/06/2018 value will always be BORDEREAUX so that the system wont ask for additional information
+		PaymentMethodCodeFromChubb paymentMethod = PaymentMethodCodeFromChubb.BORDEREAUX;//TODO
 		// PaymentFrequencyCodeFromChubb paymentFrequency =
 		// PaymentFrequencyCodeFromChubb.ANUAL;
 		PaymentInfo paymentInfo = new PaymentInfo();
-		paymentInfo.setPayMethod(paymentMethod.getKey());// TODO get payment
-															// method
-		paymentInfo.setPayFreq(getPaymentFreq(sib21Document));
+		paymentInfo.setPayMethod(paymentMethod.getKey());
+															
+		paymentInfo.setPayFreq(getPaymentFreq(sib21Document,responseSplitInfo));
 
 		return paymentInfo;
 	}
@@ -109,7 +129,11 @@ public interface Converter {
 		return 0;
 	}
 
-	public static Integer getPaymentFreq(final SIB21Document sib21Document) {
+	public static Integer getPaymentFreq(final SIB21Document sib21Document, final ResponseSplitInfo responseSplitInfo) {
+		//According to last call with Chubb agent on 22/06/2018 payment frequencies are related to Product definition
+		
+		
+		
 		Servicio servicio = sib21Document.getServicio();
 		if (servicio == null)
 			return null;
@@ -156,7 +180,25 @@ public interface Converter {
 			break;
 		}
 
-		return payFreq;
+		
+		
+		return validatePaymentFrequencyCode(payFreq,responseSplitInfo);
+	}
+	
+	public static Integer validatePaymentFrequencyCode(Integer payFreq, ResponseSplitInfo responseSplitInfo ){
+		if(payFreq==null || responseSplitInfo ==null || responseSplitInfo.getSplitInfo()==null)return null;
+		PaymentFrequency[] availablePaymentFrequencies = responseSplitInfo.getSplitInfo().getPaymentFrequencies();
+		if(availablePaymentFrequencies==null ||availablePaymentFrequencies.length==0 )return null;
+		for(PaymentFrequency availablePaymentFrequency : availablePaymentFrequencies){
+			//means paymentFrequencyCode from SIB21 is accurate to one of Chub available payment frequency for the current campaign
+			if(payFreq==availablePaymentFrequency.getPaymentFrequencyCode()) return payFreq;
+		}
+		return null;
+	}
+	
+	
+	public static PaymentFrequency[] getAvailableAvailablePaymentFrequencies(ResponseSplitInfo responseSplitInfo){
+		return responseSplitInfo==null?null: responseSplitInfo.getSplitInfo().getPaymentFrequencies();
 	}
 
 	// -----------------------
