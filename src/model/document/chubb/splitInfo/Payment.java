@@ -1,9 +1,9 @@
 package model.document.chubb.splitInfo;
 
 import java.util.Calendar;
-import java.util.stream.Collector;
 
 import model.document.chubb.ChubbDocument;
+import model.document.chubb.splitInfo.response.Collector;
 
 public class Payment extends ChubbDocument {
 

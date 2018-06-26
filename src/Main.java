@@ -14,7 +14,9 @@ import model.document.chubb.messageByCategory.defaultValues.LanguageCodeFromChub
 import model.document.chubb.messageByCategory.defaultValues.MessageCategoryCodeFromChubb;
 import model.document.chubb.messageByCategory.request.GetMessagesByCategoryRequest;
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
+import model.document.chubb.splitInfo.defaultValues.ProductRelationSIB21Chubb;
 import model.document.chubb.splitInfo.request.GetSplitInfoRequest;
+import model.document.chubb.splitInfo.response.ResponseSplitInfo;
 import model.document.sib21.SIB21Document;
 import tools.JsonTool;
 import tools.UrlConsolidator;
@@ -94,24 +96,24 @@ public class Main {
 		// splitKey = "MX18003101";
 		// splitKey = "MX18003201"; //todos en error 500
 
-		for (String splitKey : splitKeys) {
-			System.out.println("-----------------------------------------");
-			System.out.println("");
-
-			// Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
-			GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
-			getSplitInfoRequest.setLanguageCode(languageCode);
-			getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
-			getSplitInfoRequest.setSplitKey(splitKey);
-			JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
-			System.out.println(" getSplitInfoRequestJson " + getSplitInfoRequestJson.toString());
-
-			connectionEngine = new DefaultHttpClientConnectionEngine();
-			connectionEngine.setTEST_SITE(
-					URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
-			connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).sendPost();
-
-		}
+//		for (String splitKey : splitKeys) {
+//			System.out.println("-----------------------------------------");
+//			System.out.println("");
+//
+//			// Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
+//			GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
+//			getSplitInfoRequest.setLanguageCode(languageCode);
+//			getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
+//			getSplitInfoRequest.setSplitKey(splitKey);
+//			JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
+//			System.out.println(" getSplitInfoRequestJson " + getSplitInfoRequestJson.toString());
+//
+//			connectionEngine = new DefaultHttpClientConnectionEngine();
+//			connectionEngine.setTEST_SITE(
+//					URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
+//			connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).sendPost();
+//
+//		}
 
 		// **/
 
@@ -160,6 +162,21 @@ public class Main {
 
 		// MappingStarter mappingStarter = new MappingStarter();
 		// mappingStarter.sendTransaction(sib21Document);
+		
+		
+		
+		
+		
+		
+		ProductRelationSIB21Chubb productRelationSIB21Chubb = ProductRelationSIB21Chubb.ORO;
+		
+		String filePath = "src/resources"+"/"+productRelationSIB21Chubb.getChubbProductCode()+".json";
+		
+		
+		ResponseSplitInfo responseSplitInfo = new ResponseSplitInfo();
+		responseSplitInfo =  (ResponseSplitInfo) JsonTool.fromFileJsonNodeToDocument(filePath, responseSplitInfo);
+		
+		System.out.println("===>  split info "+responseSplitInfo);
 
 	}
 
