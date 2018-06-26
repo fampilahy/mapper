@@ -31,6 +31,7 @@ public class Product extends ChubbDocument{
     private ProductCoverage[] coverages;
     private ProductPremium[] premiums;
     private Boolean validateAge;
+    private String expirationDate;
 
     public Product() {
     }
@@ -62,7 +63,8 @@ public class Product extends ChubbDocument{
            ProductScheduledBenefit[] scheduledBenefits,
            ProductCoverage[] coverages,
            ProductPremium[] premiums,
-           Boolean validateAge) {
+           Boolean validateAge,
+           String expirationDate) {
            this.productId = productId;
            this.productDescription = productDescription;
            this.required = required;
@@ -90,7 +92,16 @@ public class Product extends ChubbDocument{
            this.coverages = coverages;
            this.premiums = premiums;
            this.validateAge = validateAge;
+           this.expirationDate = expirationDate;
     }
+    
+	public String getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(String expirationDate) {
+		this.expirationDate = expirationDate;
+	}
 
 	public String getProductId() {
 		return productId;
@@ -307,7 +318,5 @@ public class Product extends ChubbDocument{
 	public void setValidateAge(Boolean validateAge) {
 		this.validateAge = validateAge;
 	}
-	
-    
     
 }

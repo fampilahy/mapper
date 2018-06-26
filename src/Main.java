@@ -176,7 +176,9 @@ public class Main {
 		ResponseSplitInfo responseSplitInfo = new ResponseSplitInfo();
 		responseSplitInfo =  (ResponseSplitInfo) JsonTool.fromFileJsonNodeToDocument(filePath, responseSplitInfo);
 		
-		System.out.println("===>  split info "+responseSplitInfo);
+		
+		
+		System.out.println("===>  split info "+responseSplitInfo.getSplitInfo().toString());
 
 	}
 

@@ -1,5 +1,6 @@
 package model.document.chubb.splitInfo.response;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import model.document.chubb.ChubbDocument;
 import model.document.chubb.messageByCategory.Product;
@@ -374,4 +375,28 @@ public class SplitInfo extends ChubbDocument {
 		this.sourceListDescription = sourceListDescription;
 	}
 
+	@Override
+	public String toString() {
+		return "SplitInfo [splitKey=" + splitKey + ", splitDescription=" + splitDescription + ", displayStatusCode="
+				+ displayStatusCode + ", sponsorCode=" + sponsorCode + ", splitType=" + splitType + ", sponsorName="
+				+ sponsorName + ", prodPackage=" + prodPackage + ", prodPackageDescription=" + prodPackageDescription
+				+ ", prodPackageMarketingDesc=" + prodPackageMarketingDesc + ", policyPrefix=" + policyPrefix
+				+ ", billNow=" + billNow + ", reconcileNow=" + reconcileNow + ", currencyCode=" + currencyCode
+				+ ", currencyDescription=" + currencyDescription + ", lob=" + lob + ", lobDescription=" + lobDescription
+				+ ", paymentFrequencies=" + Arrays.toString(paymentFrequencies) + ", payments="
+				+ Arrays.toString(payments) + ", products=" + Arrays.toString(products) + ", primaryMediaCode="
+				+ primaryMediaCode + ", primaryMediaDescription=" + primaryMediaDescription + ", marketingApproachCode="
+				+ marketingApproachCode + ", marketingApproachDescription=" + marketingApproachDescription
+				+ ", plannedLaunchDate=" + plannedLaunchDate + ", solicitationCostRequired=" + solicitationCostRequired
+				+ ", policyTransactionCode=" + policyTransactionCode + ", policyEffectiveDate=" + policyEffectiveDate
+				+ ", minimumProductNumberRequired=" + minimumProductNumberRequired + ", maximumProductNumberRequired="
+				+ maximumProductNumberRequired + ", premiumInfoLink=" + premiumInfoLink + ", campaignStatus="
+				+ campaignStatus + ", approvedCode=" + approvedCode + ", actualLaunchDate=" + actualLaunchDate
+				+ ", policyTransactionDescription=" + policyTransactionDescription + ", sourceListDescription="
+				+ sourceListDescription + "]";
+	}
+
+	
+	
+	
 }
