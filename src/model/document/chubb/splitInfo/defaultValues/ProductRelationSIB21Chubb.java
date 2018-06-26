@@ -39,6 +39,4 @@ public enum ProductRelationSIB21Chubb {
 		this.chubbProductCode = chubbProductCode;
 	}
 
-	
-
 }
