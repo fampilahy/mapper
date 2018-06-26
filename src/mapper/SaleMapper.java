@@ -1,6 +1,7 @@
 package mapper;
 
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
+import model.document.chubb.splitInfo.defaultValues.ProductRelationSIB21Chubb;
 import model.document.sib21.SIB21Document;
 
 public class SaleMapper extends AbstractMapper {
@@ -11,14 +12,14 @@ public class SaleMapper extends AbstractMapper {
 
 	@Override
 	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument() {
-		return Converter.processDefaultConvertSIB21DocumentToChubbDocument(sib21Document,
-				this.transactionTypeCodeFromChubb);
+		return Converter.processDefaultConversionSIB21DocumentToChubbDocument(sib21Document,
+				this.transactionTypeCodeFromChubb, getRelation(sib21Document));
 	}
 
-	
-	
-	
+	public ProductRelationSIB21Chubb getRelation(SIB21Document sib21Document) {
+		return ProductRelationSIB21Chubb.ORO; // TODO for now we just implement
+												// ORO for test then we will add
+												// accordingly to time;
+	}
+
 }
-
-
-

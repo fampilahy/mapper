@@ -19,6 +19,7 @@ import model.document.chubb.s6Transaction.S6Transaction;
 import model.document.chubb.s6Transaction.defaultValues.TransactionTypeCodeFromChubb;
 import model.document.chubb.s6Transaction.request.ProcessTransactionRequest;
 import model.document.chubb.splitInfo.PaymentFrequency;
+import model.document.chubb.splitInfo.defaultValues.ProductRelationSIB21Chubb;
 import model.document.sib21.SIB21Document;
 import model.document.sib21.Servicio;
 
@@ -28,21 +29,21 @@ public interface Converter {
 
 	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument();
 
-	public static ProcessTransactionRequest processDefaultConvertSIB21DocumentToChubbDocument(
-			final SIB21Document sib21Document, final TransactionTypeCodeFromChubb transactionTypeCodeFromChubb) {
+	public static ProcessTransactionRequest processDefaultConversionSIB21DocumentToChubbDocument(
+			final SIB21Document sib21Document, final TransactionTypeCodeFromChubb transactionTypeCodeFromChubb, final ProductRelationSIB21Chubb  productRelationSIB21Chubb) {
 
 		S6Transaction s6Transaction = new S6Transaction();
 
 		String tranType = transactionTypeCodeFromChubb.getTranType();
 		s6Transaction.setTranType(tranType);
 
-		String chgType = transactionTypeCodeFromChubb.getChgType();
+		String chgType = transactionTypeCodeFromChubb.getChgType(); //should be empty string for sale
 		s6Transaction.setChgType(chgType);
 
 		Integer lineNum = getLineNum(sib21Document);
 		s6Transaction.setLineNum(lineNum);
 
-		String countryCd = CountryCodeFromChubb.PERU.getMsgID();
+		String countryCd = CountryCodeFromChubb.MEXICO.getMsgID();
 		s6Transaction.setCountryCd(countryCd);
 
 		String campaign = getCampaign(sib21Document);
