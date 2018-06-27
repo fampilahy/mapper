@@ -112,16 +112,11 @@ public interface Converter {
 	// -----------------------
 
 	public static PaymentInfo getPaymentInfo(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo) {
-
 		//according to the last call with Chubb agent on 22/06/2018 value will always be BORDEREAUX so that the system wont ask for additional information
-		PaymentMethodCodeFromChubb paymentMethod = PaymentMethodCodeFromChubb.BORDEREAUX;//TODO
-		// PaymentFrequencyCodeFromChubb paymentFrequency =
-		// PaymentFrequencyCodeFromChubb.ANUAL;
+		PaymentMethodCodeFromChubb paymentMethod = PaymentMethodCodeFromChubb.BORDEREAUX;
 		PaymentInfo paymentInfo = new PaymentInfo();
 		paymentInfo.setPayMethod(paymentMethod.getKey());
-															
 		paymentInfo.setPayFreq(getPaymentFreq(sib21Document,responseSplitInfo));
-
 		return paymentInfo;
 	}
 
@@ -131,9 +126,6 @@ public interface Converter {
 
 	public static Integer getPaymentFreq(final SIB21Document sib21Document, final ResponseSplitInfo responseSplitInfo) {
 		//According to last call with Chubb agent on 22/06/2018 payment frequencies are related to Product definition
-		
-		
-		
 		Servicio servicio = sib21Document.getServicio();
 		if (servicio == null)
 			return null;
@@ -179,8 +171,6 @@ public interface Converter {
 		default:
 			break;
 		}
-
-		
 		
 		return validatePaymentFrequencyCode(payFreq,responseSplitInfo);
 	}
