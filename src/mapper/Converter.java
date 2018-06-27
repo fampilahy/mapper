@@ -62,11 +62,7 @@ public interface Converter {
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
 		s6Transaction.setPaymentInfo(paymentInfo);
 
-		Product product = new Product();
-		product.setProdCd("1");
-		product.setCoverageCd(2);
-		
-		Product[] products = { product };
+		Product[] products = getProducts( responseSplitInfo);
 		s6Transaction.setProducts(products);
 
 		Customer customer = getCustomer(sib21Document);
@@ -104,7 +100,7 @@ public interface Converter {
 		return responseSplitInfo.getSplitInfo()==null?null:responseSplitInfo.getSplitInfo().getSplitKey();
 	}
 
-	public static Product[] getProducts(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo){
+	public static Product[] getProducts(ResponseSplitInfo responseSplitInfo){
 		if (responseSplitInfo==null||responseSplitInfo.getSplitInfo()==null||responseSplitInfo.getSplitInfo().getProducts()==null) return null;
 		List<Product> products = new ArrayList<Product>();
 		Product product = buildProduct(responseSplitInfo);
