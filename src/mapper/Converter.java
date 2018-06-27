@@ -105,8 +105,21 @@ public interface Converter {
 	}
 
 	public static Product[] getProducts(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo){
-		//TODO
-		return null;
+		if (responseSplitInfo==null||responseSplitInfo.getSplitInfo()==null||responseSplitInfo.getSplitInfo().getProducts()==null) return null;
+		List<Product> products = new ArrayList<Product>();
+		Product product = buildProduct(responseSplitInfo);
+		if(product==null) return null;
+		products.add(product);
+		return products.isEmpty()?null: (Product[])products.toArray();
+	}
+	
+	public static Product buildProduct(ResponseSplitInfo responseSplitInfo){
+		//SIB21 only allow one sale
+		Product product = null;
+		if (responseSplitInfo==null||responseSplitInfo.getSplitInfo()==null||responseSplitInfo.getSplitInfo().getProducts()==null||responseSplitInfo.getSplitInfo().getProducts()[0].getProductId()==null) return null;
+		product = new Product();
+		product.setProdCd(responseSplitInfo.getSplitInfo().getProducts()[0].getProductId());
+		return product;
 	}
 	
 	// -----------------------
