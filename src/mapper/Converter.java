@@ -137,21 +137,21 @@ public interface Converter {
 
 		switch (tmp_NumPag) {
 
-		case 1: // do action here MENSUAL
+		case 1: 
 			payFreq = PaymentFrequencyCodeFromChubb.MENSUAL.getKey();
 			break;
 
 		case 2: // do action here BIMESTRAL
 			break;
 
-		case 3: // do action here TRIMESTRAL
+		case 3: 
 			payFreq = PaymentFrequencyCodeFromChubb.TRIMESTRAL.getKey();
 			break;
 
 		case 4: // do action here TETRAMESTRAL
 			break;
 
-		case 5: // do action here SEMESTRAL
+		case 5: 
 			payFreq = PaymentFrequencyCodeFromChubb.SEMESTRAL.getKey();
 			break;
 
