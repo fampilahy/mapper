@@ -224,7 +224,7 @@ public interface Converter {
 		return null;
 	}
 
-	public static String getLasName(final SIB21Document sib21Document) {
+	public static String getLastName(final SIB21Document sib21Document) {
 		return null;
 	}
 

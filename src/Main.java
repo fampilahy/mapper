@@ -164,10 +164,10 @@ public class Main {
 		// MappingStarter mappingStarter = new MappingStarter();
 		// mappingStarter.sendTransaction(sib21Document);
 		
-		ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new ResponseSplitInfoDeserializer();
-		ProductRelationSIB21Chubb productRelationSIB21Chubb = ProductRelationSIB21Chubb.ORO;
-		
-		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbProductCode());
+//		ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new ResponseSplitInfoDeserializer();
+//		ProductRelationSIB21Chubb productRelationSIB21Chubb = ProductRelationSIB21Chubb.ORO;
+//		
+//		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbProductCode());
 //		System.out.println("====>> "+responseSplitInfo.getSplitInfo().toString());
 		
 		
