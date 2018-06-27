@@ -65,10 +65,8 @@ public interface Converter {
 		Product[] products = getProducts( responseSplitInfo);
 		s6Transaction.setProducts(products);
 
-		Customer customer = getCustomer(sib21Document);
-		// customer.setCustId(custId);
-		// customer.setCustType(custType);
-		Customer[] customers = { customer };
+		Customer[] customers = getCustomers(sib21Document,responseSplitInfo,strUUID);	
+		s6Transaction.setCustomers(customers);
 
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
 		processTransactionRequest.setTransaction(s6Transaction);
@@ -201,7 +199,7 @@ public interface Converter {
 	}
 
 	// -----------------------
-	public static Customer[] getCustomers(final SIB21Document sib21Document) {
+	public static Customer[] getCustomers(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo,String strUUID) {
 		// TODO
 		return null;
 	}
