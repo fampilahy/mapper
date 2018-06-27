@@ -168,7 +168,7 @@ public class Main {
 		ProductRelationSIB21Chubb productRelationSIB21Chubb = ProductRelationSIB21Chubb.ORO;
 		
 		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbProductCode());
-		System.out.println("====>> "+responseSplitInfo.getSplitInfo().toString());
+//		System.out.println("====>> "+responseSplitInfo.getSplitInfo().toString());
 		
 		
 		

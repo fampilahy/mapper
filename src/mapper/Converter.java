@@ -62,7 +62,7 @@ public interface Converter {
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
 		s6Transaction.setPaymentInfo(paymentInfo);
 
-		Product product = new Product()
+		Product product = new Product();
 		product.setProdCd("1");
 		product.setCoverageCd(2);
 		
@@ -254,39 +254,38 @@ public interface Converter {
 	// TODO Customers[].custAdds
 	// -----------------------
 
-	public static Address[] getAdresses(final SIB21Document sib21Document) {
+	public static Address[] getAdresses(final SIB21Document sib21Document, final String strUUID) {
 
 		List<Address> addresses = new ArrayList<Address>();
-		Address address = getAddress(sib21Document);
+		Address address = getAddress(sib21Document,strUUID);
 
 		if (address != null)
 			addresses.add(address);
 
-		Address email = getEmail(sib21Document);
+		Address email = getEmail(sib21Document,strUUID);
 		if (email != null)
 			addresses.add(email);
 
 		return !addresses.isEmpty() ? (Address[]) addresses.toArray() : null;
 	}
 
-	public static Address getAddress(final SIB21Document sib21Document) {
-		return sib21Document.getServicio() == null ? null : buildAddress(sib21Document);
+	public static Address getAddress(final SIB21Document sib21Document, final String strUUID) {
+		return sib21Document.getServicio() == null ? null : (new Address()).withAddrId(strUUID).withAddrType(AddressTypeCodeFromChubb.HOME.getKey()).withLine1(buildAddress(sib21Document));
 	}
 
-	public static Address buildAddress(final SIB21Document sib21Document) {
-		if( sib21Document.getServicio() == null) return null;
-		
-		
-		
-		
-		
-		return null;
+	public static String buildAddress(final SIB21Document sib21Document) {
+		String address = null;
+		if(sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_CalNum()==null||sib21Document.getServicio().getTmp_CalNum().equals("")) return null;
+		address = sib21Document.getServicio().getTmp_CalNum();
+		address += sib21Document.getServicio().getTmp_Coloni()==null?"":SPACE+sib21Document.getServicio().getTmp_Coloni();
+		address += sib21Document.getServicio().getTmp_Locali()==null?"":SPACE+sib21Document.getServicio().getTmp_Locali();
+		return address += sib21Document.getServicio().getTmp_Entida()==null?"":SPACE+sib21Document.getServicio().getTmp_Entida();
 	}
 
-	public static Address getEmail(final SIB21Document sib21Document) {
+	public static Address getEmail(final SIB21Document sib21Document, final String strUUID) {
 		// TODO change the addrId
 		return sib21Document.getServicio() == null ? null
-				: (new Address()).withAddrId("EMAIL").withAddrType(AddressTypeCodeFromChubb.MAIL.getKey())
+				: (new Address()).withAddrId(strUUID).withAddrType(AddressTypeCodeFromChubb.MAIL.getKey())
 						.withLine1(sib21Document.getServicio().getTmp_Email());
 	}
 	
