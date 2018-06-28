@@ -37,13 +37,10 @@ public class Main {
 		System.out.println("UIID " + strUuid);
 
 		// test from json to object
-		// SIB21Document sib21Document = new SIB21Document();
-		// sib21Document = (SIB21Document)
-		// JsonTool.fromFileJsonNodeToDocument("src/resources/test.json",
-		// sib21Document);
-		// System.out.println("==> " + sib21Document);
-		// System.out.println("from json
-		// ===>"+sib21Document.getServicio().getBitacoraProcedimientoEjecutado());
+		SIB21Document sib21Document = new SIB21Document();
+		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPrime.json", sib21Document);
+		 System.out.println("==> " + sib21Document);
+		 System.out.println("from json ===>"+sib21Document.getServicio().getBitacoraProcedimientoEjecutado());
 		//
 		// System.out.println("to json
 		// ===>"+JsonTool.fromDocumentToJsonNode(sib21Document).toString());
@@ -84,14 +81,15 @@ public class Main {
 		// second step
 		Integer languageCode = LanguageCodeFromChubb.ENGLISH.getKey();
 		Boolean loadBankInfo = false;
-		
-		String[] splitKeys = { "MX18003101"};
-//		String[] splitKeys = { "PE16003702"};
-//		String[] splitKeys = { "MX18001101"};
-//		String[] splitKeys = { "PE16003702", "MX18001101", "MX18001201", "MX18003001", "MX18003101", "MX18003201" };
 
-//		 String splitKey = "PE16003702"; //unauthorized
-//		 splitKey = "MX18001101";
+		String[] splitKeys = { "MX18003101" };
+		// String[] splitKeys = { "PE16003702"};
+		// String[] splitKeys = { "MX18001101"};
+		// String[] splitKeys = { "PE16003702", "MX18001101", "MX18001201",
+		// "MX18003001", "MX18003101", "MX18003201" };
+
+		// String splitKey = "PE16003702"; //unauthorized
+		// splitKey = "MX18001101";
 		// splitKey = "MX18001201";
 		// splitKey = "MX18003001";
 		// splitKey = "MX18003101";
@@ -161,18 +159,18 @@ public class Main {
 		// connectionEngine.withRequestEntity(processMappingAndTransactionNode.toString()).sendPost();
 		//
 
-		// MappingStarter mappingStarter = new MappingStarter();
-		// mappingStarter.sendTransaction(sib21Document);
-		
-//		ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new ResponseSplitInfoDeserializer();
-//		ProductRelationSIB21Chubb productRelationSIB21Chubb = ProductRelationSIB21Chubb.ORO;
-//		
-//		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbProductCode());
-//		System.out.println("====>> "+responseSplitInfo.getSplitInfo().toString());
-		
-		
-		
+		 MappingStarter mappingStarter = new MappingStarter();
+		 mappingStarter.sendTransaction(sib21Document);
 
+		// ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new
+		// ResponseSplitInfoDeserializer();
+		// ProductRelationSIB21Chubb productRelationSIB21Chubb =
+		// ProductRelationSIB21Chubb.ORO;
+		//
+		// ResponseSplitInfo responseSplitInfo =
+		// responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbProductCode());
+		// System.out.println("====>>
+		// "+responseSplitInfo.getSplitInfo().toString());
 
 	}
 

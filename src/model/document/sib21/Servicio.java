@@ -35,6 +35,29 @@ public class Servicio extends AbstractSIB21Document {
 	private String tmp_Paren1;
 	private String tmp_Porce1;
 	private String tmp_Nombr2;
+	private String tmp_Paren2;
+	private String tmp_Porce2;
+	private String tmp_Nombr3;
+	private String tmp_Paren3;
+	private String tmp_Porce3;
+	private String tmp_Nombr4;
+	private String tmp_Paren4;
+	private String tmp_Porce4;
+	private String tmp_RieCal;
+	private String tmp_RieCol;
+	private String tmp_RieLoc;
+	private String tmp_RieEnt;
+	private String tmp_RieCop;
+	private String tmp_RieTel;
+	private String tmp_GirDes;
+	private String tmp_CodPos;
+	private String tmp_EmaAdi;
+	private Float tmp_CelAdi;
+	private String tmp_Parent;
+	private String tmp_FecMod;
+	private String tmp_MotCan;
+	private String tmp_FecCan;
+	private String bitacoraProcedimientoEjecutado;
 
 	public String getTmp_NumCom() {
 		return tmp_NumCom;
@@ -42,6 +65,30 @@ public class Servicio extends AbstractSIB21Document {
 
 	public Float getTmp_NumCon() {
 		return tmp_NumCon;
+	}
+
+	public String getTmp_FecMod() {
+		return tmp_FecMod;
+	}
+
+	public String getTmp_MotCan() {
+		return tmp_MotCan;
+	}
+
+	public String getTmp_FecCan() {
+		return tmp_FecCan;
+	}
+
+	public void setTmp_FecMod(String tmp_FecMod) {
+		this.tmp_FecMod = tmp_FecMod;
+	}
+
+	public void setTmp_MotCan(String tmp_MotCan) {
+		this.tmp_MotCan = tmp_MotCan;
+	}
+
+	public void setTmp_FecCan(String tmp_FecCan) {
+		this.tmp_FecCan = tmp_FecCan;
 	}
 
 	public String getTmp_NumPro() {
@@ -444,29 +491,31 @@ public class Servicio extends AbstractSIB21Document {
 		this.bitacoraProcedimientoEjecutado = bitacoraProcedimientoEjecutado;
 	}
 
-	private String tmp_Paren2;
-	private String tmp_Porce2;
-	private String tmp_Nombr3;
-	private String tmp_Paren3;
-	private String tmp_Porce3;
-	private String tmp_Nombr4;
-	private String tmp_Paren4;
-	private String tmp_Porce4;
-	private String tmp_RieCal;
-	private String tmp_RieCol;
-	private String tmp_RieLoc;
-	private String tmp_RieEnt;
-	private String tmp_RieCop;
-	private String tmp_RieTel;
-	private String tmp_GirDes;
-	private String tmp_CodPos;
-	private String tmp_EmaAdi;
-	private Float tmp_CelAdi;
-	private String tmp_Parent;
-	private String bitacoraProcedimientoEjecutado;
-
 	public Servicio() {
 
+	}
+
+	@Override
+	public String toString() {
+		return "Servicio [tmp_NumCon=" + tmp_NumCon + ", tmp_NumCom=" + tmp_NumCom + ", tmp_NumPro=" + tmp_NumPro
+				+ ", tmp_NumPol=" + tmp_NumPol + ", tmp_Asegur=" + tmp_Asegur + ", tmp_DesPro=" + tmp_DesPro
+				+ ", tmp_Nombre=" + tmp_Nombre + ", tmp_ApePat=" + tmp_ApePat + ", tmp_ApeMat=" + tmp_ApeMat
+				+ ", tmp_FecNac=" + tmp_FecNac + ", tmp_Edad=" + tmp_Edad + ", tmp_RFC=" + tmp_RFC + ", tmp_Email="
+				+ tmp_Email + ", tmp_Telefo=" + tmp_Telefo + ", tmp_CalNum=" + tmp_CalNum + ", tmp_Coloni=" + tmp_Coloni
+				+ ", tmp_Locali=" + tmp_Locali + ", tmp_Entida=" + tmp_Entida + ", tmp_PriAnu=" + tmp_PriAnu
+				+ ", tmp_NumPag=" + tmp_NumPag + ", tmp_PriPag=" + tmp_PriPag + ", tmp_PagSub=" + tmp_PagSub
+				+ ", tmp_FecIni=" + tmp_FecIni + ", tmp_FecFin=" + tmp_FecFin + ", tmp_Paquet=" + tmp_Paquet
+				+ ", tmp_TipPla=" + tmp_TipPla + ", tmp_TipRen=" + tmp_TipRen + ", tmp_Nombr1=" + tmp_Nombr1
+				+ ", tmp_Paren1=" + tmp_Paren1 + ", tmp_Porce1=" + tmp_Porce1 + ", tmp_Nombr2=" + tmp_Nombr2
+				+ ", tmp_Paren2=" + tmp_Paren2 + ", tmp_Porce2=" + tmp_Porce2 + ", tmp_Nombr3=" + tmp_Nombr3
+				+ ", tmp_Paren3=" + tmp_Paren3 + ", tmp_Porce3=" + tmp_Porce3 + ", tmp_Nombr4=" + tmp_Nombr4
+				+ ", tmp_Paren4=" + tmp_Paren4 + ", tmp_Porce4=" + tmp_Porce4 + ", tmp_RieCal=" + tmp_RieCal
+				+ ", tmp_RieCol=" + tmp_RieCol + ", tmp_RieLoc=" + tmp_RieLoc + ", tmp_RieEnt=" + tmp_RieEnt
+				+ ", tmp_RieCop=" + tmp_RieCop + ", tmp_RieTel=" + tmp_RieTel + ", tmp_GirDes=" + tmp_GirDes
+				+ ", tmp_CodPos=" + tmp_CodPos + ", tmp_EmaAdi=" + tmp_EmaAdi + ", tmp_CelAdi=" + tmp_CelAdi
+				+ ", tmp_Parent=" + tmp_Parent + ", tmp_FecMod=" + tmp_FecMod + ", tmp_MotCan=" + tmp_MotCan
+				+ ", tmp_FecCan=" + tmp_FecCan + ", bitacoraProcedimientoEjecutado=" + bitacoraProcedimientoEjecutado
+				+ "]";
 	}
 
 }

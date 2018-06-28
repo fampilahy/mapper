@@ -7,9 +7,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //@JsonIgnoreProperties(ignoreUnknown=true)
 public class SIB21Document extends AbstractSIB21Document {
 
+	@JsonIgnore
 	private Seguro seguro;
+	@JsonIgnore
 	private Documento documento;
+	@JsonIgnore
 	private Beneficiario beneficiario;
+	@JsonIgnore
 	private Asegurado asegurado;
 	private Servicio servicio;
 
