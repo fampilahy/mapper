@@ -346,7 +346,7 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 			System.out.println("Status : " + pageResponse.getStatusCode());
 
 			pageResponse.setSetCookie(getCookie(httpResponse.getHeaders("Set-Cookie")));
-			System.out.println("Set-Cookie : " + pageResponse.getSetCookie());
+//			System.out.println("Set-Cookie : " + pageResponse.getSetCookie());
 
 			switch (pageResponse.getStatusCode()) {
 			case 200: // Response OK

@@ -44,6 +44,11 @@ public class Customer extends ChubbDocument {
 	private Sensitivity[] sensitivities;
 	private Integer dependentType;
 	private String alternateId;
+	
+	public Customer withCustAdds(String[] custAdds){
+		this.setCustAdds(custAdds);
+		return this;
+	}
 
 	public Customer(String custId, CustType custType, String s6AcctId, Boolean polHolder, Boolean polPayer,
 			String lastName, String firstName, String middleName, String nickName, String formalName, Integer title,

@@ -7,16 +7,16 @@ public class ProcessTransactionRequest extends ChubbDocument {
 
 	// This flag indicates if the product included in the S6 transactions allows
 	// or not more than one policy for the same customer.
-	private Boolean allowDuplicate = false;
+	private Boolean allowDuplicate = true;
 
 	// This is a flag that indicates if the transaction must be committed or not
 	// in the S6 database.
-	private Boolean shouldCommit = false;
+	private Boolean shouldCommit = true;
 
 	// This is a flag that indicates if the customer information must be
 	// replaced by the one that is coming as part of the S6 transaction. It
 	// applies when the customer already exists in the S6 database.
-	private Boolean shouldReplace = false;
+	private Boolean shouldReplace = true;
 
 	// This is a flag that indicates if the transaction must be stored in the
 	// service queue to be processed later when the transaction cannot be

@@ -9,6 +9,7 @@ import java.util.function.Function;
 import consumer.ResponseSplitInfoDeserializer;
 import model.document.chubb.messageByCategory.defaultValues.AddressTypeCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
+import model.document.chubb.messageByCategory.defaultValues.CoverageCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentFrequencyCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentMethodCodeFromChubb;
 import model.document.chubb.s6Transaction.Address;
@@ -28,7 +29,8 @@ import model.document.sib21.Servicio;
 
 public interface Converter {
 
-	static final String SPACE = " ";
+	public static final String SPACE = " ";
+	public static final Boolean TRUE = true;
 
 	public ProcessTransactionRequest convertSIB21DocumentToChubbDocument();
 
@@ -60,12 +62,12 @@ public interface Converter {
 		s6Transaction.setCampaign(campaign);
 
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
-		s6Transaction.setPaymentInfo(paymentInfo);
+		s6Transaction.setPaymentInfo(null);
 
 		Product[] products = getProducts( responseSplitInfo);
 		s6Transaction.setProducts(products);
 
-		Customer[] customers = getCustomers(sib21Document,responseSplitInfo,strUUID);	
+		Customer[] customers = getCustomers(sib21Document,responseSplitInfo,strUUID,products);	
 		s6Transaction.setCustomers(customers);
 
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
@@ -199,15 +201,9 @@ public interface Converter {
 	}
 
 	// -----------------------
-	public static Customer[] getCustomers(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo,String strUUID) {
-		
-		
-		// TODO
-		return null;
-	}
-
-	public static Customer getCustomer(final SIB21Document sib21Document) {
-		return null;
+	public static Customer[] getCustomers(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo,String strUUID, Product[] products) {
+		Customer customer = getCustomer(sib21Document, responseSplitInfo, strUUID, products);
+		return customer ==null ? null:new Customer[]{customer.withCustAdds(new String[]{strUUID})};
 	}
 
 	public static String getCustId(final SIB21Document sib21Document) {
@@ -238,6 +234,11 @@ public interface Converter {
 
 	public static CustProd getCustProd(final SIB21Document sib21Document) {
 		return null;
+	}
+	
+	public static CustProd[] getCustProds(final SIB21Document sib21Document) {
+		CustProd custProd = getCustProd(sib21Document);
+		return custProd==null?null:new CustProd[]{custProd};
 	}
 
 	public static String getProdCd(final SIB21Document sib21Document) {
@@ -288,6 +289,23 @@ public interface Converter {
 						.withLine1(sib21Document.getServicio().getTmp_Email());
 	}
 	
+	public static Customer getCustomer(final SIB21Document sib21Document,final ResponseSplitInfo responseSplitInfo, String strUUID,Product[] products) {
+		if(responseSplitInfo==null || responseSplitInfo.getSplitInfo()==null||responseSplitInfo.getSplitInfo().getProducts()==null||responseSplitInfo.getSplitInfo().getProducts().length==0)
+			return null;
+		
+		Customer customer = new Customer();
+		String firstName = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombre()==null?null:sib21Document.getServicio().getTmp_Nombre();
+		String lastName = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_ApePat()==null?null:sib21Document.getServicio().getTmp_ApePat();
+		
+		customer.setCustId(strUUID);
+		customer.setCustType(CustType.MI);
+		customer.setLastName(lastName);
+		customer.setFirstName(firstName);
+		customer.setPolHolder(TRUE);
+		customer.setPolPayer(TRUE);
+		customer.setCustProds(getCustProds(sib21Document));
+		return customer;
+	}
 	
 	public static Customer getCustomer1(final SIB21Document sib21Document){
 		String name1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr1()==null?null:sib21Document.getServicio().getTmp_Nombr1();
