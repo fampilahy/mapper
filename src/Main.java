@@ -40,7 +40,7 @@ public class Main {
 		SIB21Document sib21Document = new SIB21Document();
 		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPrime.json", sib21Document);
 		 System.out.println("==> " + sib21Document);
-		 System.out.println("from json ===>"+sib21Document.getServicio().getBitacoraProcedimientoEjecutado());
+		 System.out.println("from json ===>"+sib21Document.getServicio().toString());
 		//
 		// System.out.println("to json
 		// ===>"+JsonTool.fromDocumentToJsonNode(sib21Document).toString());

@@ -509,7 +509,6 @@ public  class DefaultHttpClientConnectionEngine extends AbstractConnectionEngine
 			PageResponse testPage = connection(request, "");
 			checkNotNull(testPage, "No testPage returned");
 			System.out.println(testPage.content);
-			System.out.println("aqui");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

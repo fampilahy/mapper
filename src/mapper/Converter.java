@@ -104,7 +104,7 @@ public interface Converter {
 		Product product = buildProduct(responseSplitInfo);
 		if(product==null) return null;
 		products.add(product);
-		return products.isEmpty()?null: (Product[])products.toArray();
+		return products.isEmpty()?null: products.toArray(new Product[0]);
 	}
 	
 	public static Product buildProduct(ResponseSplitInfo responseSplitInfo){
@@ -200,6 +200,8 @@ public interface Converter {
 
 	// -----------------------
 	public static Customer[] getCustomers(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo,String strUUID) {
+		
+		
 		// TODO
 		return null;
 	}
@@ -287,9 +289,46 @@ public interface Converter {
 	}
 	
 	
+	public static Customer getCustomer1(final SIB21Document sib21Document){
+		String name1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr1()==null?null:sib21Document.getServicio().getTmp_Nombr1();
+		String relationship1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren1()==null?null:sib21Document.getServicio().getTmp_Paren1();
+		String percent1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce1()==null?null:sib21Document.getServicio().getTmp_Porce1();
+		
+		
+		
+		
+		return null;//TODO collect customer1
+	}
+	
+	public static Customer getCustomer2(final SIB21Document sib21Document){
+		String name2 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr2()==null?null:sib21Document.getServicio().getTmp_Nombr2();
+		String relationship2 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren2()==null?null:sib21Document.getServicio().getTmp_Paren2();
+		String percent2 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce2()==null?null:sib21Document.getServicio().getTmp_Porce2();
+		
+		
+		return null;
+	}
 	
 	
+	public static Customer getCustomer3(final SIB21Document sib21Document){
+		String name3 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr3()==null?null:sib21Document.getServicio().getTmp_Nombr3();
+		String relationship3 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren3()==null?null:sib21Document.getServicio().getTmp_Paren3();
+		String percent3 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce3()==null?null:sib21Document.getServicio().getTmp_Porce3();
+		
+		
+		return null;
+	}
 	
+	public static Customer getCustomer4(final SIB21Document sib21Document){
+		String name4 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr4()==null?null:sib21Document.getServicio().getTmp_Nombr4();
+		String relationship4 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren4()==null?null:sib21Document.getServicio().getTmp_Paren4();
+		String percent4 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce4()==null?null:sib21Document.getServicio().getTmp_Porce4();
+		
+		
+		return null;
+	}
 
+	
+	
 	// -----------------------
 }
