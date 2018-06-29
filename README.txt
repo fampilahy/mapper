@@ -20,8 +20,8 @@ https://docs.google.com/spreadsheets/d/1UwTHjwQT8bD29OfjC7Zdy7Oj1ueJnoER83rjP8Up
 new entry from Norma 
 https://drive.google.com/file/d/1gFC3q5mlUJgP6g0waFVm_2_DsCSppcLR/view?ts=5b2140d8
 
-chub mandatory file 
-https://docs.google.com/spreadsheets/d/12FmHypwCa3TwPlCXAudun0yrTia9F43GkpzFFmbwdYo/edit#gid=0
+chub mandatory field drive file 
+https://docs.google.com/spreadsheets/d/12FmHypwCa3TwPlCXAudun0yrTia9F43GkpzFFmbwdYo/edit#gid=1623001939
 
 a continuer sur splitInfo su ChubbService
 
