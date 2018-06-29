@@ -47,6 +47,7 @@ public class MappingStarter {
 		}
 
 		JsonNode processTransactionRequestJson = JsonTool.fromDocumentToJsonNode(processTransactionRequest);
+		System.out.println("======> "+processTransactionRequestJson);
 		DefaultHttpClientConnectionEngine defaultHttpClientConnectionEngine = new DefaultHttpClientConnectionEngine();
 		defaultHttpClientConnectionEngine.setTEST_SITE(
 				URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.PROCESS_TRANSACTION_URL.getUrl()));

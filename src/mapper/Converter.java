@@ -62,13 +62,15 @@ public interface Converter {
 		s6Transaction.setCampaign(campaign);
 
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
-		s6Transaction.setPaymentInfo(null);
+		s6Transaction.setPaymentInfo(paymentInfo);
 
 		Product[] products = getProducts( responseSplitInfo);
 		s6Transaction.setProducts(products);
 
 		Customer[] customers = getCustomers(sib21Document,responseSplitInfo,strUUID,products);	
-		s6Transaction.setCustomers(customers);
+		s6Transaction.setCustomers(null);
+		
+		s6Transaction.setAddresses(getAdresses(sib21Document, strUUID));
 
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
 		processTransactionRequest.setTransaction(s6Transaction);
@@ -115,6 +117,7 @@ public interface Converter {
 		if (responseSplitInfo==null||responseSplitInfo.getSplitInfo()==null||responseSplitInfo.getSplitInfo().getProducts()==null||responseSplitInfo.getSplitInfo().getProducts()[0].getProductId()==null) return null;
 		product = new Product();
 		product.setProdCd(responseSplitInfo.getSplitInfo().getProducts()[0].getProductId());
+		product.setCoverageCd(CoverageCodeFromChubb.MAIN_INSURED_ONLY.getKey());
 		return product;
 	}
 	
@@ -180,9 +183,9 @@ public interface Converter {
 		default:
 			break;
 		}
-		
 		return validatePaymentFrequencyCode(payFreq,responseSplitInfo);
 	}
+	
 	
 	public static Integer validatePaymentFrequencyCode(Integer payFreq, ResponseSplitInfo responseSplitInfo ){
 		if(payFreq==null || responseSplitInfo ==null || responseSplitInfo.getSplitInfo()==null)return null;
@@ -190,7 +193,7 @@ public interface Converter {
 		if(availablePaymentFrequencies==null ||availablePaymentFrequencies.length==0 )return null;
 		for(PaymentFrequency availablePaymentFrequency : availablePaymentFrequencies){
 			//means paymentFrequencyCode from SIB21 is accurate to one of Chub available payment frequency for the current campaign
-			if(payFreq==availablePaymentFrequency.getPaymentFrequencyCode()) return payFreq;
+			if(payFreq.intValue()==availablePaymentFrequency.getPaymentFrequencyCode().intValue()) return payFreq;
 		}
 		return null;
 	}
@@ -266,7 +269,7 @@ public interface Converter {
 		if (email != null)
 			addresses.add(email);
 
-		return !addresses.isEmpty() ? (Address[]) addresses.toArray() : null;
+		return !addresses.isEmpty() ? addresses.toArray(new Address[0]) : null;
 	}
 
 	public static Address getAddress(final SIB21Document sib21Document, final String strUUID) {
