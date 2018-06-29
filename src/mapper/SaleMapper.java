@@ -6,6 +6,21 @@ import model.document.sib21.SIB21Document;
 
 public class SaleMapper extends AbstractMapper {
 
+	private static final String SIB21_GASTOS_FUNERARIOS_NUMERO_DE_PRODUCTO = "a";
+	private static final String SIB21_TARJETA_MAS_NUMERO_DE_PRODUCTO = "b";
+	private static final String SIB21_VIDA_PLUS_NUMERO_DE_PRODUCTO = "c";
+	private static final String SIB21_VIDA_PRIME_NUMERO_DE_PRODUCTO = "d";
+	private static final String SIB21_FRAUDE_Y_CLONATION_NUMERO_DE_PRODUCTO = "e";
+	private static final String SIB21_SEGURO_HOGAR_NUMERO_DE_PRODUCTO = "f";
+	private static final String SIB21_SEGURO_ACCIDENTES_NUMERO_DE_PRODUCTO = "g";
+	private static final String SIB21_FRAUDE_Y_CLONATION_NUMERO_DE_PRODUCTO_2 = "h";
+	private static final String SIB21_VIDA_PLUS_ORO_NUMERO_DE_PAQUETE = "1";
+	private static final String SIB21_VIDA_PLUS_PLATA_NUMERO_DE_PAQUETE = "2";
+	private static final String SIB21_VIDA_PLUS_BRONZE_NUMERO_DE_PAQUETE = "l";
+	private static final String SIB21_VIDA_PRIME_ORO_NUMERO_DE_PAQUETE = "0";
+	private static final String SIB21_VIDA_PRIME_PLATA_NUMERO_DE_PAQUETE = "j";
+	private static final String SIB21_VIDA_PRIME_BRONZE_NUMERO_DE_PAQUETE = "p";
+	
 	public SaleMapper(SIB21Document sib21Document) {
 		this.sib21Document = sib21Document;
 	}
@@ -24,8 +39,10 @@ public class SaleMapper extends AbstractMapper {
 		
 		switch(sib21Document.getServicio().getTmp_NumPro()){
 		
-//		case 
-//		
+		case SIB21_VIDA_PLUS_NUMERO_DE_PRODUCTO : int a = 0;break;
+		case SIB21_VIDA_PRIME_NUMERO_DE_PRODUCTO :  ;break;
+		
+		
 		}
 		
 		
