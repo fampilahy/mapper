@@ -38,7 +38,9 @@ public interface Converter {
 			final SIB21Document sib21Document, final TransactionTypeCodeFromChubb transactionTypeCodeFromChubb, final ProductRelationSIB21Chubb  productRelationSIB21Chubb) {
 
 		ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new ResponseSplitInfoDeserializer();
-		System.err.println("chubb split key "+productRelationSIB21Chubb);
+		
+		System.err.println("mapper.Converter ==> "+productRelationSIB21Chubb.getChubbSplitKey());
+		
 		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbSplitKey());
 		if(responseSplitInfo ==null) return null;
 		

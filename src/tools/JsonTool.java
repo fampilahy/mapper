@@ -13,12 +13,11 @@ public class JsonTool {
 
 	public static JsonNode fromDocumentToJsonNode(AbstractDocument document) {
 		JsonNode jsonNode = null;
-		if (document == null)
-			return null;
+		if (document == null) return null;
 		try {
 			jsonNode = objectMapper.readTree(objectMapper.writeValueAsString(document));
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("tools.JsonTool.fromDocumentToJsonNode() ==> "+e.getMessage());
 		}
 		return jsonNode;
 	}
@@ -28,7 +27,7 @@ public class JsonTool {
 		try {
 			document = objectMapper.readValue(objectMapper.writeValueAsString(jsonNode), abstractDocument.getClass());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("tools.JsonTool.fromJsonNodeToDocument() ==> "+e.getMessage());
 		}
 		return document;
 	}
@@ -39,7 +38,7 @@ public class JsonTool {
 			File file = new File(filePath);
 			document = objectMapper.readValue(file, abstractDocument.getClass());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("tools.JsonTool.fromFileJsonNodeToDocument() ==> "+e.getMessage());
 		}
 		return document;
 	}
