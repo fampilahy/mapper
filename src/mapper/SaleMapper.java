@@ -17,9 +17,36 @@ public class SaleMapper extends AbstractMapper {
 	}
 
 	public ProductRelationSIB21Chubb getProductRelationSIB21Chubb(SIB21Document sib21Document) {
-		return ProductRelationSIB21Chubb.ORO; // TODO for now we just implement
+		if(sib21Document==null || sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_NumPro()==null||sib21Document.getServicio().getTmp_NumPro().equals("")) return null;
+		
+		ProductRelationSIB21Chubb productRelationSIB21Chubb = null;
+		
+		
+		switch(sib21Document.getServicio().getTmp_NumPro()){
+		
+//		case 
+//		
+		}
+		
+		
+//		switch (a){
+//		ProductRelationSIB21Chubb productRelationSIB21Chubb;
+//		case " " : productRelationSIB21Chubb = ProductRelationSIB21Chubb.BRONZE; break;
+//		
+//		}
+		
+		
+		return productRelationSIB21Chubb; // TODO for now we just implement
 												// ORO for test then we will add
 												// accordingly to time;
 	}
+	
+	
+	
+	//implementing the others
+	
+	
+	
+	
 
 }
