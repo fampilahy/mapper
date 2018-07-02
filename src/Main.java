@@ -9,7 +9,7 @@ import mapper.AbstractMapper;
 import mapper.SaleMapper;
 import model.document.AbstractDocument;
 import model.document.chubb.ChubbDocument;
-import model.document.chubb.ExampleDocument;
+import model.document.chubb.ExampleDocument;	
 import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.LanguageCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.MessageCategoryCodeFromChubb;
