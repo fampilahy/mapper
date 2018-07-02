@@ -16,7 +16,7 @@ public class SaleMapper extends AbstractMapper {
 				this.transactionTypeCodeFromChubb, getProductRelationSIB21Chubb(sib21Document));
 	}
 
-	public ProductRelationSIB21Chubb getProductRelationSIB21Chubb(SIB21Document sib21Document) {
+	public static ProductRelationSIB21Chubb getProductRelationSIB21Chubb(SIB21Document sib21Document) {
 		return ProductRelationSIB21Chubb.getProductRelationSIB21Chubb(sib21Document);
 	}
 
