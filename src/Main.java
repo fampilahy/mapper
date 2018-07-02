@@ -30,18 +30,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		UUID uuid = UUID.randomUUID();
-
-		String strUuid = uuid.toString();
-
-		System.out.println("UIID " + strUuid);
-
-		// test from json to object
-		SIB21Document sib21Document = new SIB21Document();
-		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPrime.json", sib21Document);
-		 System.out.println("==> " + sib21Document);
-		 System.out.println("from json ===>"+sib21Document.getServicio().toString());
-		//
+		
 		// System.out.println("to json
 		// ===>"+JsonTool.fromDocumentToJsonNode(sib21Document).toString());
 
@@ -82,7 +71,7 @@ public class Main {
 		Integer languageCode = LanguageCodeFromChubb.ENGLISH.getKey();
 		Boolean loadBankInfo = false;
 
-		String[] splitKeys = { "MX18001202" };
+		String[] splitKeys = { "MX18003901" };
 		// String[] splitKeys = { "PE16003702"};
 		// String[] splitKeys = { "MX18001101"};
 		// String[] splitKeys = { "PE16003702", "MX18001101", "MX18001201",
@@ -157,6 +146,21 @@ public class Main {
 		// connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
 		// .consolidateUrl(ProvidedDevelopChubbControllerUrl.PROCESS_MAPPING_AND_TRANSACTION.getUrl()));
 		// connectionEngine.withRequestEntity(processMappingAndTransactionNode.toString()).sendPost();
+		//
+		
+		
+		
+		UUID uuid = UUID.randomUUID();
+
+		String strUuid = uuid.toString();
+
+		System.out.println("UIID " + strUuid);
+
+		// test from json to object
+		SIB21Document sib21Document = new SIB21Document();
+		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPlusPlata.json", sib21Document);
+		 System.out.println("==> " + sib21Document);
+		 System.out.println("from json ===>"+sib21Document.getServicio().toString());
 		//
 
 		 MappingStarter mappingStarter = new MappingStarter();

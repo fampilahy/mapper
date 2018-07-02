@@ -50,22 +50,23 @@ public enum ProductRelationSIB21Chubb {
 				return null;
 			switch(sib21Document.getServicio().getTmp_Paquet()){
 				case SIB21PacketNumber.ORO : productRelationSIB21Chubb = VIDA_PLUS_ORO ;break;
-				case SIB21PacketNumber.PLATA : productRelationSIB21Chubb = VIDA_PRIME_PLATA ;break;
-				case SIB21PacketNumber.BRONCE : productRelationSIB21Chubb = VIDA_PRIME_BRONCE ;break;
+				case SIB21PacketNumber.PLATA : productRelationSIB21Chubb = VIDA_PLUS_PLATA ;break;
+				case SIB21PacketNumber.BRONCE : productRelationSIB21Chubb = VIDA_PLUS_BRONCE ;break;
 			}
 		}; break;
-		
+
 		case SIB21ProductNumber.VIDA_PRIME_NUMERO_DE_PRODUCTO : {
 			if(sib21Document.getServicio().getTmp_Paquet()==null||sib21Document.getServicio().getTmp_Paquet().equals(""))
 				return null;
 			switch(sib21Document.getServicio().getTmp_Paquet()){
 				case SIB21PacketNumber.ORO : productRelationSIB21Chubb = VIDA_PRIME_ORO ;break;
-				case SIB21PacketNumber.PLATA : productRelationSIB21Chubb = VIDA_PLUS_PLATA ;break;
-				case SIB21PacketNumber.BRONCE : productRelationSIB21Chubb = VIDA_PLUS_BRONCE ;break;
+				case SIB21PacketNumber.PLATA : productRelationSIB21Chubb = VIDA_PRIME_PLATA ;break;
+				case SIB21PacketNumber.BRONCE : productRelationSIB21Chubb = VIDA_PRIME_BRONCE ;break;
 			}
 		}; break;
 		
 		}
+		
 		return productRelationSIB21Chubb;
 	}
 
