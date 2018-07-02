@@ -5,12 +5,28 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.document.AbstractDocument;
+import model.document.chubb.s6Transaction.Customer;
 import model.document.sib21.SIB21Document;
 
 public class JsonTool {
 
 	public static final ObjectMapper objectMapper = new ObjectMapper();
 
+	
+	
+	
+	public static JsonNode fromDocumentToJsonNode(Customer[] customers) {
+		JsonNode jsonNode = null;
+		if (customers == null) return null;
+		try {
+			jsonNode = objectMapper.readTree(objectMapper.writeValueAsString(customers));
+		} catch (Exception e) {
+			System.err.println("tools.JsonTool.fromDocumentToJsonNode() ==> "+e.getMessage());
+		}
+		return jsonNode;
+	}
+	
+	
 	public static JsonNode fromDocumentToJsonNode(AbstractDocument document) {
 		JsonNode jsonNode = null;
 		if (document == null) return null;

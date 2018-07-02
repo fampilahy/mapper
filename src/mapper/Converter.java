@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import consumer.ResponseSplitInfoDeserializer;
 import model.document.chubb.messageByCategory.defaultValues.AddressTypeCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
@@ -26,6 +28,7 @@ import model.document.chubb.splitInfo.defaultValues.ProductRelationSIB21Chubb;
 import model.document.chubb.splitInfo.response.ResponseSplitInfo;
 import model.document.sib21.SIB21Document;
 import model.document.sib21.Servicio;
+import tools.JsonTool;
 
 public interface Converter {
 
@@ -71,6 +74,15 @@ public interface Converter {
 		s6Transaction.setProducts(products);
 
 		Customer[] customers = getCustomers(sib21Document,responseSplitInfo,strUUID,products);	
+		
+		JsonNode json = JsonTool.fromDocumentToJsonNode(customers);
+//		System.out.println("Customer[] ===> "+json);
+		
+		
+		
+		
+		
+//		s6Transaction.setCustomers(customers);
 		s6Transaction.setCustomers(null);
 		
 		s6Transaction.setAddresses(getAdresses(sib21Document, strUUID));
@@ -78,6 +90,10 @@ public interface Converter {
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
 		processTransactionRequest.setTransaction(s6Transaction);
 
+		
+		json = JsonTool.fromDocumentToJsonNode(processTransactionRequest);
+		System.out.println("Customer[] ===> "+json);
+		
 		return processTransactionRequest;
 	}
 
