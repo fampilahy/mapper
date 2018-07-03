@@ -65,7 +65,8 @@ public interface Converter {
 		s6Transaction.setCountryCd(countryCd);
 
 		String campaign = getCampaign(responseSplitInfo);
-		s6Transaction.setCampaign(campaign);
+//		s6Transaction.setCampaign(campaign);
+		s6Transaction.setCampaign("MX18003901");
 
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
 		s6Transaction.setPaymentInfo(paymentInfo);
@@ -82,8 +83,8 @@ public interface Converter {
 		
 		
 		
-//		s6Transaction.setCustomers(customers);
-		s6Transaction.setCustomers(null);
+		s6Transaction.setCustomers(customers);
+//		s6Transaction.setCustomers(null);
 		
 		s6Transaction.setAddresses(getAdresses(sib21Document, strUUID));
 
@@ -166,6 +167,7 @@ public interface Converter {
 		if (tmp_NumPag == null)
 			return null;
 
+		System.out.println("Converter.getPaymentFreq().tmp_NumPag ==> "+tmp_NumPag);
 		switch (tmp_NumPag) {
 
 		case 1: 
@@ -200,8 +202,13 @@ public interface Converter {
 			break;
 
 		default:
+			System.err.println("tmp_NumPag valor unknown ==> "+tmp_NumPag);
+			System.err.println("set payFreq to default ==> "+PaymentFrequencyCodeFromChubb.ANUAL.getKey());
+			payFreq = PaymentFrequencyCodeFromChubb.ANUAL.getKey();
 			break;
 		}
+		
+		System.out.println("Converter.getPaymentFreq() ==> "+payFreq.toString());
 		return validatePaymentFrequencyCode(payFreq,responseSplitInfo);
 	}
 	
@@ -254,12 +261,20 @@ public interface Converter {
 
 	// -----------------------
 
-	public static CustProd getCustProd(final SIB21Document sib21Document) {
-		return null;
+	public static CustProd getCustProd(final ResponseSplitInfo responseSplitInfo) {
+		//TODO create CustProd
+		
+		CustProd custProd = new CustProd();
+		custProd.setProdCd(responseSplitInfo.getSplitInfo().getProducts()[0].getProductId());
+		custProd.setBenLv(1);
+		
+		
+		
+		return custProd;
 	}
 	
-	public static CustProd[] getCustProds(final SIB21Document sib21Document) {
-		CustProd custProd = getCustProd(sib21Document);
+	public static CustProd[] getCustProds(final SIB21Document sib21Document, final ResponseSplitInfo responseSplitInfo) {
+		CustProd custProd = getCustProd(responseSplitInfo);
 		return custProd==null?null:new CustProd[]{custProd};
 	}
 
@@ -284,9 +299,9 @@ public interface Converter {
 		if (address != null)
 			addresses.add(address);
 
-		Address email = getEmail(sib21Document,strUUID);
-		if (email != null)
-			addresses.add(email);
+//		Address email = getEmail(sib21Document,strUUID);
+//		if (email != null)
+//			addresses.add(email);
 
 		return !addresses.isEmpty() ? addresses.toArray(new Address[0]) : null;
 	}
@@ -325,7 +340,7 @@ public interface Converter {
 		customer.setFirstName(firstName);
 		customer.setPolHolder(TRUE);
 		customer.setPolPayer(TRUE);
-		customer.setCustProds(getCustProds(sib21Document));
+		customer.setCustProds(getCustProds(sib21Document,responseSplitInfo));
 		return customer;
 	}
 	
