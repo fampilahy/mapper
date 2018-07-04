@@ -71,7 +71,7 @@ public class Main {
 		Integer languageCode = LanguageCodeFromChubb.ENGLISH.getKey();
 		Boolean loadBankInfo = false;
 
-		String[] splitKeys = { "MX18003901" };
+		String[] splitKeys = { "MX18005501" };
 		// String[] splitKeys = { "PE16003702"};
 		// String[] splitKeys = { "MX18001101"};
 		// String[] splitKeys = { "PE16003702", "MX18001101", "MX18001201",
