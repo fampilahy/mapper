@@ -21,7 +21,7 @@ public class ProcessTransactionRequest extends ChubbDocument {
 	// This is a flag that indicates if the transaction must be stored in the
 	// service queue to be processed later when the transaction cannot be
 	// processed in real time.
-	private Boolean storeInQueue = false;
+	private Boolean storeInQueue = true;
 
 	private S6Transaction transaction;
 

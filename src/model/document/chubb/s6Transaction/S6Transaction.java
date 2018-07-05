@@ -1,6 +1,9 @@
 package model.document.chubb.s6Transaction;
 
+import java.util.Date;
 import java.util.Calendar;
+
+import org.joda.time.DateTime;
 
 import model.document.chubb.contract.Mandatory;
 import model.document.chubb.contract.MandatoryOnDemand;
@@ -17,13 +20,13 @@ public class S6Transaction {
     @Mandatory private PaymentInfo paymentInfo;
     @Mandatory private Product[] products;
     private String sellerId;
-    private Calendar appDate;
+    private Date appDate;
     private String appNum;
-    private Calendar efftDate;
+    private Date efftDate;
     private String repPol;
     private CorrespondenceType correspondence;
     private String tranNote;
-    private Calendar polExpDate;
+    private DateTime polExpDate;
     private Integer bill;
     private Integer cancelReason;
     private Integer endorsReason;
@@ -116,11 +119,11 @@ public class S6Transaction {
 		this.sellerId = sellerId;
 	}
 
-	public Calendar getAppDate() {
+	public Date getAppDate() {
 		return appDate;
 	}
 
-	public void setAppDate(Calendar appDate) {
+	public void setAppDate(Date appDate) {
 		this.appDate = appDate;
 	}
 
@@ -132,11 +135,11 @@ public class S6Transaction {
 		this.appNum = appNum;
 	}
 
-	public Calendar getEfftDate() {
+	public Date getEfftDate() {
 		return efftDate;
 	}
 
-	public void setEfftDate(Calendar efftDate) {
+	public void setEfftDate(Date efftDate) {
 		this.efftDate = efftDate;
 	}
 
@@ -164,11 +167,11 @@ public class S6Transaction {
 		this.tranNote = tranNote;
 	}
 
-	public Calendar getPolExpDate() {
+	public DateTime getPolExpDate() {
 		return polExpDate;
 	}
 
-	public void setPolExpDate(Calendar polExpDate) {
+	public void setPolExpDate(DateTime polExpDate) {
 		this.polExpDate = polExpDate;
 	}
 

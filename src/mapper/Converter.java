@@ -1,10 +1,17 @@
 package mapper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -15,6 +22,7 @@ import model.document.chubb.messageByCategory.defaultValues.CoverageCodeFromChub
 import model.document.chubb.messageByCategory.defaultValues.PaymentFrequencyCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentMethodCodeFromChubb;
 import model.document.chubb.s6Transaction.Address;
+import model.document.chubb.s6Transaction.CorrespondenceType;
 import model.document.chubb.s6Transaction.CustProd;
 import model.document.chubb.s6Transaction.CustType;
 import model.document.chubb.s6Transaction.Customer;
@@ -65,8 +73,8 @@ public interface Converter {
 		s6Transaction.setCountryCd(countryCd);
 
 		String campaign = getCampaign(responseSplitInfo);
-//		s6Transaction.setCampaign(campaign);
-		s6Transaction.setCampaign("MX18003901");
+		s6Transaction.setCampaign(campaign);
+//		s6Transaction.setCampaign("MX18003901");
 
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
 		s6Transaction.setPaymentInfo(paymentInfo);
@@ -87,6 +95,42 @@ public interface Converter {
 //		s6Transaction.setCustomers(null);
 		
 		s6Transaction.setAddresses(getAdresses(sib21Document, strUUID));
+		
+		
+		s6Transaction.setSellerId("321");
+		
+//		 String date_s = "2011-01-18 00:00:00.0";
+
+	        // *** note that it's "yyyy-MM-dd hh:mm:ss" not "yyyy-mm-dd hh:mm:ss"  
+//	        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//	        Date date=null;
+//			try {
+//				date = dt.parse(date_s);
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		
+		///////TODO take off initial
+//		s6Transaction.setAppDate(date);
+////		
+//		s6Transaction.setEfftDate(date);
+//		
+		s6Transaction.setCorrespondence(CorrespondenceType.PRINT);
+		
+		s6Transaction.setTranNote("Sales performed through S6 Tester");
+		
+		
+		
+		
+		
+	///////TODO take off final
+		
+		
+		
+		
+		
+		
 
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
 		processTransactionRequest.setTransaction(s6Transaction);
@@ -94,6 +138,20 @@ public interface Converter {
 		
 		json = JsonTool.fromDocumentToJsonNode(processTransactionRequest);
 		System.out.println("Customer[] ===> "+json);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		return processTransactionRequest;
 	}
@@ -149,6 +207,20 @@ public interface Converter {
 		PaymentInfo paymentInfo = new PaymentInfo();
 		paymentInfo.setPayMethod(paymentMethod.getKey());
 		paymentInfo.setPayFreq(getPaymentFreq(sib21Document,responseSplitInfo));
+		
+		
+		
+		//TODO take off
+		paymentInfo.setNameOnBill("JIMMY  CIFUENTES");
+//		paymentInfo.set
+		
+		
+		paymentInfo.setBillAccNum("XXXXXXXXXXXXXX");
+		
+		paymentInfo.setCcCd("P30");
+		paymentInfo.setExpDate("2/18");
+		
+		
 		return paymentInfo;
 	}
 
@@ -340,6 +412,11 @@ public interface Converter {
 		customer.setFirstName(firstName);
 		customer.setPolHolder(TRUE);
 		customer.setPolPayer(TRUE);
+		
+		
+		customer.setSexCd(600001);
+		customer.setPersonalId("123456");
+		customer.setBirthDate(Calendar.getInstance());
 		customer.setCustProds(getCustProds(sib21Document,responseSplitInfo));
 		return customer;
 	}
