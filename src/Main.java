@@ -68,10 +68,10 @@ public class Main {
 		// **
 		// **
 		// second step
-		Integer languageCode = LanguageCodeFromChubb.ENGLISH.getKey();
-		Boolean loadBankInfo = false;
-
-		String[] splitKeys = { "MX18008201" };
+//		Integer languageCode = LanguageCodeFromChubb.ENGLISH.getKey();
+//		Boolean loadBankInfo = false;
+//
+//		String[] splitKeys = { "MX18008201" };
 		// String[] splitKeys = { "PE16003702"};
 		// String[] splitKeys = { "MX18001101"};
 		// String[] splitKeys = { "PE16003702", "MX18001101", "MX18001201",
@@ -84,24 +84,24 @@ public class Main {
 		// splitKey = "MX18003101";
 		// splitKey = "MX18003201"; //todos en error 500
 
-		for (String splitKey : splitKeys) {
-			System.out.println("-----------------------------------------");
-			System.out.println("");
-
-			// Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
-			GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
-			getSplitInfoRequest.setLanguageCode(languageCode);
-			getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
-			getSplitInfoRequest.setSplitKey(splitKey);
-			JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
-			System.out.println(" getSplitInfoRequestJson " + getSplitInfoRequestJson.toString());
-
-			connectionEngine = new DefaultHttpClientConnectionEngine();
-			connectionEngine.setTEST_SITE(
-					URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
-			connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).sendPost();
-
-		}
+//		for (String splitKey : splitKeys) {
+//			System.out.println("-----------------------------------------");
+//			System.out.println("");
+//
+//			// Integer languageCode = LanguageCodeFromChubb.SPANISH.getKey();
+//			GetSplitInfoRequest getSplitInfoRequest = new GetSplitInfoRequest();
+//			getSplitInfoRequest.setLanguageCode(languageCode);
+//			getSplitInfoRequest.setLoadBankInfo(loadBankInfo);
+//			getSplitInfoRequest.setSplitKey(splitKey);
+//			JsonNode getSplitInfoRequestJson = JsonTool.fromDocumentToJsonNode(getSplitInfoRequest);
+//			System.out.println(" getSplitInfoRequestJson " + getSplitInfoRequestJson.toString());
+//
+//			connectionEngine = new DefaultHttpClientConnectionEngine();
+//			connectionEngine.setTEST_SITE(
+//					URL_CONSOLIDATOR.consolidateUrl(ProvidedDevelopChubbControllerUrl.COLLECT_SPLIT_INFO_URL.getUrl()));
+//			connectionEngine.withRequestEntity(getSplitInfoRequestJson.toString()).sendPost();
+//
+//		}
 
 		// **/
 

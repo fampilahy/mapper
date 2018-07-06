@@ -4,8 +4,8 @@ import model.document.chubb.ChubbDocument;
 
 public class Reference extends ChubbDocument {
 
-	private Integer refKey;
-	private String refText;
+	private Integer refKey=0;
+	private String refText="";
 	
 	public Integer getRefKey() {
 		return refKey;

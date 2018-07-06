@@ -4,8 +4,8 @@ import model.document.chubb.ChubbDocument;
 
 public class ProdSpecDataInfo  extends ChubbDocument{
 
-    private Integer categ;
-    private String value;
+    private Integer categ=0;
+    private String value="";
     
 	public Integer getCateg() {
 		return categ;

@@ -89,7 +89,7 @@ public interface Converter {
 		
 		
 		
-		
+		s6Transaction.setPolNum(sib21Document.getServicio().getTmp_NumPol());
 		
 		s6Transaction.setCustomers(customers);
 //		s6Transaction.setCustomers(null);
@@ -99,22 +99,22 @@ public interface Converter {
 		
 		s6Transaction.setSellerId("321");
 		
-//		 String date_s = "2011-01-18 00:00:00.0";
+		 String date_s = "2018-07-05 00:00:00";
 
-	        // *** note that it's "yyyy-MM-dd hh:mm:ss" not "yyyy-mm-dd hh:mm:ss"  
-//	        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//	        Date date=null;
-//			try {
-//				date = dt.parse(date_s);
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+//	         *** note that it's "yyyy-MM-dd hh:mm:ss" not "yyyy-mm-dd hh:mm:ss"  
+	        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	        Date date=null;
+			try {
+				date = dt.parse(date_s);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		///////TODO take off initial
-//		s6Transaction.setAppDate(date);
-////		
-//		s6Transaction.setEfftDate(date);
+		/////TODO take off initial
+		s6Transaction.setAppDate(date_s);
+//		
+		s6Transaction.setEfftDate(date_s);
 //		
 		s6Transaction.setCorrespondence(CorrespondenceType.PRINT);
 		
@@ -149,7 +149,7 @@ public interface Converter {
 		
 		
 		
-		
+		processTransactionRequest.setTransaction(new S6Transaction());
 		
 		
 		
@@ -416,7 +416,8 @@ public interface Converter {
 		
 		customer.setSexCd(600001);
 		customer.setPersonalId("123456");
-		customer.setBirthDate(Calendar.getInstance());
+//		customer.setBirthDate("1980-07-05");
+		customer.setBirthDate(sib21Document.getServicio().getTmp_FecNac());
 		customer.setCustProds(getCustProds(sib21Document,responseSplitInfo));
 		return customer;
 	}

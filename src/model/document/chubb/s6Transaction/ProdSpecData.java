@@ -4,9 +4,9 @@ import model.document.chubb.ChubbDocument;
 
 public class ProdSpecData extends ChubbDocument {
 
-	private Integer indexer;
+	private Integer indexer=0;
 
-	private ProdSpecDataInfo[] prodsSpecDataInfo;
+	private ProdSpecDataInfo[] prodsSpecDataInfo={new ProdSpecDataInfo()};
 
 	public ProdSpecData() {
 	}

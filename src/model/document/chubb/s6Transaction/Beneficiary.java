@@ -4,8 +4,8 @@ import model.document.chubb.ChubbDocument;
 
 public class Beneficiary extends ChubbDocument {
 
-	private String notes;
-	private BeneficiaryDetail[] beneficiaries;
+	private String notes="";
+	private BeneficiaryDetail[] beneficiaries={};
 
 	public String getNotes() {
 		return notes;

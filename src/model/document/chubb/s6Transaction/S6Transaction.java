@@ -10,33 +10,33 @@ import model.document.chubb.contract.MandatoryOnDemand;
 
 public class S6Transaction {
 
-    @Mandatory private String tranType;
-    @MandatoryOnDemand private String chgType;
-    @Mandatory private Integer lineNum;
-    private String polNum;
-    @Mandatory private String countryCd;
-    @Mandatory private String campaign;
-    private Double refAmount;
+    @Mandatory private String tranType = "";
+    @MandatoryOnDemand private String chgType ="";
+    @Mandatory private Integer lineNum =0;
+    private String polNum = "";
+    @Mandatory private String countryCd= "";
+    @Mandatory private String campaign= "";
+    private Double refAmount=0d;
     @Mandatory private PaymentInfo paymentInfo;
     @Mandatory private Product[] products;
-    private String sellerId;
-    private Date appDate;
-    private String appNum;
-    private Date efftDate;
-    private String repPol;
+    private String sellerId= "";
+    private String appDate= "";
+    private String appNum= "";
+    private String efftDate= "";
+    private String repPol= "";
     private CorrespondenceType correspondence;
-    private String tranNote;
-    private DateTime polExpDate;
-    private Integer bill;
-    private Integer cancelReason;
-    private Integer endorsReason;
-    private String providerId;
+    private String tranNote= "";
+    private String polExpDate="";
+    private Integer bill=0;
+    private Integer cancelReason=0;
+    private Integer endorsReason=0;
+    private String providerId= "";
     @Mandatory private Customer[] customers;
     @Mandatory private Address[] addresses;
-    private Reference[] references;
-    private SuspReason[] suspensionsReason;
-    private Double premiumCheck;
-    private String diaryMessage;
+    private Reference[] references={};
+    private SuspReason[] suspensionsReason = {};
+    private Double premiumCheck=0d;
+    private String diaryMessage= "";
 
 
 	public String getTranType() {
@@ -119,11 +119,11 @@ public class S6Transaction {
 		this.sellerId = sellerId;
 	}
 
-	public Date getAppDate() {
+	public String getAppDate() {
 		return appDate;
 	}
 
-	public void setAppDate(Date appDate) {
+	public void setAppDate(String appDate) {
 		this.appDate = appDate;
 	}
 
@@ -135,11 +135,11 @@ public class S6Transaction {
 		this.appNum = appNum;
 	}
 
-	public Date getEfftDate() {
+	public String getEfftDate() {
 		return efftDate;
 	}
 
-	public void setEfftDate(Date efftDate) {
+	public void setEfftDate(String efftDate) {
 		this.efftDate = efftDate;
 	}
 
@@ -167,11 +167,11 @@ public class S6Transaction {
 		this.tranNote = tranNote;
 	}
 
-	public DateTime getPolExpDate() {
+	public String getPolExpDate() {
 		return polExpDate;
 	}
 
-	public void setPolExpDate(DateTime polExpDate) {
+	public void setPolExpDate(String polExpDate) {
 		this.polExpDate = polExpDate;
 	}
 

@@ -4,7 +4,7 @@ import model.document.chubb.ChubbDocument;
 
 public class Sensitivity extends ChubbDocument {
 
-	private Integer senCd;
+	private Integer senCd=0;
 
 	public Sensitivity() {
 	}

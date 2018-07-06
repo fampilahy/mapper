@@ -8,42 +8,42 @@ import model.document.chubb.contract.Mandatory;
 public class Customer extends ChubbDocument {
 
 	@Mandatory
-	private String custId;
+	private String custId ="";
 	@Mandatory
 	private CustType custType;
-	private String s6AcctId;
+	private String s6AcctId ="";
 	@Mandatory
 	private Boolean polHolder;
 	@Mandatory
 	private Boolean polPayer;
 	@Mandatory
-	private String lastName;
+	private String lastName="";
 	@Mandatory
-	private String firstName;
-	private String middleName;
-	private String nickName;
-	private String formalName;
-	private Integer title;
-	private Integer langCd;
-	private String personalId;
-	private Calendar birthDate;
-	private Integer sexCd;
-	private String emailAddr;
-	private String emailFulfillment;
-	private Integer callPrefCd;
-	private Integer nationCd;
-	private Integer raceCd;
-	private Integer religionCd;
-	private Integer eduCd;
-	private Integer ocupCd;
-	private Integer indCd;
-	private Integer maritalCd;
-	private Integer relationshipCd;
+	private String firstName="";
+	private String middleName="";
+	private String nickName="";
+	private String formalName="";
+	private Integer title=0;
+	private Integer langCd=0;
+	private String personalId="";
+	private String birthDate="";
+	private Integer sexCd=0;
+	private String emailAddr="";
+	private String emailFulfillment="";
+	private Integer callPrefCd=0;
+	private Integer nationCd=0;
+	private Integer raceCd=0;
+	private Integer religionCd=0;
+	private Integer eduCd=0;
+	private Integer ocupCd=0;
+	private Integer indCd=0;
+	private Integer maritalCd=0;
+	private Integer relationshipCd=0;
 	@Mandatory private CustProd[] custProds;
-	@Mandatory private String[] custAdds;
-	private Sensitivity[] sensitivities;
-	private Integer dependentType;
-	private String alternateId;
+	@Mandatory private String[] custAdds={""};
+	private Sensitivity[] sensitivities={};
+	private Integer dependentType=0;
+	private String alternateId="";
 	
 	public Customer withCustAdds(String[] custAdds){
 		this.setCustAdds(custAdds);
@@ -52,7 +52,7 @@ public class Customer extends ChubbDocument {
 
 	public Customer(String custId, CustType custType, String s6AcctId, Boolean polHolder, Boolean polPayer,
 			String lastName, String firstName, String middleName, String nickName, String formalName, Integer title,
-			Integer langCd, String personalId, Calendar birthDate, Integer sexCd, String emailAddr,
+			Integer langCd, String personalId, String birthDate, Integer sexCd, String emailAddr,
 			String emailFulfillment, Integer callPrefCd, Integer nationCd, Integer raceCd, Integer religionCd,
 			Integer eduCd, Integer ocupCd, Integer indCd, Integer maritalCd, Integer relationshipCd,
 			CustProd[] custProds, String[] custAdds, Sensitivity[] sensitivities, Integer dependentType,
@@ -194,11 +194,11 @@ public class Customer extends ChubbDocument {
 		this.personalId = personalId;
 	}
 
-	public Calendar getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Calendar birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 
