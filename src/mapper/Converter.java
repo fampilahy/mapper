@@ -176,7 +176,14 @@ public interface Converter {
 	public static Integer getPaymentMethod(final SIB21Document sib21Document) {
 		return 0;
 	}
-
+	
+//	  @Rec_Mensua	= 12,	/* Recibos mensuales */
+//			  @Rec_Bimest	= 6,	/* Recibos bimestrales */
+//			  @Rec_Trimes	= 4,	/* Recibos trimestrales */
+//			  @Rec_Tetram	= 3,	/* Recibos tetramestrales */
+//			  @Rec_Semest	= 2,	/* Recibos semestrales */
+//			  @Rec_Anual	= 1,	/* Recibos anuales */
+	
 	public static Integer getPaymentFreq(final SIB21Document sib21Document, final ResponseSplitInfo responseSplitInfo) {
 		//According to last call with Chubb agent on 22/06/2018 payment frequencies are related to Product definition
 		Servicio servicio = sib21Document.getServicio();
@@ -191,35 +198,32 @@ public interface Converter {
 		System.out.println("Converter.getPaymentFreq().tmp_NumPag ==> "+tmp_NumPag);
 		switch (tmp_NumPag) {
 
-		case 1: 
-			payFreq = PaymentFrequencyCodeFromChubb.MENSUAL.getKey();
+		case 1: payFreq = PaymentFrequencyCodeFromChubb.ANUAL.getKey();
 			break;
 
-		case 2: // do action here BIMESTRAL
+		case 2: payFreq = PaymentFrequencyCodeFromChubb.SEMESTRAL.getKey();
 			break;
 
 		case 3: 
-			payFreq = PaymentFrequencyCodeFromChubb.TRIMESTRAL.getKey();
 			break;
 
-		case 4: // do action here TETRAMESTRAL
+		case 4: payFreq = PaymentFrequencyCodeFromChubb.TRIMESTRAL.getKey();
 			break;
 
 		case 5: 
-			payFreq = PaymentFrequencyCodeFromChubb.SEMESTRAL.getKey();
 			break;
 
-		case 6: // do action here ANUAL
-			payFreq = PaymentFrequencyCodeFromChubb.ANUAL.getKey();
+		case 6: //bimestral
 			break;
 
-		case 7: // do action here
+		case 7:
+		case 8: 
+		case 9:
+		case 10: 
+		case 11: 
 			break;
-
-		case 8: // do action here
-			break;
-
-		case 9: // do action here MESES SIN INTERESES
+			
+		case 12: payFreq = PaymentFrequencyCodeFromChubb.MENSUAL.getKey();
 			break;
 
 		default:
@@ -392,10 +396,6 @@ public interface Converter {
 		return name==null?"":name;
 	}
 	
-	
-	
-	
-	
 	// -----------------------
 
 	// TODO Customers[].custAdds
@@ -428,7 +428,6 @@ public interface Converter {
 		
 		Address address = new Address();
 
-		
 		String city = sib21Document.getServicio().getTmp_Locali();
 		Integer provinceCd = MexicoProvinceCodeFromChubb.NUEVO_LEON.getKey(); //TODO collect ProvinceCode
 		String countryCd = CountryCodeFromChubb.MEXICO.getMsgID();
@@ -439,7 +438,6 @@ public interface Converter {
 		address.setCity(city);
 		address.setProvinceCd(provinceCd);
 		address.setCountryCd(countryCd);
-		
 		
 		return address;
 	}
