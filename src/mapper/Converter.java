@@ -177,15 +177,14 @@ public interface Converter {
 		return 0;
 	}
 	
-//	  @Rec_Mensua	= 12,	/* Recibos mensuales */
-//			  @Rec_Bimest	= 6,	/* Recibos bimestrales */
-//			  @Rec_Trimes	= 4,	/* Recibos trimestrales */
-//			  @Rec_Tetram	= 3,	/* Recibos tetramestrales */
-//			  @Rec_Semest	= 2,	/* Recibos semestrales */
-//			  @Rec_Anual	= 1,	/* Recibos anuales */
-	
 	public static Integer getPaymentFreq(final SIB21Document sib21Document, final ResponseSplitInfo responseSplitInfo) {
 		//According to last call with Chubb agent on 22/06/2018 payment frequencies are related to Product definition
+//		  @Rec_Mensua	= 12,	/* Recibos mensuales */
+//		  @Rec_Bimest	= 6,	/* Recibos bimestrales */
+//		  @Rec_Trimes	= 4,	/* Recibos trimestrales */
+//		  @Rec_Tetram	= 3,	/* Recibos tetramestrales */
+//		  @Rec_Semest	= 2,	/* Recibos semestrales */
+//		  @Rec_Anual	= 1,	/* Recibos anuales */
 		Servicio servicio = sib21Document.getServicio();
 		if (servicio == null)
 			return null;
@@ -479,7 +478,10 @@ public interface Converter {
 		customer.setTitle(null);
 		customer.setLangCd(null);
 		customer.setPersonalId(getPersonalId(sib21Document));
-		customer.setBirthDate(getStrBirthDate(sib21Document));
+		
+		//TODO birthDate
+		customer.setBirthDate("1987-07-28");
+//		customer.setBirthDate(getStrBirthDate(sib21Document));
 		customer.setSexCd(null);
 		customer.setEmailAddr(getStrEmail(sib21Document));
 		customer.setCallPrefCd(null);
@@ -503,6 +505,8 @@ public interface Converter {
 	public static String getStrBirthDate(final SIB21Document sib21Document){
 		return (sib21Document==null ||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_FecNac().equals(""))?null: sib21Document.getServicio().getTmp_FecNac();
 	}
+	
+	
 	
 	public static Customer getCustomer1(final SIB21Document sib21Document){
 		String name1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr1()==null?null:sib21Document.getServicio().getTmp_Nombr1();

@@ -159,7 +159,9 @@ public class Main {
 		// test from json to object
 		SIB21Document sib21Document = new SIB21Document();
 		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPlusPlata.json", sib21Document);
-//		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPrime.json", sib21Document);
+//		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestNegocio.json", sib21Document);
+//		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestHogar.json", sib21Document);
+//		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestFraude.json", sib21Document);
 //		 System.out.println("==> " + sib21Document);
 //		 System.out.println("from json ===>"+sib21Document.getServicio().toString());
 		//
