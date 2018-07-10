@@ -8,42 +8,42 @@ import model.document.chubb.contract.Mandatory;
 public class Customer extends ChubbDocument {
 
 	@Mandatory
-	private String custId ="";
+	private String custId ;
 	@Mandatory
-	private CustType custType;
-	private String s6AcctId ="";
+	private CustType custType=null;
+	private String s6AcctId ;
 	@Mandatory
-	private Boolean polHolder;
+	private Boolean polHolder=null;
 	@Mandatory
-	private Boolean polPayer;
+	private Boolean polPayer=null;
 	@Mandatory
-	private String lastName="";
+	private String lastName=null;
 	@Mandatory
-	private String firstName="";
-	private String middleName="";
-	private String nickName="";
-	private String formalName="";
-	private Integer title=0;
-	private Integer langCd=0;
-	private String personalId="";
-	private String birthDate="";
-	private Integer sexCd=0;
-	private String emailAddr="";
-	private String emailFulfillment="";
-	private Integer callPrefCd=0;
-	private Integer nationCd=0;
-	private Integer raceCd=0;
-	private Integer religionCd=0;
-	private Integer eduCd=0;
-	private Integer ocupCd=0;
-	private Integer indCd=0;
-	private Integer maritalCd=0;
-	private Integer relationshipCd=0;
-	@Mandatory private CustProd[] custProds;
-	@Mandatory private String[] custAdds={""};
-	private Sensitivity[] sensitivities={};
-	private Integer dependentType=0;
-	private String alternateId="";
+	private String firstName=null;
+	private String middleName;
+	private String nickName;
+	private String formalName;
+	private Integer title=null;
+	private Integer langCd=null;
+	private String personalId=null;
+	private String birthDate=null;
+	private Integer sexCd=null;
+	private String emailAddr=null;
+	private String emailFulfillment;
+	private Integer callPrefCd=null;
+	private Integer nationCd=null;
+	private Integer raceCd=null;
+	private Integer religionCd=null;
+	private Integer eduCd=null;
+	private Integer ocupCd=null;
+	private Integer indCd=null;
+	private Integer maritalCd=null;
+	private Integer relationshipCd=null;
+	@Mandatory private CustProd[] custProds=null;
+	@Mandatory private String[] custAdds=null;
+	private Sensitivity[] sensitivities;
+	private Integer dependentType=null;
+	private String alternateId;
 	
 	public Customer withCustAdds(String[] custAdds){
 		this.setCustAdds(custAdds);

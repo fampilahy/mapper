@@ -152,15 +152,16 @@ public class Main {
 		
 		UUID uuid = UUID.randomUUID();
 
-		String strUuid = uuid.toString();
+//		String strUuid = uuid.toString();
 
-		System.out.println("UIID " + strUuid);
+//		System.out.println("UIID " + strUuid);
 
 		// test from json to object
 		SIB21Document sib21Document = new SIB21Document();
 		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPlusPlata.json", sib21Document);
-		 System.out.println("==> " + sib21Document);
-		 System.out.println("from json ===>"+sib21Document.getServicio().toString());
+//		sib21Document = (SIB21Document) JsonTool.fromFileJsonNodeToDocument("src/resources/TestVidaPrime.json", sib21Document);
+//		 System.out.println("==> " + sib21Document);
+//		 System.out.println("from json ===>"+sib21Document.getServicio().toString());
 		//
 
 		 MappingStarter mappingStarter = new MappingStarter();

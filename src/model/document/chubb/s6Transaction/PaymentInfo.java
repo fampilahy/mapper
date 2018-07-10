@@ -6,20 +6,20 @@ import model.document.chubb.contract.MandatoryOnDemand;
 
 public class PaymentInfo extends ChubbDocument {
 
-	@Mandatory private Integer payMethod = 0;
-	@Mandatory private Integer payFreq =0;
-	private Integer taxAppCd=0;
-	private String nameOnBill= "";
-	private Integer taxJurisCd=0;
-	private String employeeNum= "";
-	@MandatoryOnDemand private Integer debitDay=0;
-	@MandatoryOnDemand private String billAccNum= "";
-	@MandatoryOnDemand private String bankCd= "";
-	@MandatoryOnDemand private String branchCd= "";
-	@MandatoryOnDemand private String ccCd= "";
-	private String expDate= "";
-	@MandatoryOnDemand private String collCd= "";
-	private String last5BillAccNum= "";
+	@Mandatory private Integer payMethod =null;
+	@Mandatory private Integer payFreq =null;
+	private Integer taxAppCd=null;
+	private String nameOnBill;
+	private Integer taxJurisCd=null;
+	private String employeeNum;
+	@MandatoryOnDemand private Integer debitDay=null;
+	@MandatoryOnDemand private String billAccNum;
+	@MandatoryOnDemand private String bankCd;
+	@MandatoryOnDemand private String branchCd;
+	@MandatoryOnDemand private String ccCd;
+	private String expDate;
+	@MandatoryOnDemand private String collCd=null;
+	private String last5BillAccNum;
 	
 	public Integer getPayMethod() {
 		return payMethod;

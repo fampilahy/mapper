@@ -6,13 +6,13 @@ import model.document.chubb.contract.Mandatory;
 public class Product extends ChubbDocument {
 
 	@Mandatory
-	private String prodCd = "";
+	private String prodCd =null;
 	@Mandatory
-	private Integer coverageCd=0;
-	private Integer depNum=0;
-	private Double premiumOverAmt=0d;
-	private String premiumOverExp= "";
-	private Integer premiumOverRs=0;
+	private Integer coverageCd=null;
+	private Integer depNum=null;
+	private Double premiumOverAmt=null;
+	private String premiumOverExp;
+	private Integer premiumOverRs=null;
 
 	public String getProdCd() {
 		return prodCd;

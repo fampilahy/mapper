@@ -10,33 +10,34 @@ import model.document.chubb.contract.MandatoryOnDemand;
 
 public class S6Transaction {
 
-    @Mandatory private String tranType = "";
-    @MandatoryOnDemand private String chgType ="";
-    @Mandatory private Integer lineNum =0;
-    private String polNum = "";
-    @Mandatory private String countryCd= "";
-    @Mandatory private String campaign= "";
-    private Double refAmount=0d;
-    @Mandatory private PaymentInfo paymentInfo;
-    @Mandatory private Product[] products;
-    private String sellerId= "";
-    private String appDate= "";
-    private String appNum= "";
-    private String efftDate= "";
-    private String repPol= "";
-    private CorrespondenceType correspondence;
-    private String tranNote= "";
-    private String polExpDate="";
-    private Integer bill=0;
-    private Integer cancelReason=0;
-    private Integer endorsReason=0;
-    private String providerId= "";
-    @Mandatory private Customer[] customers;
-    @Mandatory private Address[] addresses;
-    private Reference[] references={};
-    private SuspReason[] suspensionsReason = {};
-    private Double premiumCheck=0d;
-    private String diaryMessage= "";
+
+    @Mandatory private String tranType =null;
+    @MandatoryOnDemand private String chgType;
+    @Mandatory private Integer lineNum =null;
+    private String polNum ;
+    @Mandatory private String countryCd=null;
+    @Mandatory private String campaign=null;
+    private Double refAmount=null;
+    @Mandatory private PaymentInfo paymentInfo=null;
+    @Mandatory private Product[] products=null;
+    private String sellerId;
+    private String appDate=null;
+    private String appNum;
+    private String efftDate=null;
+    private String repPol;
+    private CorrespondenceType correspondence=null;
+    private String tranNote=null;
+    private String polExpDate=null;
+    private Integer bill=null;
+    private Integer cancelReason=null;
+    private Integer endorsReason=null;
+    private String providerId;
+    @Mandatory private Customer[] customers=null;
+    @Mandatory private Address[] addresses=null;
+    private Reference[] references;
+    private SuspReason[] suspensionsReason;
+    private Double premiumCheck=null;
+    private String diaryMessage;
 
 
 	public String getTranType() {
@@ -146,7 +147,7 @@ public class S6Transaction {
 	public String getRepPol() {
 		return repPol;
 	}
-
+//
 	public void setRepPol(String repPol) {
 		this.repPol = repPol;
 	}

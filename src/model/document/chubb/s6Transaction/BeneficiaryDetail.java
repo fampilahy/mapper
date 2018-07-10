@@ -4,10 +4,10 @@ import model.document.chubb.ChubbDocument;
 
 public class BeneficiaryDetail extends ChubbDocument{
 
-	private String name="";
-	private String relationship="";
-	private Double percentage=0d;
-	private String personalID="";
+	private String name;
+	private String relationship;
+	private Double percentage;
+	private String personalID;
 	
 	
 	public String getName() {
@@ -37,6 +37,11 @@ public class BeneficiaryDetail extends ChubbDocument{
 	
 	public BeneficiaryDetail(){
 		
+	}
+	@Override
+	public String toString() {
+		return "BeneficiaryDetail [name=" + name + ", relationship=" + relationship + ", percentage=" + percentage
+				+ ", personalID=" + personalID + "]";
 	}
 	
 	

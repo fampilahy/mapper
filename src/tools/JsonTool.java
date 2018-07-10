@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.document.AbstractDocument;
 import model.document.chubb.s6Transaction.Customer;
-import model.document.sib21.SIB21Document;
 
 public class JsonTool {
 

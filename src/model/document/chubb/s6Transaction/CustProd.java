@@ -5,14 +5,14 @@ import model.document.chubb.contract.Mandatory;
 
 public class CustProd extends ChubbDocument {
 
-	@Mandatory private String prodCd ="";
-	@Mandatory private Integer benLv=0;
-	private Double units =0d;
+	@Mandatory private String prodCd =null;
+	@Mandatory private Integer benLv=null;
+	private Double units =null;
 	private Beneficiary beneficiary=new Beneficiary();
-	private ProdSpecData[] prodsSpecData={};
-	private int[] ratingsFactor={0};
-	private int[]  benefitsRatingFactor={0};
-	private int[] exclsCd={0};
+	private ProdSpecData[] prodsSpecData;
+	private int[] ratingsFactor=null;
+	private int[]  benefitsRatingFactor;
+	private int[] exclsCd;
 	
 	public Beneficiary getBeneficiary() {
 		return beneficiary;

@@ -5,21 +5,21 @@ import model.document.chubb.contract.Mandatory;
 
 public class Address extends ChubbDocument {
 
-	@Mandatory private String addrId="";
-	@Mandatory private Integer addrType=0;
-	private String s6AddrId="";
-	@Mandatory private String line1="";
-	private String line2="";
-	private String line3="";
-	private String line4="";
-	private String postalCd="";
-	private String city="";
-	private Integer provinceCd=0;
-	private String countryCd="";
-	private String phone="";
-	private String fax="";
-	private String companyCd="";
-	private String cell="";
+	@Mandatory private String addrId=null;
+	@Mandatory private Integer addrType=null;
+	private String s6AddrId;
+	@Mandatory private String line1=null;
+	private String line2;
+	private String line3;
+	private String line4;
+	private String postalCd;
+	private String city=null;
+	private Integer provinceCd=null;
+	private String countryCd=null;
+	private String phone;
+	private String fax;
+	private String companyCd;
+	private String cell;
 	
 	public Address withAddrId(String addrId){
 		this.addrId = addrId;
@@ -35,7 +35,22 @@ public class Address extends ChubbDocument {
 		this.line1 = line1;
 		return this;
 	}
-
+	
+	public Address withCity(String city){
+		this.city = city;
+		return this;
+	}
+	
+	public Address withProvinceCd(Integer provinceCd){
+		this.provinceCd = provinceCd;
+		return this;
+	}
+	
+	public Address withCountryCd(String countryCd){
+		this.countryCd = countryCd;
+		return this;
+	}
+	
 	public Address() {
 	}
 

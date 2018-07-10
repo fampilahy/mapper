@@ -19,9 +19,12 @@ import consumer.ResponseSplitInfoDeserializer;
 import model.document.chubb.messageByCategory.defaultValues.AddressTypeCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.CountryCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.CoverageCodeFromChubb;
+import model.document.chubb.messageByCategory.defaultValues.MexicoProvinceCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentFrequencyCodeFromChubb;
 import model.document.chubb.messageByCategory.defaultValues.PaymentMethodCodeFromChubb;
 import model.document.chubb.s6Transaction.Address;
+import model.document.chubb.s6Transaction.Beneficiary;
+import model.document.chubb.s6Transaction.BeneficiaryDetail;
 import model.document.chubb.s6Transaction.CorrespondenceType;
 import model.document.chubb.s6Transaction.CustProd;
 import model.document.chubb.s6Transaction.CustType;
@@ -49,9 +52,6 @@ public interface Converter {
 			final SIB21Document sib21Document, final TransactionTypeCodeFromChubb transactionTypeCodeFromChubb, final ProductRelationSIB21Chubb  productRelationSIB21Chubb) {
 
 		ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new ResponseSplitInfoDeserializer();
-		
-		System.err.println("mapper.Converter ==> "+productRelationSIB21Chubb.getChubbSplitKey());
-		
 		ResponseSplitInfo responseSplitInfo = responseSplitInfoDeserializer.getObject(productRelationSIB21Chubb.getChubbSplitKey());
 		if(responseSplitInfo ==null) return null;
 		
@@ -74,7 +74,8 @@ public interface Converter {
 
 		String campaign = getCampaign(responseSplitInfo);
 		s6Transaction.setCampaign(campaign);
-//		s6Transaction.setCampaign("MX18003901");
+		
+		s6Transaction.setRefAmount(null);
 
 		PaymentInfo paymentInfo = getPaymentInfo(sib21Document,responseSplitInfo);
 		s6Transaction.setPaymentInfo(paymentInfo);
@@ -85,74 +86,27 @@ public interface Converter {
 		Customer[] customers = getCustomers(sib21Document,responseSplitInfo,strUUID,products);	
 		
 		JsonNode json = JsonTool.fromDocumentToJsonNode(customers);
-//		System.out.println("Customer[] ===> "+json);
-		
-		
 		
 		s6Transaction.setPolNum(sib21Document.getServicio().getTmp_NumPol());
 		
 		s6Transaction.setCustomers(customers);
-//		s6Transaction.setCustomers(null);
 		
 		s6Transaction.setAddresses(getAdresses(sib21Document, strUUID));
-		
-		
-		s6Transaction.setSellerId("321");
-		
-		 String date_s = "2018-07-05 00:00:00";
-
-//	         *** note that it's "yyyy-MM-dd hh:mm:ss" not "yyyy-mm-dd hh:mm:ss"  
-	        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	        Date date=null;
-			try {
-				date = dt.parse(date_s);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		/////TODO take off initial
-		s6Transaction.setAppDate(date_s);
-//		
-		s6Transaction.setEfftDate(date_s);
-//		
+		s6Transaction.setAppDate(null);
+		s6Transaction.setEfftDate(getEffectiveDate(sib21Document));
 		s6Transaction.setCorrespondence(CorrespondenceType.PRINT);
-		
-		s6Transaction.setTranNote("Sales performed through S6 Tester");
-		
-		
-		
-		
-		
-	///////TODO take off final
-		
-		
-		
-		
-		
-		
+		s6Transaction.setTranNote("Sales performed through Banregio service");
+		s6Transaction.setPolExpDate(null);
+		s6Transaction.setBill(null);
+		s6Transaction.setCancelReason(null);
+		s6Transaction.setEndorsReason(null);
+		s6Transaction.setPremiumCheck(null);
 
 		ProcessTransactionRequest processTransactionRequest = new ProcessTransactionRequest();
 		processTransactionRequest.setTransaction(s6Transaction);
-
 		
 		json = JsonTool.fromDocumentToJsonNode(processTransactionRequest);
-		System.out.println("Customer[] ===> "+json);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		processTransactionRequest.setTransaction(new S6Transaction());
-		
-		
-		
+		System.out.println("Converter.processDefaultConversionSIB21DocumentToChubbDocument().processTransactionRequest \n"+json);
 		return processTransactionRequest;
 	}
 
@@ -165,22 +119,26 @@ public interface Converter {
 
 	// -----------------------
 
-	public static Integer getLineNum(SIB21Document sib21Document) {
+	public static Integer getLineNum(final SIB21Document sib21Document) {
 		//According to Chubb agent during the last call on 22/06/2018 value would always be 1 (means first transaction inside the xml file)
 		return 1;
 	}
 
+	public static String getEffectiveDate(final SIB21Document sib21Document){
+		return (sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_FecIni()==null||sib21Document.getServicio().getTmp_FecIni().equals(""))?null:sib21Document.getServicio().getTmp_FecIni();
+	}
+	
 	// -----------------------
 
-//	public static String getCampaign(SIB21Document sib21Document) {
-//		return "PE16003702";
-//	}
+	public static String getPersonalId(final SIB21Document sib21Document) {
+		return (sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_RFC()==null||sib21Document.getServicio().getTmp_RFC().equals(""))? null: sib21Document.getServicio().getTmp_RFC();
+	}
 	
-	public static String getCampaign(ResponseSplitInfo responseSplitInfo) {
+	public static String getCampaign(final ResponseSplitInfo responseSplitInfo) {
 		return responseSplitInfo.getSplitInfo()==null?null:responseSplitInfo.getSplitInfo().getSplitKey();
 	}
 
-	public static Product[] getProducts(ResponseSplitInfo responseSplitInfo){
+	public static Product[] getProducts(final ResponseSplitInfo responseSplitInfo){
 		if (responseSplitInfo==null||responseSplitInfo.getSplitInfo()==null||responseSplitInfo.getSplitInfo().getProducts()==null) return null;
 		List<Product> products = new ArrayList<Product>();
 		Product product = buildProduct(responseSplitInfo);
@@ -189,38 +147,29 @@ public interface Converter {
 		return products.isEmpty()?null: products.toArray(new Product[0]);
 	}
 	
-	public static Product buildProduct(ResponseSplitInfo responseSplitInfo){
-		//SIB21 only allow one sale
+	public static Product buildProduct(final ResponseSplitInfo responseSplitInfo){
 		Product product = null;
 		if (responseSplitInfo==null||responseSplitInfo.getSplitInfo()==null||responseSplitInfo.getSplitInfo().getProducts()==null||responseSplitInfo.getSplitInfo().getProducts()[0].getProductId()==null) return null;
 		product = new Product();
 		product.setProdCd(responseSplitInfo.getSplitInfo().getProducts()[0].getProductId());
 		product.setCoverageCd(CoverageCodeFromChubb.MAIN_INSURED_ONLY.getKey());
+		product.setDepNum(null);
+		product.setPremiumOverAmt(null);
+		product.setPremiumOverRs(null);
 		return product;
 	}
 	
-	// -----------------------
-
 	public static PaymentInfo getPaymentInfo(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo) {
 		//according to the last call with Chubb agent on 22/06/2018 value will always be BORDEREAUX so that the system wont ask for additional information
 		PaymentMethodCodeFromChubb paymentMethod = PaymentMethodCodeFromChubb.BORDEREAUX;
 		PaymentInfo paymentInfo = new PaymentInfo();
 		paymentInfo.setPayMethod(paymentMethod.getKey());
 		paymentInfo.setPayFreq(getPaymentFreq(sib21Document,responseSplitInfo));
-		
-		
-		
-		//TODO take off
-		paymentInfo.setNameOnBill("JIMMY  CIFUENTES");
-//		paymentInfo.set
-		
-		
-		paymentInfo.setBillAccNum("XXXXXXXXXXXXXX");
-		
-		paymentInfo.setCcCd("P30");
-		paymentInfo.setExpDate("2/18");
-		
-		
+		paymentInfo.setTaxAppCd(null);
+		paymentInfo.setDebitDay(null);
+		paymentInfo.setTaxJurisCd(null);
+		paymentInfo.setExpDate(null);
+		paymentInfo.setCollCd("BRM");
 		return paymentInfo;
 	}
 
@@ -296,12 +245,10 @@ public interface Converter {
 		return null;
 	}
 	
-	
 	public static PaymentFrequency[] getAvailableAvailablePaymentFrequencies(ResponseSplitInfo responseSplitInfo){
 		return responseSplitInfo==null?null: responseSplitInfo.getSplitInfo().getPaymentFrequencies();
 	}
 
-	// -----------------------
 	public static Customer[] getCustomers(final SIB21Document sib21Document,ResponseSplitInfo responseSplitInfo,String strUUID, Product[] products) {
 		Customer customer = getCustomer(sib21Document, responseSplitInfo, strUUID, products);
 		return customer ==null ? null:new Customer[]{customer.withCustAdds(new String[]{strUUID})};
@@ -333,20 +280,26 @@ public interface Converter {
 
 	// -----------------------
 
-	public static CustProd getCustProd(final ResponseSplitInfo responseSplitInfo) {
+	public static CustProd getCustProd( final SIB21Document sib21Document ,final ResponseSplitInfo responseSplitInfo) {
 		//TODO create CustProd
 		
 		CustProd custProd = new CustProd();
 		custProd.setProdCd(responseSplitInfo.getSplitInfo().getProducts()[0].getProductId());
 		custProd.setBenLv(1);
+		custProd.setUnits(null);
+		custProd.setBeneficiary(new Beneficiary());
 		
+		//TODO take change ratingsFactor
+//		int[] ratingsFactor = {600167};
+//		custProd.setRatingsFactor(ratingsFactor);
 		
+		custProd.setBeneficiary(getBeneficiary(sib21Document));
 		
 		return custProd;
 	}
 	
 	public static CustProd[] getCustProds(final SIB21Document sib21Document, final ResponseSplitInfo responseSplitInfo) {
-		CustProd custProd = getCustProd(responseSplitInfo);
+		CustProd custProd = getCustProd(sib21Document,responseSplitInfo);
 		return custProd==null?null:new CustProd[]{custProd};
 	}
 
@@ -357,7 +310,92 @@ public interface Converter {
 	public static Integer getBenLv(final SIB21Document sib21Document) {
 		return null;
 	}
-
+	
+	
+	public static Beneficiary getBeneficiary(final SIB21Document sib21Document){
+		if(sib21Document==null||sib21Document.getServicio()==null)return null;
+		Beneficiary beneficiary = new Beneficiary();
+		beneficiary.setBeneficiaries(getbeneficiaries(sib21Document));
+		beneficiary.setNotes("Aqui vienen los porcentages de cada benificiarios");
+		
+		return beneficiary;
+	}
+	
+	public static BeneficiaryDetail[] getbeneficiaries (final SIB21Document sib21Document){
+		List<BeneficiaryDetail> beneficiaries = new ArrayList<BeneficiaryDetail>();
+		BeneficiaryDetail beneficiaryDetail = null;
+		for (int beneficiaryIndex = 1; beneficiaryIndex < 5;beneficiaryIndex++){
+			beneficiaryDetail = getBeneficiaryDetail(sib21Document, beneficiaryIndex);
+			
+			if(beneficiaryDetail!=null){
+				System.out.println("Beneficiaries "+beneficiaryDetail.toString());
+				beneficiaries.add(beneficiaryDetail);
+			}
+		}
+		System.out.println("Beneficiaries "+beneficiaries.toString());
+		return beneficiaries.size() > 0 ?  beneficiaries.toArray(new BeneficiaryDetail[0]) : new BeneficiaryDetail[0];
+	}
+	
+	public static BeneficiaryDetail getBeneficiaryDetail (final SIB21Document sib21Document,final Integer beneficiaryIndex){
+		
+		if(sib21Document==null||sib21Document.getServicio()==null ||beneficiaryIndex==null||beneficiaryIndex==0) return null;
+		
+		String percentage = null, relationship =null, name = null;
+		switch(beneficiaryIndex){
+			case 1 :  percentage= isValidPercentage(sib21Document.getServicio().getTmp_Porce1())?sib21Document.getServicio().getTmp_Porce1():null; break;
+			case 2 :  percentage= isValidPercentage(sib21Document.getServicio().getTmp_Porce2())?sib21Document.getServicio().getTmp_Porce2():null; break;
+			case 3 :  percentage= isValidPercentage(sib21Document.getServicio().getTmp_Porce3())?sib21Document.getServicio().getTmp_Porce3():null; break;
+			case 4 :  percentage= isValidPercentage(sib21Document.getServicio().getTmp_Porce4())?sib21Document.getServicio().getTmp_Porce4():null; break;
+		}
+		if(percentage==null) return null;
+		
+		switch(beneficiaryIndex){
+			case 1 :  relationship= validateRelationShip(sib21Document.getServicio().getTmp_Paren1()); break;
+			case 2 :  relationship= validateRelationShip(sib21Document.getServicio().getTmp_Paren2()); break;
+			case 3 :  relationship= validateRelationShip(sib21Document.getServicio().getTmp_Paren3()); break;
+			case 4 :  relationship= validateRelationShip(sib21Document.getServicio().getTmp_Paren4()); break;
+		}
+		
+		switch(beneficiaryIndex){
+			case 1 :  name= validateName(sib21Document.getServicio().getTmp_Nombr1()); break;
+			case 2 :  name= validateName(sib21Document.getServicio().getTmp_Nombr2()); break;
+			case 3 :  name= validateName(sib21Document.getServicio().getTmp_Nombr3()); break;
+			case 4 :  name= validateName(sib21Document.getServicio().getTmp_Nombr4()); break;
+		}
+		
+		BeneficiaryDetail beneficiaryDetail = new BeneficiaryDetail();
+		beneficiaryDetail.setName(name);
+		beneficiaryDetail.setPercentage(percentageToDouble(percentage));
+		beneficiaryDetail.setRelationship(relationship);
+		beneficiaryDetail.setPersonalID(null);
+		
+		
+		return beneficiaryDetail;
+	}
+	
+	public static Double percentageToDouble(String percentage){
+		Double percentageD = 0.0;
+		if(percentage==null) return percentageD;
+		try{ percentageD = Double.parseDouble(percentage.trim()); }catch(Exception e ){ }
+		return percentageD;
+	}
+		
+	public static boolean isValidPercentage(String percentage){
+		return (percentage==null||percentage.equals(" ")||percentage.equals("")||percentage.equals("000")||percentage.equals("00")||percentage.equals("0")) ? false:true;
+	}
+	
+	public static String validateRelationShip(String relationship){
+		return relationship==null?"":relationship;
+	}
+		
+	public static String validateName(String name){
+		return name==null?"":name;
+	}
+	
+	
+	
+	
+	
 	// -----------------------
 
 	// TODO Customers[].custAdds
@@ -368,19 +406,45 @@ public interface Converter {
 		List<Address> addresses = new ArrayList<Address>();
 		Address address = getAddress(sib21Document,strUUID);
 
-		if (address != null)
+		Address email = getEmail(sib21Document,strUUID);
+		
+		if (address != null){
+//			address.setAddrId("1");
 			addresses.add(address);
-
-//		Address email = getEmail(sib21Document,strUUID);
-//		if (email != null)
+		}
+			
+//		if (email != null){
+//			email.setAddrId("2");
 //			addresses.add(email);
+//		}
 
 		return !addresses.isEmpty() ? addresses.toArray(new Address[0]) : null;
 	}
 
 	public static Address getAddress(final SIB21Document sib21Document, final String strUUID) {
-		return sib21Document.getServicio() == null ? null : (new Address()).withAddrId(strUUID).withAddrType(AddressTypeCodeFromChubb.HOME.getKey()).withLine1(buildAddress(sib21Document));
+		if(sib21Document==null || sib21Document.getServicio()==null) return null;
+		String line1 = sib21Document.getServicio().getTmp_CalNum();
+		if(line1==null || line1.equals("")) return null;
+		
+		Address address = new Address();
+
+		
+		String city = sib21Document.getServicio().getTmp_Locali();
+		Integer provinceCd = MexicoProvinceCodeFromChubb.NUEVO_LEON.getKey(); //TODO collect ProvinceCode
+		String countryCd = CountryCodeFromChubb.MEXICO.getMsgID();
+		
+		address.setAddrId(strUUID);
+		address.setAddrType(AddressTypeCodeFromChubb.HOME.getKey());
+		address.setLine1(line1);
+		address.setCity(city);
+		address.setProvinceCd(provinceCd);
+		address.setCountryCd(countryCd);
+		
+		
+		return address;
 	}
+	
+	
 
 	public static String buildAddress(final SIB21Document sib21Document) {
 		String address = null;
@@ -392,10 +456,9 @@ public interface Converter {
 	}
 
 	public static Address getEmail(final SIB21Document sib21Document, final String strUUID) {
-		// TODO change the addrId
-		return sib21Document.getServicio() == null ? null
+		return (sib21Document == null || sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_EmaAdi()==null||sib21Document.getServicio().getTmp_EmaAdi().equals(""))? null
 				: (new Address()).withAddrId(strUUID).withAddrType(AddressTypeCodeFromChubb.MAIL.getKey())
-						.withLine1(sib21Document.getServicio().getTmp_Email());
+						.withLine1(sib21Document.getServicio().getTmp_EmaAdi());
 	}
 	
 	public static Customer getCustomer(final SIB21Document sib21Document,final ResponseSplitInfo responseSplitInfo, String strUUID,Product[] products) {
@@ -405,31 +468,48 @@ public interface Converter {
 		Customer customer = new Customer();
 		String firstName = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombre()==null?null:sib21Document.getServicio().getTmp_Nombre();
 		String lastName = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_ApePat()==null?null:sib21Document.getServicio().getTmp_ApePat();
+		String middleName= sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_ApeMat()==null?null:sib21Document.getServicio().getTmp_ApeMat();
 		
-		customer.setCustId(strUUID);
+		
 		customer.setCustType(CustType.MI);
-		customer.setLastName(lastName);
-		customer.setFirstName(firstName);
+		
 		customer.setPolHolder(TRUE);
 		customer.setPolPayer(TRUE);
-		
-		
-		customer.setSexCd(600001);
-		customer.setPersonalId("123456");
-//		customer.setBirthDate("1980-07-05");
-		customer.setBirthDate(sib21Document.getServicio().getTmp_FecNac());
+		customer.setLastName(lastName);
+		customer.setFirstName(firstName);
+		customer.setMiddleName(middleName);
+		customer.setTitle(null);
+		customer.setLangCd(null);
+		customer.setPersonalId(getPersonalId(sib21Document));
+		customer.setBirthDate(getStrBirthDate(sib21Document));
+		customer.setSexCd(null);
+		customer.setEmailAddr(getStrEmail(sib21Document));
+		customer.setCallPrefCd(null);
+		customer.setNationCd(null);
+		customer.setEduCd(null);
+		customer.setOcupCd(null);
+		customer.setIndCd(null);
+		customer.setMaritalCd(null);
+		customer.setRelationshipCd(null);
+		String[] custAdds = {strUUID};
+		customer.setCustAdds(custAdds);
+		customer.setDependentType(null);
 		customer.setCustProds(getCustProds(sib21Document,responseSplitInfo));
 		return customer;
+	}
+	
+	public static String getStrEmail(final SIB21Document sib21Document){
+		return (sib21Document==null ||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Email().equals(""))?null: sib21Document.getServicio().getTmp_Email();
+	}
+	
+	public static String getStrBirthDate(final SIB21Document sib21Document){
+		return (sib21Document==null ||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_FecNac().equals(""))?null: sib21Document.getServicio().getTmp_FecNac();
 	}
 	
 	public static Customer getCustomer1(final SIB21Document sib21Document){
 		String name1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr1()==null?null:sib21Document.getServicio().getTmp_Nombr1();
 		String relationship1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren1()==null?null:sib21Document.getServicio().getTmp_Paren1();
 		String percent1 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce1()==null?null:sib21Document.getServicio().getTmp_Porce1();
-		
-		
-		
-		
 		return null;//TODO collect customer1
 	}
 	
@@ -437,8 +517,6 @@ public interface Converter {
 		String name2 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr2()==null?null:sib21Document.getServicio().getTmp_Nombr2();
 		String relationship2 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren2()==null?null:sib21Document.getServicio().getTmp_Paren2();
 		String percent2 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce2()==null?null:sib21Document.getServicio().getTmp_Porce2();
-		
-		
 		return null;
 	}
 	
@@ -447,8 +525,6 @@ public interface Converter {
 		String name3 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr3()==null?null:sib21Document.getServicio().getTmp_Nombr3();
 		String relationship3 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren3()==null?null:sib21Document.getServicio().getTmp_Paren3();
 		String percent3 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce3()==null?null:sib21Document.getServicio().getTmp_Porce3();
-		
-		
 		return null;
 	}
 	
@@ -456,8 +532,6 @@ public interface Converter {
 		String name4 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Nombr4()==null?null:sib21Document.getServicio().getTmp_Nombr4();
 		String relationship4 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Paren4()==null?null:sib21Document.getServicio().getTmp_Paren4();
 		String percent4 = sib21Document==null||sib21Document.getServicio()==null||sib21Document.getServicio().getTmp_Porce4()==null?null:sib21Document.getServicio().getTmp_Porce4();
-		
-		
 		return null;
 	}
 
