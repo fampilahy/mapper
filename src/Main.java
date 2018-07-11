@@ -139,14 +139,7 @@ public class Main {
 		// connectionEngine.sendGet();
 		//
 
-		// URL_CONSOLIDATOR = new UrlConsolidator("http://192.168.41.46:8080/");
-		// JsonNode processMappingAndTransactionNode =
-		// JsonTool.fromDocumentToJsonNode(sib21Document);
-		// connectionEngine = new DefaultHttpClientConnectionEngine();
-		// connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
-		// .consolidateUrl(ProvidedDevelopChubbControllerUrl.PROCESS_MAPPING_AND_TRANSACTION.getUrl()));
-		// connectionEngine.withRequestEntity(processMappingAndTransactionNode.toString()).sendPost();
-		//
+		 
 		
 		
 		
@@ -166,8 +159,22 @@ public class Main {
 //		 System.out.println("from json ===>"+sib21Document.getServicio().toString());
 		//
 
-		 MappingStarter mappingStarter = new MappingStarter();
-		 mappingStarter.sendTransaction(sib21Document);
+		//process transaction request metodo facil
+//		 MappingStarter mappingStarter = new MappingStarter();
+//		 mappingStarter.sendTransaction(sib21Document);
+		 
+		 
+		 
+		 URL_CONSOLIDATOR = new UrlConsolidator("http://localhost:8080/");
+		 JsonNode processMappingAndTransactionNode =
+		 JsonTool.fromDocumentToJsonNode(sib21Document);
+		 connectionEngine = new DefaultHttpClientConnectionEngine();
+		 connectionEngine.setTEST_SITE(URL_CONSOLIDATOR
+		 .consolidateUrl(ProvidedDevelopChubbControllerUrl.PROCESS_MAPPING_AND_TRANSACTION.getUrl()));
+		 System.out.println("====>  "+processMappingAndTransactionNode.toString());
+		 connectionEngine.withRequestEntity(processMappingAndTransactionNode.toString()).sendPost();
+		
+		 
 
 		// ResponseSplitInfoDeserializer responseSplitInfoDeserializer = new
 		// ResponseSplitInfoDeserializer();
